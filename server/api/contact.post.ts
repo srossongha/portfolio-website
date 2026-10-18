@@ -135,7 +135,7 @@ export default defineEventHandler(async (event) => {
       {
         method: "POST",
         body: {
-          chat_id: 1481815475,
+          chat_id: config.telegramChatId || 1481815475,
           text: `📬 New portfolio message
 
 Name: ${name}
