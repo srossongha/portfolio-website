@@ -410,8 +410,8 @@ onMounted(() => {
     let bestWord: TextWordTarget | null = null
     let minDist = reachRadius
 
-    for (let i = 0; i < words.length; i++) {
-      const w = words[i]
+    for (const w of words) {
+      if (!w) continue
       const cx = Math.max(w.left, Math.min(w.right, idealX))
       const cy = Math.max(w.top, Math.min(w.bottom, idealY))
       const d = Math.hypot(cx - idealX, cy - idealY)
@@ -451,8 +451,14 @@ onMounted(() => {
     for (let i = 0; i <= allEls.length - words.length; i++) {
       let match = true
       for (let j = 0; j < words.length; j++) {
-        const text = allEls[i + j].textContent?.trim().toLowerCase() || ''
-        if (!text.includes(words[j].toLowerCase())) {
+        const el = allEls[i + j]
+        const targetWord = words[j]
+        if (!el || !targetWord) {
+          match = false
+          break
+        }
+        const text = el.textContent?.trim().toLowerCase() || ''
+        if (!text.includes(targetWord.toLowerCase())) {
           match = false
           break
         }
@@ -549,18 +555,23 @@ onMounted(() => {
     landmarks = list
 
     // Build smooth continuous patrol circuit 100% through the bio text paragraphs
-    if (list.length >= 5) {
+    const l0 = list[0]
+    const l1 = list[1]
+    const l2 = list[2]
+    const l3 = list[3]
+    const l4 = list[4]
+    if (l0 && l1 && l2 && l3 && l4) {
       waypoints = [
         { x: startX, y: startY, name: 'Perch' },
-        { x: list[0].x, y: list[0].y, landmarkId: list[0].id, name: list[0].name },
-        { x: list[1].x, y: list[1].y, landmarkId: list[1].id, name: list[1].name },
-        { x: list[2].x, y: list[2].y, landmarkId: list[2].id, name: list[2].name },
-        { x: list[3].x, y: list[3].y, landmarkId: list[3].id, name: list[3].name },
-        { x: list[4].x, y: list[4].y, landmarkId: list[4].id, name: list[4].name },
+        { x: l0.x, y: l0.y, landmarkId: l0.id, name: l0.name },
+        { x: l1.x, y: l1.y, landmarkId: l1.id, name: l1.name },
+        { x: l2.x, y: l2.y, landmarkId: l2.id, name: l2.name },
+        { x: l3.x, y: l3.y, landmarkId: l3.id, name: l3.name },
+        { x: l4.x, y: l4.y, landmarkId: l4.id, name: l4.name },
         // Return ascent: weave back UP across the left/center of the bio text paragraphs!
-        { x: bioLeft + 45, y: list[4].y - 8, name: 'Bio: Craft & Logic' },
-        { x: (bioLeft + bioRight) / 2 - 25, y: (list[3].y + list[2].y) / 2, name: 'Bio: Frameworks' },
-        { x: bioLeft + 40, y: (list[1].y + list[0].y) / 2, name: 'Bio: Foundations' },
+        { x: bioLeft + 45, y: l4.y - 8, name: 'Bio: Craft & Logic' },
+        { x: (bioLeft + bioRight) / 2 - 25, y: (l3.y + l2.y) / 2, name: 'Bio: Frameworks' },
+        { x: bioLeft + 40, y: (l1.y + l0.y) / 2, name: 'Bio: Foundations' },
       ]
     }
   }
@@ -617,7 +628,9 @@ onMounted(() => {
   let isVisibleOnScreen = true
   intersectionObserver = new IntersectionObserver(
     ([entry]) => {
-      isVisibleOnScreen = entry.isIntersecting
+      if (entry) {
+        isVisibleOnScreen = entry.isIntersecting
+      }
     },
     { threshold: 0.05 },
   )
@@ -637,16 +650,16 @@ onMounted(() => {
     spider.idlePhase += dt * 4
 
     // Determine currently active landmark theme color
-    const nextLm = waypoints[currentWaypointIndex]?.landmarkId
-      ? landmarks.find((l) => l.id === waypoints[currentWaypointIndex].landmarkId)
+    const currentWp = waypoints[currentWaypointIndex]
+    const nextLm = currentWp?.landmarkId
+      ? landmarks.find((l) => l.id === currentWp.landmarkId)
       : null
     const activeColor = nextLm ? nextLm.themeColor : '#38bdf8'
 
     // 1. Waypoint Navigation & Organic Movement Cadence (S-Curve Weaving)
-    if (waypoints.length > 0) {
-      const targetWaypoint = waypoints[currentWaypointIndex]
-      const dx = targetWaypoint.x - spider.x
-      const dy = targetWaypoint.y - spider.y
+    if (currentWp) {
+      const dx = currentWp.x - spider.x
+      const dy = currentWp.y - spider.y
       const dist = Math.hypot(dx, dy)
 
       if (movementMode === 'scuttle') {
@@ -660,8 +673,8 @@ onMounted(() => {
 
         // S-curve wave amplitude (smoothly tapers to 0 when nearing destination)
         const waveAmp = Math.sin(spider.sCurvePhase) * Math.min(dist * 0.45, 34)
-        const virtualTargetX = targetWaypoint.x + nx * waveAmp
-        const virtualTargetY = targetWaypoint.y + ny * waveAmp
+        const virtualTargetX = currentWp.x + nx * waveAmp
+        const virtualTargetY = currentWp.y + ny * waveAmp
 
         const targetAngle = Math.atan2(virtualTargetY - spider.y, virtualTargetX - spider.x)
         const angleDiff = normalizeAngle(targetAngle - spider.angle)
@@ -672,19 +685,19 @@ onMounted(() => {
         spider.x += spider.vx * dt
         spider.y += spider.vy * dt
 
-        currentStatus.value = `Crawling to: ${targetWaypoint.name}`
+        currentStatus.value = `Crawling to: ${currentWp.name}`
 
         // Check if approaching a landmark word that has not been scanned yet
-        if (targetWaypoint.landmarkId && dist < 26) {
-          const lm = landmarks.find((l) => l.id === targetWaypoint.landmarkId)
+        if (currentWp.landmarkId && dist < 26) {
+          const lm = landmarks.find((l) => l.id === currentWp.landmarkId)
           if (lm && !lm.isLanded) {
             movementMode = 'landing_legs'
             landingLegStepIndex = 0
             spider.vx = 0
             spider.vy = 0
-            spider.x = targetWaypoint.x
-            spider.y = targetWaypoint.y
-            currentStatus.value = `Landing on: ${targetWaypoint.name}`
+            spider.x = currentWp.x
+            spider.y = currentWp.y
+            currentStatus.value = `Landing on: ${currentWp.name}`
           }
         }
 
@@ -729,23 +742,25 @@ onMounted(() => {
         // Check if the current leg in the sequence needs to start its step
         if (landingLegStepIndex < STEP_ORDER.length) {
           const legIdx = STEP_ORDER[landingLegStepIndex]
-          const leg = legs[legIdx]
-          const def = LEG_DEFS[legIdx]
+          if (legIdx !== undefined) {
+            const leg = legs[legIdx]
+            const def = LEG_DEFS[legIdx]
 
-          if (!leg.isStepping && leg.stepProgress >= 1) {
-            const ideal = localToWorld(spider.x, spider.y, spider.angle, def.rest[0], def.rest[1])
-            // Snap foot directly onto text letters!
-            const snapped = snapFootToText(ideal.x, ideal.y, textWords, 45)
-            leg.startFootX = leg.currentFootX
-            leg.startFootY = leg.currentFootY
-            leg.targetFootX = snapped.x
-            leg.targetFootY = snapped.y
-            leg.stepProgress = 0
-            leg.isStepping = true
+            if (leg && def && !leg.isStepping && leg.stepProgress >= 1) {
+              const ideal = localToWorld(spider.x, spider.y, spider.angle, def.rest[0], def.rest[1])
+              // Snap foot directly onto text letters!
+              const snapped = snapFootToText(ideal.x, ideal.y, textWords, 45)
+              leg.startFootX = leg.currentFootX
+              leg.startFootY = leg.currentFootY
+              leg.targetFootX = snapped.x
+              leg.targetFootY = snapped.y
+              leg.stepProgress = 0
+              leg.isStepping = true
+            }
           }
         }
 
-        currentStatus.value = `Clamping: ${targetWaypoint.name} (${Math.min(landingLegStepIndex + 1, 8)}/8)`
+        currentStatus.value = `Clamping: ${currentWp.name} (${Math.min(landingLegStepIndex + 1, 8)}/8)`
       } else if (movementMode === 'inspecting') {
         spider.vx = 0
         spider.vy = 0
@@ -764,6 +779,7 @@ onMounted(() => {
     // Physical constraint: planted feet cannot stretch beyond maximum limb reach
     legs.forEach((leg, i) => {
       const def = LEG_DEFS[i]
+      if (!def) return
       const cos = Math.cos(spider.angle)
       const sin = Math.sin(spider.angle)
       const hipX = spider.x + cos * def.localHip[0] - sin * def.localHip[1]
@@ -788,6 +804,7 @@ onMounted(() => {
     function triggerLegStep(legIdx: number) {
       const leg = legs[legIdx]
       const def = LEG_DEFS[legIdx]
+      if (!leg || !def) return
       const ideal = localToWorld(spider.x, spider.y, spider.angle, def.rest[0], def.rest[1])
       const leadX = spider.vx * 0.16
       const leadY = spider.vy * 0.16
@@ -808,8 +825,8 @@ onMounted(() => {
     if (movementMode === 'scuttle') {
       // Dual-side stepping: Left side (0..3) and Right side (4..7) step independently
       // Tripod / tetrapod balance: at least 6 legs firmly planted on the text at all times!
-      const leftStepping = legs[0].isStepping || legs[1].isStepping || legs[2].isStepping || legs[3].isStepping
-      const rightStepping = legs[4].isStepping || legs[5].isStepping || legs[6].isStepping || legs[7].isStepping
+      const leftStepping = legs.slice(0, 4).some((l) => l.isStepping)
+      const rightStepping = legs.slice(4, 8).some((l) => l.isStepping)
 
       if (!leftStepping) {
         let maxDist = 13 // Trigger threshold
@@ -817,6 +834,7 @@ onMounted(() => {
         for (const i of [3, 2, 1, 0]) {
           const leg = legs[i]
           const def = LEG_DEFS[i]
+          if (!leg || !def) continue
           const ideal = localToWorld(spider.x, spider.y, spider.angle, def.rest[0], def.rest[1])
           const leadX = spider.vx * 0.16
           const leadY = spider.vy * 0.16
@@ -839,6 +857,7 @@ onMounted(() => {
         for (const i of [7, 6, 5, 4]) {
           const leg = legs[i]
           const def = LEG_DEFS[i]
+          if (!leg || !def) continue
           const ideal = localToWorld(spider.x, spider.y, spider.angle, def.rest[0], def.rest[1])
           const leadX = spider.vx * 0.16
           const leadY = spider.vy * 0.16
@@ -938,62 +957,70 @@ onMounted(() => {
 
     // 1. Geometric Data Web Mesh
     if (landedList.length > 0) {
-      ctx.save()
+      const firstLanded = landedList[0]
+      if (firstLanded) {
+        ctx.save()
 
-      ctx.beginPath()
-      ctx.moveTo(startX, startY)
-      ctx.lineTo(landedList[0].x, landedList[0].y)
-      ctx.strokeStyle = landedList[0].themeColor
-      ctx.lineWidth = 1.0
-      ctx.setLineDash([4, 4])
-      ctx.globalAlpha = 0.45
-      ctx.stroke()
-
-      for (let i = 1; i < landedList.length; i++) {
-        const prev = landedList[i - 1]
-        const curr = landedList[i]
         ctx.beginPath()
-        ctx.moveTo(prev.x, prev.y)
-        ctx.lineTo(curr.x, curr.y)
-        ctx.strokeStyle = curr.themeColor
-        ctx.lineWidth = 1.1
+        ctx.moveTo(startX, startY)
+        ctx.lineTo(firstLanded.x, firstLanded.y)
+        ctx.strokeStyle = firstLanded.themeColor
+        ctx.lineWidth = 1.0
         ctx.setLineDash([4, 4])
-        ctx.globalAlpha = 0.5
+        ctx.globalAlpha = 0.45
         ctx.stroke()
 
-        if (i >= 2) {
-          const skipNode = landedList[i - 2]
+        for (let i = 1; i < landedList.length; i++) {
+          const prev = landedList[i - 1]
+          const curr = landedList[i]
+          if (!prev || !curr) continue
           ctx.beginPath()
-          ctx.moveTo(skipNode.x, skipNode.y)
+          ctx.moveTo(prev.x, prev.y)
           ctx.lineTo(curr.x, curr.y)
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)'
-          ctx.lineWidth = 0.8
-          ctx.setLineDash([2, 4])
+          ctx.strokeStyle = curr.themeColor
+          ctx.lineWidth = 1.1
+          ctx.setLineDash([4, 4])
+          ctx.globalAlpha = 0.5
+          ctx.stroke()
+
+          if (i >= 2) {
+            const skipNode = landedList[i - 2]
+            if (skipNode) {
+              ctx.beginPath()
+              ctx.moveTo(skipNode.x, skipNode.y)
+              ctx.lineTo(curr.x, curr.y)
+              ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)'
+              ctx.lineWidth = 0.8
+              ctx.setLineDash([2, 4])
+              ctx.stroke()
+            }
+          }
+        }
+
+        landedList.forEach((lm) => {
+          ctx.beginPath()
+          ctx.arc(lm.x, lm.y, 2.5, 0, Math.PI * 2)
+          ctx.fillStyle = lm.themeColor
+          ctx.globalAlpha = 0.85
+          ctx.fill()
+        })
+
+        // Active silk line to spider's spinneret
+        const lastLanded = landedList[landedList.length - 1]
+        if (lastLanded) {
+          const spinneret = localToWorld(spider.x, spider.y, spider.angle, -11, 0)
+          ctx.beginPath()
+          ctx.moveTo(spinneret.x, spinneret.y)
+          ctx.lineTo(lastLanded.x, lastLanded.y)
+          ctx.strokeStyle = lastLanded.themeColor
+          ctx.lineWidth = 1.2
+          ctx.setLineDash([3, 2])
+          ctx.globalAlpha = 0.7
           ctx.stroke()
         }
+
+        ctx.restore()
       }
-
-      landedList.forEach((lm) => {
-        ctx.beginPath()
-        ctx.arc(lm.x, lm.y, 2.5, 0, Math.PI * 2)
-        ctx.fillStyle = lm.themeColor
-        ctx.globalAlpha = 0.85
-        ctx.fill()
-      })
-
-      // Active silk line to spider's spinneret
-      const lastLanded = landedList[landedList.length - 1]
-      const spinneret = localToWorld(spider.x, spider.y, spider.angle, -11, 0)
-      ctx.beginPath()
-      ctx.moveTo(spinneret.x, spinneret.y)
-      ctx.lineTo(lastLanded.x, lastLanded.y)
-      ctx.strokeStyle = lastLanded.themeColor
-      ctx.lineWidth = 1.2
-      ctx.setLineDash([3, 2])
-      ctx.globalAlpha = 0.7
-      ctx.stroke()
-
-      ctx.restore()
     }
 
     // 2. High-Tech OCR Bounding Box & Corner Brackets
@@ -1057,6 +1084,7 @@ onMounted(() => {
     // 3. Shockwave Pulses
     for (let i = shockwaves.length - 1; i >= 0; i--) {
       const sw = shockwaves[i]
+      if (!sw) continue
       sw.radius += dt * 65
       sw.alpha -= dt * 1.6
       if (sw.alpha <= 0) {
@@ -1078,6 +1106,7 @@ onMounted(() => {
     // 4. Micro Foot Contact Ripples on the Text
     for (let i = footRipples.length - 1; i >= 0; i--) {
       const fr = footRipples[i]
+      if (!fr) continue
       fr.radius += dt * 18
       fr.alpha -= dt * 3.0
       if (fr.alpha <= 0) {
@@ -1097,6 +1126,7 @@ onMounted(() => {
     // 5. Floating Cyber Sparks
     for (let i = sparkles.length - 1; i >= 0; i--) {
       const sp = sparkles[i]
+      if (!sp) continue
       sp.x += sp.vx * dt
       sp.y += sp.vy * dt
       sp.alpha -= dt / sp.life
@@ -1124,6 +1154,7 @@ onMounted(() => {
     // Render 8 Articulated 4-Part Arachnid Legs (Coxa -> Femur -> Tibia -> Tarsus)
     LEG_DEFS.forEach((def, i) => {
       const leg = legs[i]
+      if (!leg) return
 
       const ik = solve4PartLeg(
         spider.angle,
