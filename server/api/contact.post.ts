@@ -16,11 +16,11 @@
  */
 
 interface ContactBody {
-  name?: string
-  email?: string
-  message?: string
+  name?: string;
+  email?: string;
+  message?: string;
   /** Honeypot field — must be empty. */
-  company?: string
+  company?: string;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -37,54 +37,56 @@ interface ContactBody {
  * For anything that matters, put this in Redis or use your platform's built-in
  * rate limiting.
  */
-const requestLog = new Map<string, number[]>()
+const requestLog = new Map<string, number[]>();
 
-const RATE_LIMIT = 3 // messages…
-const RATE_WINDOW_MS = 10 * 60 * 1000 // …per 10 minutes
+const RATE_LIMIT = 3; // messages…
+const RATE_WINDOW_MS = 10 * 60 * 1000; // …per 10 minutes
 
 function isRateLimited(ip: string): boolean {
-  const now = Date.now()
+  const now = Date.now();
   // Keep only the timestamps still inside the window.
-  const recent = (requestLog.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS)
+  const recent = (requestLog.get(ip) ?? []).filter(
+    (t) => now - t < RATE_WINDOW_MS,
+  );
 
   if (recent.length >= RATE_LIMIT) {
-    requestLog.set(ip, recent)
-    return true
+    requestLog.set(ip, recent);
+    return true;
   }
 
-  recent.push(now)
-  requestLog.set(ip, recent)
+  recent.push(now);
+  requestLog.set(ip, recent);
 
   // Stop the Map growing without bound on a long-running server.
   if (requestLog.size > 5000) {
     for (const [key, times] of requestLog) {
-      if (times.every((t) => now - t > RATE_WINDOW_MS)) requestLog.delete(key)
+      if (times.every((t) => now - t > RATE_WINDOW_MS)) requestLog.delete(key);
     }
   }
 
-  return false
+  return false;
 }
 
 /* -------------------------------------------------------------------------- */
 
 function isValidEmail(value: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 export default defineEventHandler(async (event) => {
   // `readBody` parses JSON (or form data) from the request.
-  const body = await readBody<ContactBody>(event)
+  const body = await readBody<ContactBody>(event);
 
   // `getRequestIP` understands proxy headers like X-Forwarded-For, which is
   // what you actually get behind Vercel/Netlify/nginx.
-  const ip = getRequestIP(event, { xForwardedFor: true }) ?? 'unknown'
+  const ip = getRequestIP(event, { xForwardedFor: true }) ?? "unknown";
 
   if (isRateLimited(ip)) {
     // 429 is the correct status for "slow down".
     throw createError({
       statusCode: 429,
-      statusMessage: 'Too many messages. Please try again a little later.',
-    })
+      statusMessage: "Too many messages. Please try again a little later.",
+    });
   }
 
   /* --- Honeypot ----------------------------------------------------------
@@ -92,39 +94,59 @@ export default defineEventHandler(async (event) => {
      Bots fill everything. We return 200 rather than an error on purpose:
      telling a bot it was detected just teaches whoever wrote it to adapt. */
   if (body.company) {
-    console.warn(`[contact] honeypot triggered from ${ip}`)
-    return { ok: true }
+    console.warn(`[contact] honeypot triggered from ${ip}`);
+    return { ok: true };
   }
 
   /* --- Validation --------------------------------------------------------
      Repeating the client-side checks, because anyone can POST here directly
      with curl. Client validation is UX; server validation is the rule. */
-  const name = body.name?.trim() ?? ''
-  const email = body.email?.trim() ?? ''
-  const message = body.message?.trim() ?? ''
+  const name = body.name?.trim() ?? "";
+  const email = body.email?.trim() ?? "";
+  const message = body.message?.trim() ?? "";
 
   if (name.length < 2 || name.length > 100) {
-    throw createError({ statusCode: 400, statusMessage: 'Please provide your name.' })
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Please provide your name.",
+    });
   }
   if (!isValidEmail(email) || email.length > 200) {
-    throw createError({ statusCode: 400, statusMessage: 'Please provide a valid email address.' })
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Please provide a valid email address.",
+    });
   }
   if (message.length < 10 || message.length > 2000) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Your message should be between 10 and 2000 characters.',
-    })
+      statusMessage: "Your message should be between 10 and 2000 characters.",
+    });
   }
 
   /* --- Delivery ----------------------------------------------------------
      Right now: logged to the terminal running `npm run dev`. Submit the form
      and you will see it appear there — proof the round-trip works end to end. */
-  console.info('\n📬 New contact message')
-  console.info('   From:', `${name} <${email}>`)
-  console.info('   IP:  ', ip)
-  console.info('   Body:', message.replace(/\n/g, '\n         '))
-  console.info('')
+  const config = useRuntimeConfig(event);
 
+  try {
+    await $fetch(
+      `https://api.telegram.org/bot${config.telegramBotToken}/sendMessage`,
+      {
+        method: "POST",
+        body: {
+          chat_id: 1481815475,
+          text: `📬 New message from ${name} Email: ${email} Message: ${message}`,
+        },
+      },
+    );
+  } catch (err) {
+    console.error("[contact] telegram failed", err);
+    throw createError({
+      statusCode: 502,
+      statusMessage: "Could not send your message. Please try again.",
+    });
+  }
   /* TO SEND REAL EMAIL
      1. Pick a provider (Resend, Postmark, SendGrid) and get an API key.
      2. Put it in a .env file as NUXT_CONTACT_API_KEY — never in the code.
@@ -145,6 +167,6 @@ export default defineEventHandler(async (event) => {
 
   return {
     ok: true,
-    message: 'Thanks — your message is on its way.',
-  }
-})
+    message: "Thanks — your message is on its way.",
+  };
+});
