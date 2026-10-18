@@ -77,7 +77,7 @@ useGsapContext(root, () => {
 </script>
 
 <template>
-  <section ref="root" class="relative py-28 sm:py-36">
+  <section id="process" ref="root" class="relative py-28 sm:py-36">
     <div class="mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
       <SectionHeading
         index="04"

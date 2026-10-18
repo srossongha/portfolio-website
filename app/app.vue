@@ -17,11 +17,14 @@ useSeoMeta({
   description: seo.description,
   ogTitle: seo.title,
   ogDescription: seo.description,
+  ogUrl: seo.url,
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: seo.title,
   twitterDescription: seo.description,
 })
+
+const colorMode = useColorMode()
 
 /**
  * Toast placement.
@@ -67,6 +70,7 @@ const toastPosition = computed(() =>
     <!-- `offset` lifts the stack clear of the iPhone home indicator; on a
          device without one the inset is 0 and this is the plain 16px. -->
     <Toaster
+      :theme="(colorMode.value as 'light' | 'dark')"
       :position="toastPosition"
       :duration="4500"
       :offset="'calc(1rem + env(safe-area-inset-bottom))'"

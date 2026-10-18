@@ -154,7 +154,7 @@ onUnmounted(() => mm?.revert())
             <div
               class="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
               :style="{
-                background: `linear-gradient(150deg, ${project.accent[0]}22, ${project.accent[1]}0a 55%, transparent)`,
+                background: `linear-gradient(150deg, color-mix(in oklch, ${project.accent[0]} 14%, transparent), color-mix(in oklch, ${project.accent[1]} 4%, transparent) 55%, transparent)`,
               }"
               aria-hidden="true"
             />
