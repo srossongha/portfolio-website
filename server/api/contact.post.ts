@@ -136,7 +136,12 @@ export default defineEventHandler(async (event) => {
         method: "POST",
         body: {
           chat_id: 1481815475,
-          text: `📬 New message from ${name} Email: ${email} Message: ${message}`,
+          text: `📬 New portfolio message
+
+Name: ${name}
+Email: ${email}
+
+${message}`,
         },
       },
     );
