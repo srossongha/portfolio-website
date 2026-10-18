@@ -8,7 +8,7 @@ import {
   experiences,
   navLinks,
   seo,
-} from '../app/data/site'
+} from '../../app/data/site'
 
 describe('app/data/site data integrity', () => {
   it('profile has valid personal identity fields', () => {

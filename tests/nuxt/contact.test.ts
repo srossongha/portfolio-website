@@ -93,3 +93,4 @@ describe('Contact Form Validation & Security Logic', () => {
     expect(res.isSpam).toBe(true)
   })
 })
+

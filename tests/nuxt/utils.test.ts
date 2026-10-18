@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { cn, clamp, lerp, mapRange, pad } from '../app/lib/utils'
+import { cn, clamp, lerp, mapRange, pad } from '../../app/lib/utils'
 
 describe('app/lib/utils', () => {
   describe('cn (class names)', () => {
@@ -54,3 +54,4 @@ describe('app/lib/utils', () => {
     })
   })
 })
+
