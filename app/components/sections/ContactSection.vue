@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Check, Loader2, Send } from '@lucide/vue'
-import { toast } from 'vue-sonner'
-import { profile, socials } from '~/data/site'
+import { Check, Loader2, Send } from "@lucide/vue";
+import { toast } from "vue-sonner";
+import { profile, socials } from "~/data/site";
 
 /**
  * Contact — a real, working form.
@@ -16,20 +16,20 @@ import { profile, socials } from '~/data/site'
  * validation is a convenience; server-side validation is the actual rule.
  */
 
-const root = ref<HTMLElement | null>(null)
+const root = ref<HTMLElement | null>(null);
 
 /** `reactive` suits a form: one object, mutated field by field. */
 const form = reactive({
-  name: '',
-  email: '',
-  message: '',
+  name: "",
+  email: "",
+  message: "",
   /** Honeypot — see the note on the hidden field in the template. */
-  company: '',
-})
+  company: "",
+});
 
-const errors = reactive<Record<string, string>>({})
-const isSubmitting = ref(false)
-const isSent = ref(false)
+const errors = reactive<Record<string, string>>({});
+const isSubmitting = ref(false);
+const isSent = ref(false);
 
 /**
  * Deliberately permissive. Strict email regexes reject valid addresses
@@ -38,55 +38,57 @@ const isSent = ref(false)
  * the real test is whether the mail sends.
  */
 function isValidEmail(value: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 function validate() {
   // Clear previous errors so fixed fields stop showing stale messages.
-  Object.keys(errors).forEach((key) => delete errors[key])
+  Object.keys(errors).forEach((key) => delete errors[key]);
 
-  if (form.name.trim().length < 2) errors.name = 'Please tell me your name.'
-  if (!isValidEmail(form.email)) errors.email = 'That does not look like an email address.'
-  if (form.message.trim().length < 10) errors.message = 'A little more detail would help.'
+  if (form.name.trim().length < 2) errors.name = "Please tell me your name.";
+  if (!isValidEmail(form.email))
+    errors.email = "That does not look like an email address.";
+  if (form.message.trim().length < 10)
+    errors.message = "A little more detail would help.";
 
-  return Object.keys(errors).length === 0
+  return Object.keys(errors).length === 0;
 }
 
 async function onSubmit() {
   if (!validate()) {
-    toast.error('Some fields need attention.')
-    return
+    toast.error("Some fields need attention.");
+    return;
   }
 
-  isSubmitting.value = true
+  isSubmitting.value = true;
 
   try {
     // `$fetch` is Nuxt's built-in HTTP client. On the server it calls the
     // handler directly without a network round-trip; in the browser it is a
     // normal fetch with sensible defaults and automatic JSON parsing.
-    await $fetch('/api/contact', {
-      method: 'POST',
+    await $fetch("/api/contact", {
+      method: "POST",
       body: { ...form },
-    })
+    });
 
-    isSent.value = true
-    toast.success('Message sent.', {
-      description: 'I read everything and usually reply within a day or two.',
-    })
+    isSent.value = true;
+    toast.success("Message sent.", {
+      description: "I read everything and usually reply within a day or two.",
+    });
 
-    form.name = ''
-    form.email = ''
-    form.message = ''
+    form.name = "";
+    form.email = "";
+    form.message = "";
   } catch (error) {
     // `$fetch` throws on any non-2xx response. The server puts a readable
     // reason in `statusMessage`, so surface that rather than a generic failure.
     const message =
       (error as { statusMessage?: string })?.statusMessage ??
-      'Something went wrong. Email me directly instead?'
-    toast.error(message)
+      "Something went wrong. Email me directly instead?";
+    toast.error(message);
   } finally {
     // `finally` guarantees the button unlocks even if the request threw.
-    isSubmitting.value = false
+    isSubmitting.value = false;
   }
 }
 
@@ -95,14 +97,23 @@ async function onSubmit() {
 </script>
 
 <template>
-  <section id="contact" ref="root" class="relative overflow-hidden py-28 sm:py-36 lg:py-44">
+  <section
+    id="contact"
+    ref="root"
+    class="relative overflow-hidden py-28 sm:py-36 lg:py-44"
+  >
     <!-- A warm glow anchoring the bottom of the page. -->
     <div
       class="pointer-events-none absolute inset-x-0 bottom-0 h-[60%]"
       aria-hidden="true"
-      style="background: radial-gradient(ellipse 70% 100% at 50% 100%, color-mix(in oklch, var(--brand) 10%, transparent), transparent 70%)"
+      style="
+        background: radial-gradient(
+          ellipse 70% 100% at 50% 100%,
+          color-mix(in oklch, var(--brand) 10%, transparent),
+          transparent 70%
+        );
+      "
     />
-
     <div class="relative mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
       <div class="grid gap-16 lg:grid-cols-12 lg:gap-20">
         <!-- ------------------------------------------------------- pitch -->
@@ -117,7 +128,9 @@ async function onSubmit() {
 
           <RevealOnScroll :stagger="0.08" class="mt-12 space-y-6">
             <div>
-              <p class="text-muted-foreground font-mono text-[10px] tracking-[0.25em] uppercase">
+              <p
+                class="text-muted-foreground font-mono text-[10px] tracking-[0.25em] uppercase"
+              >
                 Email
               </p>
               <a
@@ -130,7 +143,9 @@ async function onSubmit() {
             </div>
 
             <div>
-              <p class="text-muted-foreground font-mono text-[10px] tracking-[0.25em] uppercase">
+              <p
+                class="text-muted-foreground font-mono text-[10px] tracking-[0.25em] uppercase"
+              >
                 Elsewhere
               </p>
               <div class="mt-3 flex flex-wrap gap-2">
@@ -141,7 +156,9 @@ async function onSubmit() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Badge variant="tech" class="px-3 py-1">{{ social.label }} ↗</Badge>
+                  <Badge variant="tech" class="px-3 py-1"
+                    >{{ social.label }} ↗</Badge
+                  >
                 </a>
               </div>
             </div>
@@ -169,12 +186,15 @@ async function onSubmit() {
                   type="text"
                   tabindex="-1"
                   autocomplete="off"
-                >
+                />
               </div>
 
               <div class="grid gap-6 sm:grid-cols-2">
                 <div>
-                  <label for="name" class="mb-2 block font-mono text-[10px] tracking-[0.2em] uppercase">
+                  <label
+                    for="name"
+                    class="mb-2 block font-mono text-[10px] tracking-[0.2em] uppercase"
+                  >
                     Your name
                   </label>
                   <Input
@@ -189,13 +209,21 @@ async function onSubmit() {
                   />
                   <!-- role="alert" makes screen readers announce the error the
                        moment it appears, without moving focus. -->
-                  <p v-if="errors.name" id="name-error" role="alert" class="text-destructive mt-2 text-xs">
+                  <p
+                    v-if="errors.name"
+                    id="name-error"
+                    role="alert"
+                    class="text-destructive mt-2 text-xs"
+                  >
                     {{ errors.name }}
                   </p>
                 </div>
 
                 <div>
-                  <label for="email" class="mb-2 block font-mono text-[10px] tracking-[0.2em] uppercase">
+                  <label
+                    for="email"
+                    class="mb-2 block font-mono text-[10px] tracking-[0.2em] uppercase"
+                  >
                     Email
                   </label>
                   <Input
@@ -209,14 +237,22 @@ async function onSubmit() {
                     :aria-describedby="errors.email ? 'email-error' : undefined"
                     class="h-12 rounded-xl"
                   />
-                  <p v-if="errors.email" id="email-error" role="alert" class="text-destructive mt-2 text-xs">
+                  <p
+                    v-if="errors.email"
+                    id="email-error"
+                    role="alert"
+                    class="text-destructive mt-2 text-xs"
+                  >
                     {{ errors.email }}
                   </p>
                 </div>
               </div>
 
               <div class="mt-6">
-                <label for="message" class="mb-2 block font-mono text-[10px] tracking-[0.2em] uppercase">
+                <label
+                  for="message"
+                  class="mb-2 block font-mono text-[10px] tracking-[0.2em] uppercase"
+                >
                   Message
                 </label>
                 <Textarea
@@ -226,14 +262,23 @@ async function onSubmit() {
                   rows="6"
                   placeholder="What are you building, and where are you stuck?"
                   :aria-invalid="Boolean(errors.message)"
-                  :aria-describedby="errors.message ? 'message-error' : undefined"
+                  :aria-describedby="
+                    errors.message ? 'message-error' : undefined
+                  "
                   class="resize-none rounded-xl"
                 />
                 <div class="mt-2 flex items-start justify-between gap-4">
-                  <p v-if="errors.message" id="message-error" role="alert" class="text-destructive text-xs">
+                  <p
+                    v-if="errors.message"
+                    id="message-error"
+                    role="alert"
+                    class="text-destructive text-xs"
+                  >
                     {{ errors.message }}
                   </p>
-                  <span class="text-muted-foreground ml-auto font-mono text-[10px] tabular-nums">
+                  <span
+                    class="text-muted-foreground ml-auto font-mono text-[10px] tabular-nums"
+                  >
                     {{ form.message.length }} / 2000
                   </span>
                 </div>

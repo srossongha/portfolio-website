@@ -26,9 +26,10 @@ export default defineNuxtConfig({
   // Modules are Nuxt plugins-on-steroids: they can add components, composables,
   // config and build steps. Order matters only when two modules touch the same thing.
   modules: [
-    "@vueuse/nuxt", // auto-imports every VueUse composable (useMouse, useElementSize, ...)
-    "@nuxtjs/color-mode", // dark/light mode with no flash of wrong theme on load
-    "shadcn-nuxt", // registers ./app/components/ui as shadcn-vue components
+    // auto-imports every VueUse composable (useMouse, useElementSize, ...)
+    "@vueuse/nuxt", // dark/light mode with no flash of wrong theme on load
+    "@nuxtjs/color-mode", // registers ./app/components/ui as shadcn-vue components
+    "shadcn-nuxt",
   ],
 
   // Global stylesheets. Tailwind v4 is configured *inside* main.css
