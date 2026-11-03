@@ -45,6 +45,8 @@ export const profile = {
 export const socials: SocialLink[] = [
   { label: 'GitHub', href: 'https://github.com/srossongha', handle: '@srossongha' },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/sros-songha-164656419', handle: 'sros-songha' },
+  { label: 'Instagram', href: 'https://www.instagram.com/srossongha/', handle: '@srossongha' },
+  { label: 'TikTok', href: 'https://www.tiktok.com/@sros.sangha', handle: '@sros.sangha' },
   { label: 'Telegram', href: 'https://t.me/srossangha', handle: '@srossangha' },
   { label: 'Email', href: `mailto:${profile.email}`, handle: profile.email },
 ]

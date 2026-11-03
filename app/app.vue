@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { seo } from '~/data/site'
+import { seo, profile, socials } from '~/data/site'
 
 /**
  * app.vue is the root of the whole application — it wraps every layout and
@@ -22,6 +22,94 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
   twitterTitle: seo.title,
   twitterDescription: seo.description,
+})
+
+// Google Search Structured Data (JSON-LD Schema.org)
+// Disambiguates Sros Songha (Asuna) as an official Person entity and establishes
+// verified sameAs links to prevent Google from scraping random/unrelated profiles.
+const sameAsLinks = computed(() => {
+  const links = socials
+    .filter((s) => s.href.startsWith('http'))
+    .map((s) => s.href)
+
+  // Ensure Instagram and TikTok are included even if not in socials
+  const extras = [
+    'https://www.instagram.com/srossongha/',
+    'https://www.tiktok.com/@sros.sangha',
+  ]
+  extras.forEach((ext) => {
+    if (!links.includes(ext)) links.push(ext)
+  })
+  return links
+})
+
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify([
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          '@id': `${seo.url}#person`,
+          name: profile.name,
+          alternateName: ['Asuna', 'srossongha', 'srossangha'],
+          url: seo.url,
+          image: `${seo.url}images/profile.jpeg`,
+          jobTitle: profile.role,
+          description: seo.description,
+          email: `mailto:${profile.email}`,
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Phnom Penh',
+            addressCountry: 'KH',
+          },
+          alumniOf: {
+            '@type': 'EducationalOrganization',
+            name: 'Institute of Technology of Cambodia',
+            alternateName: 'ITC',
+            url: 'https://www.itc.edu.kh',
+          },
+          worksFor: [
+            {
+              '@type': 'Organization',
+              name: 'T.O Group',
+              jobTitle: 'Front-end Intern',
+            },
+            {
+              '@type': 'Organization',
+              name: 'EKYC Solution Co., Ltd.',
+              jobTitle: 'Former Front-end Intern',
+            },
+          ],
+          sameAs: sameAsLinks.value,
+          knowsAbout: [
+            'Front-end Development',
+            'Vue.js',
+            'Nuxt',
+            'React',
+            'Next.js',
+            'TypeScript',
+            'JavaScript',
+            'Tailwind CSS',
+            'Web Development',
+            'Computer Vision',
+          ],
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          '@id': `${seo.url}#website`,
+          url: seo.url,
+          name: `${profile.name} Portfolio`,
+          description: seo.description,
+          publisher: {
+            '@id': `${seo.url}#person`,
+          },
+        },
+      ]),
+    },
+  ],
 })
 
 const colorMode = useColorMode()
