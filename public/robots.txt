@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://portfolio.sanghakh122333.workers.dev/sitemap.xml

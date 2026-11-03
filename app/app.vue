@@ -32,18 +32,25 @@ const sameAsLinks = computed(() => {
     .filter((s) => s.href.startsWith('http'))
     .map((s) => s.href)
 
-  // Ensure Instagram and TikTok are included even if not in socials
-  const extras = [
-    'https://www.instagram.com/srossongha/',
+  // Explicit verified canonical social URLs
+  const verifiedProfiles = [
+    'https://github.com/srossongha',
+    'https://linkedin.com/in/sros-songha-164656419',
+    'https://web.facebook.com/sros.sangha.boy.loy',
+    'https://www.instagram.com/moononlyyou/',
     'https://www.tiktok.com/@sros.sangha',
+    'https://t.me/srossangha',
   ]
-  extras.forEach((ext) => {
-    if (!links.includes(ext)) links.push(ext)
+  verifiedProfiles.forEach((profileUrl) => {
+    if (!links.includes(profileUrl)) links.push(profileUrl)
   })
   return links
 })
 
 useHead({
+  link: [
+    { rel: 'canonical', href: seo.url },
+  ],
   script: [
     {
       type: 'application/ld+json',
