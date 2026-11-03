@@ -96,6 +96,10 @@ export default defineNuxtConfig({
           content: "width=device-width, initial-scale=1, viewport-fit=cover",
         },
         { name: "theme-color", content: "#0a0a0b" },
+        {
+          name: "google-site-verification",
+          content: "ZVX0gAQmYO1uF8B7tVGK9EcYc5Exby_JeLP6XwBJzVc",
+        },
       ],
     },
     // Route transitions. `out-in` = old page finishes leaving before the new one enters.
