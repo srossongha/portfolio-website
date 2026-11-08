@@ -38,12 +38,12 @@ onUnmounted(() => {
   if (downloadTimer) clearTimeout(downloadTimer)
 })
 
-/** The three short statements beside the portrait. */
+/** Core engineering standards. */
 const principles = [
-  { title: 'Ship it', body: 'A working thing today beats a perfect thing I never finish.' },
-  { title: 'Feel the frame', body: 'If it stutters on a cheap phone, it is not done.' },
-  { title: 'Ask early', body: 'Two hours stuck alone is worse than one question.'},
-  { title: 'Leave notes', body: 'Nobody clears the dungeon twice without a map.' },
+  { title: 'Ship with purpose', body: 'Working software in real users’ hands is the ultimate measure of progress.' },
+  { title: 'Performance is UX', body: 'If an interface stutters on a modest phone or slow network, it is not finished.' },
+  { title: 'Architect for clarity', body: 'Readable, type-safe systems keep products maintainable and easy to evolve.' },
+  { title: 'Respect the user', body: 'Every interaction, loading state, and layout detail should respect user attention.' },
 ]
 
 useGsapContext(root, () => {
@@ -88,8 +88,8 @@ useGsapContext(root, () => {
       <SectionHeading
         index="01"
         label="About me"
-        title="Engineer by trade,"
-        accent="obsessive by habit."
+        title="Engineering with precision,"
+        accent="driven by craft."
       />
 
       <div class="mt-16 grid gap-14 lg:mt-24 lg:grid-cols-12 lg:gap-16">
