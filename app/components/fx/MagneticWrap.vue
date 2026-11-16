@@ -81,11 +81,11 @@ onMounted(() => {
   <component
     :is="as"
     ref="el"
-    class="inline-block will-change-transform"
+    class="inline-block max-w-full will-change-transform"
     :style="{ padding: `${padding}px`, margin: `-${padding}px` }"
   >
     <!-- Wrapping the slot in one element gives us the inner parallax layer. -->
-    <span class="inline-block will-change-transform">
+    <span class="inline-block w-full will-change-transform">
       <slot />
     </span>
   </component>

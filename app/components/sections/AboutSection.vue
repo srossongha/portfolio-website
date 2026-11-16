@@ -78,7 +78,7 @@ const principles = [
       <!-- Bento Grid System -->
       <div class="mt-14 grid gap-6 lg:mt-20 lg:grid-cols-12 lg:gap-8">
         <!-- --------------------------------- Card 1: Narrative & Engineering Principles (8 cols) -->
-        <div class="lg:col-span-8 flex flex-col justify-between rounded-3xl border border-border/80 bg-card/70 p-6 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl">
+        <div class="lg:col-span-8 flex flex-col justify-between rounded-3xl border border-border/80 bg-card/70 p-5 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl">
           <div>
             <div class="flex items-center gap-2 font-pixel text-[10px] text-cyan-400 uppercase tracking-widest font-semibold">
               <Terminal class="size-3.5" />
@@ -204,7 +204,7 @@ const principles = [
 
         <!-- --------------------------------- Bottom 3-Card Ecosystem Row -->
         <!-- Card 3A: Education Foundation -->
-        <div class="lg:col-span-4 rounded-3xl border border-border/80 bg-card/60 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/40">
+        <div class="lg:col-span-4 rounded-3xl border border-border/80 bg-card/60 p-5 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/40">
           <div class="flex items-center gap-2 font-pixel text-[9px] text-cyan-400 uppercase tracking-wider font-semibold">
             <GraduationCap class="size-3.5" />
             <span>[ MEM_BLOCK_A // EDUCATION ]</span>
@@ -221,7 +221,7 @@ const principles = [
         </div>
 
         <!-- Card 3B: Industry Internships -->
-        <div class="lg:col-span-4 rounded-3xl border border-border/80 bg-card/60 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/40">
+        <div class="lg:col-span-4 rounded-3xl border border-border/80 bg-card/60 p-5 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/40">
           <div class="flex items-center gap-2 font-pixel text-[9px] text-cyan-400 uppercase tracking-wider font-semibold">
             <Briefcase class="size-3.5" />
             <span>[ MEM_BLOCK_B // ENTERPRISE ]</span>
@@ -238,7 +238,7 @@ const principles = [
         </div>
 
         <!-- Card 3C: Product Shipped -->
-        <div class="lg:col-span-4 rounded-3xl border border-border/80 bg-card/60 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/40">
+        <div class="lg:col-span-4 rounded-3xl border border-border/80 bg-card/60 p-5 sm:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/40">
           <div class="flex items-center gap-2 font-pixel text-[9px] text-cyan-400 uppercase tracking-wider font-semibold">
             <Rocket class="size-3.5" />
             <span>[ MEM_BLOCK_C // SHIPPED_PROD ]</span>

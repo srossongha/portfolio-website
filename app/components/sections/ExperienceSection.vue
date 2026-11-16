@@ -35,7 +35,7 @@ const getIcon = (org: string) => {
         <article
           v-for="(job, i) in experiences"
           :key="`${job.period}-${job.role}`"
-          class="group flex flex-col justify-between rounded-3xl border border-border/80 bg-card/70 p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.18)]"
+          class="group flex flex-col justify-between rounded-3xl border border-border/80 bg-card/70 p-5 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.18)]"
         >
           <div>
             <!-- Header Row -->

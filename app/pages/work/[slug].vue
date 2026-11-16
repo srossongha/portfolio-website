@@ -82,19 +82,19 @@ const linkIcons: Record<string, Component> = {
       <div class="relative mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
         <NuxtLink
           to="/work"
-          class="text-muted-foreground hover:text-brand group mb-10 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase transition-colors"
+          class="text-muted-foreground hover:text-cyan-400 group mb-10 inline-flex items-center gap-2 font-pixel text-[10px] tracking-[0.2em] uppercase transition-colors"
         >
-          <ArrowLeft class="size-3.5 transition-transform group-hover:-translate-x-1" />
-          All work
+          <ArrowLeft class="size-3.5 transition-transform group-hover:-translate-x-1 text-cyan-400" />
+          [ RETURN // ALL_WORK ]
         </NuxtLink>
 
         <div class="flex flex-wrap items-center gap-3">
-          <Badge variant="brand">{{ project.year }}</Badge>
-          <Badge v-for="tag in project.tags" :key="tag" variant="tech">{{ tag }}</Badge>
+          <Badge variant="brand" class="font-pixel text-[10px]">[ {{ project.year }} ]</Badge>
+          <Badge v-for="tag in project.tags" :key="tag" variant="tech" class="font-mono text-[10px]">{{ tag }}</Badge>
         </div>
 
         <!-- Mobile-first metrics — see the note on the h1 in HeroSection.vue. -->
-        <h1 class="mt-6 font-serif text-[clamp(2.5rem,8vw,6.5rem)] leading-[1.04] tracking-[-0.01em] sm:leading-[0.9] sm:tracking-[-0.03em]">
+        <h1 class="mt-6 font-serif text-[clamp(2.2rem,8vw,6.5rem)] leading-[1.04] tracking-[-0.01em] sm:leading-[0.9] sm:tracking-[-0.03em]">
           {{ project.title }}
         </h1>
 
@@ -104,12 +104,13 @@ const linkIcons: Record<string, Component> = {
 
         <!-- Links. A project can be private with no href, so we render a
              disabled-looking span instead of a broken link. -->
-        <div class="mt-10 flex flex-wrap gap-3">
+        <div class="mt-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
           <template v-for="link in project.links" :key="link.label">
             <Button
               v-if="link.href"
-              variant="hairline"
+              variant="brand"
               size="pill"
+              class="w-full sm:w-auto font-pixel text-xs uppercase tracking-wider"
               as="a"
               :href="link.href"
               :target="link.href.startsWith('http') ? '_blank' : undefined"
@@ -120,7 +121,7 @@ const linkIcons: Record<string, Component> = {
             </Button>
             <span
               v-else
-              class="border-border/60 text-muted-foreground inline-flex h-12 items-center gap-2 rounded-full border border-dashed px-7 text-sm"
+              class="border-border/60 text-muted-foreground inline-flex h-12 items-center justify-center gap-2 rounded-full border border-dashed px-7 text-xs font-pixel uppercase tracking-wider"
             >
               <component :is="linkIcons[link.icon ?? 'external']" class="size-4" />
               {{ link.label }}
@@ -133,18 +134,24 @@ const linkIcons: Record<string, Component> = {
     <!-- ------------------------------------------------------- key figures -->
     <section
       v-if="project.metrics?.length"
-      class="border-border/60 border-y"
+      class="border-border/60 border-y bg-background/50 py-8"
     >
-      <dl class="mx-auto grid max-w-350 grid-cols-2 divide-x divide-border/60 px-5 sm:grid-cols-3 sm:px-8 lg:px-12">
-        <div v-for="metric in project.metrics" :key="metric.label" class="px-6 py-8 first:pl-0">
-          <dt class="text-muted-foreground font-mono text-[10px] tracking-[0.2em] uppercase">
-            {{ metric.label }}
-          </dt>
-          <dd class="mt-2 font-serif text-4xl tracking-tight sm:text-5xl">
-            {{ metric.value }}
-          </dd>
+      <div class="mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
+        <div class="grid grid-cols-2 gap-3.5 sm:grid-cols-3 lg:grid-cols-4 sm:gap-4">
+          <div
+            v-for="metric in project.metrics"
+            :key="metric.label"
+            class="rounded-2xl border border-cyan-500/25 bg-card/70 p-4 sm:p-5 backdrop-blur-md shadow-inner"
+          >
+            <div class="font-pixel text-[9px] tracking-[0.18em] uppercase text-cyan-400/80">
+              {{ metric.label }}
+            </div>
+            <div class="mt-2 font-pixel text-xl sm:text-3xl tracking-tight text-cyan-300 crt-glow">
+              {{ metric.value }}
+            </div>
+          </div>
         </div>
-      </dl>
+      </div>
     </section>
 
     <!-- ------------------------------------------------------------ body -->
@@ -198,8 +205,8 @@ const linkIcons: Record<string, Component> = {
               :key="i"
               class="border-border/60 flex gap-5 border-b pb-6 last:border-0"
             >
-              <span class="text-brand/70 shrink-0 font-mono text-xs">
-                {{ String(i + 1).padStart(2, '0') }}
+              <span class="text-cyan-400 font-pixel text-xs shrink-0">
+                #0{{ i + 1 }}
               </span>
               <p class="leading-relaxed">{{ highlight }}</p>
             </div>

@@ -63,7 +63,7 @@ const steps = [
         <div
           v-for="step in steps"
           :key="step.n"
-          class="group flex flex-col justify-between rounded-3xl border border-border/80 bg-card/70 p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/50 hover:shadow-[0_0_25px_rgba(56,189,248,0.15)]"
+          class="group flex flex-col justify-between rounded-3xl border border-border/80 bg-card/70 p-5 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/50 hover:shadow-[0_0_25px_rgba(56,189,248,0.15)]"
         >
           <div>
             <!-- Header row -->

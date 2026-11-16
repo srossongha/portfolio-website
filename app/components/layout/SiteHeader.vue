@@ -207,41 +207,56 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
         <div
           v-if="mobileOpen"
           id="mobile-menu"
-          class="bg-background/98 fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto overscroll-contain border-t backdrop-blur-2xl md:hidden"
+          class="bg-background/98 fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto overscroll-contain border-t border-cyan-500/20 backdrop-blur-2xl md:hidden flex flex-col justify-between"
         >
-          <ul class="gutter flex flex-col gap-2 py-10">
-            <li
-              v-for="(link, i) in navLinks"
-              :key="link.to"
-              class="border-border/50 border-b"
-            >
-              <NuxtLink
-                :to="link.to"
-                class="flex items-baseline gap-4 py-5 font-serif text-4xl tracking-tight"
-                @click="onNavClick($event, link.to)"
-              >
-                <span class="text-brand/60 font-mono text-xs">
-                  {{ String(i + 1).padStart(2, '0') }}
-                </span>
-                {{ link.label }}
-              </NuxtLink>
-            </li>
-          </ul>
+          <!-- Scanline effect in mobile drawer -->
+          <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-25" />
 
-          <!-- The one place the home indicator really bites: a full-width CTA
-               pinned near the bottom of the screen ends up with the indicator
-               bar sitting across it. `pb-safe` adds the inset on top of the
-               2.5rem design padding, and resolves to just 2.5rem elsewhere. -->
-          <div class="gutter pb-safe flex flex-col gap-3" style="--pb-safe: 2.5rem">
+          <div>
+            <!-- Terminal Drawer Status Bar -->
+            <div class="flex items-center justify-between border-b border-cyan-500/20 px-6 py-3 font-pixel text-[9px] text-cyan-400 bg-cyan-950/30">
+              <span class="flex items-center gap-1.5">
+                <span class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
+                [ MOBILE_SYS // VT100_CONSOLE ]
+              </span>
+              <span class="text-cyan-300">ONLINE_</span>
+            </div>
+
+            <ul class="gutter flex flex-col gap-1 py-6">
+              <li
+                v-for="(link, i) in navLinks"
+                :key="link.to"
+                class="border-border/40 border-b"
+              >
+                <NuxtLink
+                  :to="link.to"
+                  class="flex items-baseline gap-4 py-4 font-serif text-3xl tracking-tight transition-colors"
+                  :class="activeSection === link.section ? 'text-cyan-400 font-medium' : 'text-foreground hover:text-cyan-300'"
+                  @click="onNavClick($event, link.to)"
+                >
+                  <span class="text-cyan-400 font-pixel text-[10px]">
+                    #0{{ i + 1 }}
+                  </span>
+                  <span>{{ link.label }}</span>
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Bottom CTA & Hardware Telemetry -->
+          <div class="gutter pb-safe flex flex-col gap-3 pt-4" style="--pb-safe: 2.5rem">
             <Button
               variant="brand"
               size="pill"
-              class="w-full"
+              class="w-full font-pixel text-xs tracking-wider uppercase shadow-[0_0_20px_rgba(56,189,248,0.35)]"
               as="a"
               :href="`mailto:${profile.email}`"
             >
-              Start a project
+              [ DISPATCH MESSAGE ]
             </Button>
+            <p class="text-center font-pixel text-[9px] text-muted-foreground/80 mt-1">
+              PHNOM_PENH · UTC+7 · MOS_6502
+            </p>
           </div>
         </div>
       </Transition>

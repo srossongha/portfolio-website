@@ -57,11 +57,11 @@ const filtered = computed(() =>
           v-for="tag in allTags"
           :key="tag"
           type="button"
-          class="rounded-full border px-4 py-2 text-sm transition-all duration-300"
+          class="rounded-full border px-4 py-2 text-sm transition-all duration-300 font-pixel text-xs tracking-wider"
           :class="
             activeTag === tag
-              ? 'border-brand bg-brand text-[oklch(0.16_0.01_65)] font-medium'
-              : 'border-border text-muted-foreground hover:border-brand/50 hover:text-foreground'
+              ? 'border-cyan-400 bg-cyan-400 text-slate-950 font-semibold shadow-[0_0_12px_rgba(56,189,248,0.4)]'
+              : 'border-border text-muted-foreground hover:border-cyan-400/50 hover:text-foreground'
           "
           :aria-pressed="activeTag === tag"
           @click="activeTag = tag"
@@ -117,7 +117,7 @@ const filtered = computed(() =>
                 >
                   {{ project.year }}
                 </Badge>
-                <span class="absolute top-3 left-3 rounded-xs border border-foreground/15 bg-background/80 px-2 py-0.5 font-mono text-[9px] tracking-widest text-foreground/80 uppercase backdrop-blur-md">
+                <span class="absolute top-3 left-3 rounded-xs border border-cyan-400/30 bg-background/80 px-2 py-0.5 font-pixel text-[8px] tracking-widest text-cyan-300 uppercase backdrop-blur-md">
                   INDEX // {{ String(i + 1).padStart(2, '0') }}
                 </span>
               </div>
@@ -135,7 +135,7 @@ const filtered = computed(() =>
                     </li>
                   </ul>
                   <ArrowUpRight
-                    class="text-muted-foreground group-hover:text-brand-ink size-4 shrink-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    class="text-muted-foreground group-hover:text-cyan-400 size-4 shrink-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </div>
               </div>

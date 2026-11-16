@@ -92,13 +92,13 @@ const otherProjects = computed(() => projects.filter((p) => p.slug !== flagship.
                   </Badge>
                 </div>
 
-                <!-- Action Links -->
-                <div class="mt-8 flex flex-wrap items-center gap-3.5">
+                <!-- Action Links (Mobile Responsive Stack) -->
+                <div class="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-3.5">
                   <a
                     href="https://sroknh.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="group/btn inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 px-6 py-2.5 text-xs font-semibold text-slate-950 shadow-[0_0_18px_rgba(56,189,248,0.35)] transition-all hover:scale-[1.02] hover:shadow-[0_0_28px_rgba(56,189,248,0.55)]"
+                    class="group/btn inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 px-6 py-3 sm:py-2.5 text-xs font-semibold text-slate-950 shadow-[0_0_18px_rgba(56,189,248,0.35)] transition-all hover:scale-[1.02] hover:shadow-[0_0_28px_rgba(56,189,248,0.55)]"
                   >
                     <span>Visit Live Site</span>
                     <ExternalLink class="size-3.5" />
@@ -106,7 +106,7 @@ const otherProjects = computed(() => projects.filter((p) => p.slug !== flagship.
 
                   <NuxtLink
                     :to="`/work/${flagship.slug}`"
-                    class="inline-flex items-center gap-2 rounded-full border border-border/80 bg-background/70 px-5 py-2.5 text-xs font-medium text-foreground backdrop-blur-md transition-all hover:border-cyan-400/50 hover:text-cyan-300"
+                    class="inline-flex items-center justify-center gap-2 rounded-full border border-border/80 bg-background/70 px-5 py-3 sm:py-2.5 text-xs font-medium text-foreground backdrop-blur-md transition-all hover:border-cyan-400/50 hover:text-cyan-300"
                   >
                     <span>Read Architecture Case Study</span>
                     <ArrowUpRight class="size-3.5" />

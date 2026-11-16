@@ -29,14 +29,14 @@ useSeoMeta({ title: 'Page not found', robots: 'noindex' })
     />
 
     <div class="gutter relative mx-auto w-full max-w-350">
-      <p class="text-brand font-mono text-[11px] tracking-[0.3em] uppercase">
-        Error {{ error?.statusCode ?? 500 }}
+      <p class="text-cyan-400 font-pixel text-[10px] tracking-[0.25em] uppercase">
+        [ SYSTEM_FAULT // ERROR_{{ error?.statusCode ?? 500 }} ]
       </p>
 
       <!-- Mobile-first metrics — see the note on the h1 in HeroSection.vue.
            This is the tightest heading on the site (-0.04em), so it is also
            the one that suffers most at phone sizes. -->
-      <h1 class="mt-6 font-serif text-[clamp(3rem,12vw,9rem)] leading-none tracking-[-0.015em] sm:leading-[0.85] sm:tracking-[-0.04em]">
+      <h1 class="mt-6 font-serif text-[clamp(2.6rem,12vw,9rem)] leading-none tracking-[-0.015em] sm:leading-[0.85] sm:tracking-[-0.04em]">
         Nothing<br >
         <em class="text-gradient italic">here.</em>
       </h1>
@@ -55,13 +55,13 @@ useSeoMeta({ title: 'Page not found', robots: 'noindex' })
         {{ error.statusMessage }}
       </p>
 
-      <div class="mt-10 flex flex-wrap gap-3">
-        <Button variant="brand" size="pill" @click="clearError({ redirect: '/' })">
+      <div class="mt-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
+        <Button variant="brand" size="pill" class="w-full sm:w-auto font-pixel text-xs tracking-wider uppercase" @click="clearError({ redirect: '/' })">
           <ArrowLeft class="size-4" />
-          Back to the start
+          [ REBOOT: HOME ]
         </Button>
-        <Button variant="hairline" size="pill" @click="clearError({ redirect: '/work' })">
-          See the work instead
+        <Button variant="hairline" size="pill" class="w-full sm:w-auto font-pixel text-xs tracking-wider uppercase" @click="clearError({ redirect: '/work' })">
+          [ LOAD: WORK_ARCHIVE ]
         </Button>
       </div>
     </div>

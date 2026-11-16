@@ -123,13 +123,13 @@ onUnmounted(() => introCtx?.revert())
               <span class="crt-cursor inline-block text-cyan-300 font-bold">█</span>
             </div>
 
-            <h1 class="font-serif text-[clamp(2.8rem,7vw,5.6rem)] font-medium leading-[0.98] tracking-[-0.02em] text-foreground mt-2">
+            <h1 class="font-serif text-[clamp(2.4rem,7vw,5.6rem)] font-medium leading-[0.98] tracking-[-0.02em] text-foreground mt-2">
               {{ profile.name }}
             </h1>
           </div>
 
           <div class="hero-anim hero-role-text mt-3">
-            <h2 class="text-gradient font-serif text-[clamp(1.8rem,4.5vw,3.6rem)] font-light italic leading-tight">
+            <h2 class="text-gradient font-serif text-[clamp(1.6rem,4.5vw,3.6rem)] font-light italic leading-tight">
               {{ profile.role }}
             </h2>
           </div>
@@ -138,12 +138,12 @@ onUnmounted(() => introCtx?.revert())
             {{ profile.bio[0] }}
           </p>
 
-          <!-- Primary Actions with 1970s Pixel Computer Styling -->
-          <div class="mt-8 flex flex-wrap items-center gap-4">
-            <MagneticWrap :strength="0.3" class="hero-anim hero-action-btn">
+          <!-- Primary Actions with 1970s Pixel Computer Styling (Responsive Stack for Mobile) -->
+          <div class="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
+            <MagneticWrap :strength="0.3" class="hero-anim hero-action-btn w-full sm:w-auto">
               <Button
                 size="pill"
-                class="group relative inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 px-7 py-3 text-xs font-semibold text-slate-950 shadow-[0_0_22px_rgba(56,189,248,0.35)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_32px_rgba(56,189,248,0.55)] font-pixel uppercase tracking-wider"
+                class="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 px-7 py-3.5 sm:py-3 text-xs font-semibold text-slate-950 shadow-[0_0_22px_rgba(56,189,248,0.35)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_32px_rgba(56,189,248,0.55)] font-pixel uppercase tracking-wider"
                 data-cursor-label="Explore"
                 @click="scrollTo('#work', { offset: 0 })"
               >
@@ -152,10 +152,10 @@ onUnmounted(() => introCtx?.revert())
               </Button>
             </MagneticWrap>
 
-            <MagneticWrap :strength="0.3" class="hero-anim hero-action-btn">
+            <MagneticWrap :strength="0.3" class="hero-anim hero-action-btn w-full sm:w-auto">
               <Button
                 size="pill"
-                class="rounded-xl border border-cyan-400/40 bg-card/70 px-6 py-3 text-xs font-medium text-foreground backdrop-blur-md transition-all duration-300 hover:border-cyan-400 hover:bg-card/90 hover:text-cyan-300 hover:shadow-[0_0_18px_rgba(56,189,248,0.25)] font-pixel uppercase tracking-wider"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-cyan-400/40 bg-card/70 px-6 py-3.5 sm:py-3 text-xs font-medium text-foreground backdrop-blur-md transition-all duration-300 hover:border-cyan-400 hover:bg-card/90 hover:text-cyan-300 hover:shadow-[0_0_18px_rgba(56,189,248,0.25)] font-pixel uppercase tracking-wider"
                 as="a"
                 :href="profile.cvUrl"
                 download="SROS Songha.pdf"
@@ -167,11 +167,11 @@ onUnmounted(() => introCtx?.revert())
               </Button>
             </MagneticWrap>
 
-            <MagneticWrap :strength="0.3" class="hero-anim hero-action-btn">
+            <MagneticWrap :strength="0.3" class="hero-anim hero-action-btn w-full sm:w-auto">
               <Button
                 variant="ghost"
                 size="pill"
-                class="rounded-xl px-5 py-3 text-xs font-mono text-muted-foreground transition-colors hover:text-cyan-300 hover:bg-cyan-950/30"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 sm:py-3 text-xs font-mono text-muted-foreground transition-colors hover:text-cyan-300 hover:bg-cyan-950/30"
                 as="a"
                 :href="`mailto:${profile.email}`"
                 data-cursor-label="Contact"
@@ -202,36 +202,36 @@ onUnmounted(() => introCtx?.revert())
 
         <!-- ------------------------------------------------ Right: 1970s CRT Terminal Bento -->
         <div class="lg:col-span-5">
-          <div class="hero-anim hero-bento-card relative overflow-hidden rounded-3xl border border-cyan-400/30 bg-slate-950/85 p-6 shadow-[0_12px_45px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/50 hover:shadow-[0_0_40px_rgba(56,189,248,0.2)] sm:p-7">
+          <div class="hero-anim hero-bento-card relative overflow-hidden rounded-3xl border border-cyan-400/30 bg-slate-950/85 p-4.5 sm:p-7 shadow-[0_12px_45px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/50 hover:shadow-[0_0_40px_rgba(56,189,248,0.2)]">
             <!-- Phosphor Scanline Texture inside CRT monitor -->
             <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-25" />
 
             <!-- Top Terminal Frame Header -->
             <div class="relative flex items-center justify-between border-b border-cyan-500/20 pb-3">
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-1.5 sm:gap-2">
                 <span class="size-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]" />
-                <span class="font-pixel text-[10px] font-semibold tracking-wider text-cyan-300">
+                <span class="font-pixel text-[9px] sm:text-[10px] font-semibold tracking-wider text-cyan-300">
                   ╔═ PET-2001 // MOS_6502 ═╗
                 </span>
               </div>
-              <div class="flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground">
-                <Clock class="size-3 text-cyan-400" />
+              <div class="flex items-center gap-1.5 font-mono text-[10px] sm:text-[11px] text-muted-foreground">
+                <Clock class="size-3 text-cyan-400 shrink-0" />
                 <ClientOnly>
-                  <span class="font-pixel text-[10px] text-cyan-300">{{ localTime }} UTC+7</span>
-                  <template #fallback><span class="font-pixel text-[10px]">--:-- UTC+7</span></template>
+                  <span class="font-pixel text-[9px] sm:text-[10px] text-cyan-300">{{ localTime }} UTC+7</span>
+                  <template #fallback><span class="font-pixel text-[9px] sm:text-[10px]">--:-- UTC+7</span></template>
                 </ClientOnly>
               </div>
             </div>
 
             <!-- 1970s Register & Status Line -->
-            <div class="relative mt-3 flex items-center justify-between font-mono text-[10px] text-cyan-400/70 border-b border-cyan-500/10 pb-2">
+            <div class="relative mt-3 flex items-center justify-between font-mono text-[9px] sm:text-[10px] text-cyan-400/70 border-b border-cyan-500/10 pb-2">
               <span>PC: $0800  A: $00  X: $19</span>
-              <span class="font-pixel text-[9px] text-cyan-300">64K_RAM: OK</span>
+              <span class="font-pixel text-[8px] sm:text-[9px] text-cyan-300">64K_RAM: OK</span>
             </div>
 
             <!-- Identity Snippet -->
-            <div class="relative mt-4 flex items-center gap-4">
-              <div class="relative size-16 shrink-0 overflow-hidden rounded-xl border-2 border-cyan-400/50 p-0.5 shadow-[0_0_18px_rgba(56,189,248,0.3)]">
+            <div class="relative mt-4 flex items-center gap-3.5 sm:gap-4">
+              <div class="relative size-14 sm:size-16 shrink-0 overflow-hidden rounded-xl border-2 border-cyan-400/50 p-0.5 shadow-[0_0_18px_rgba(56,189,248,0.3)]">
                 <img
                   src="/images/profile.jpeg"
                   :alt="profile.name"
@@ -240,32 +240,32 @@ onUnmounted(() => introCtx?.revert())
                 <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-20" />
               </div>
               <div>
-                <div class="flex items-center gap-2">
-                  <span class="font-serif text-lg font-medium text-white">{{ profile.name }}</span>
-                  <span class="rounded-xs border border-cyan-400/40 bg-cyan-950/60 px-1.5 py-0.5 font-pixel text-[9px] text-cyan-300">
+                <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                  <span class="font-serif text-base sm:text-lg font-medium text-white">{{ profile.name }}</span>
+                  <span class="rounded-xs border border-cyan-400/40 bg-cyan-950/60 px-1.5 py-0.5 font-pixel text-[8px] sm:text-[9px] text-cyan-300">
                     CS_SOPHOMORE
                   </span>
                 </div>
-                <p class="text-white/70 mt-0.5 font-mono text-xs">
+                <p class="text-white/70 mt-0.5 font-mono text-[11px] sm:text-xs">
                   Institute of Technology of Cambodia
                 </p>
-                <p class="text-cyan-400 font-mono text-[11px] mt-0.5">
+                <p class="text-cyan-400 font-mono text-[10px] sm:text-[11px] mt-0.5">
                   T.O Group &amp; EKYC Solution Intern
                 </p>
               </div>
             </div>
 
             <!-- The Stats Pixel Matrix -->
-            <div class="relative mt-5 grid grid-cols-2 gap-3">
+            <div class="relative mt-5 grid grid-cols-2 gap-2.5 sm:gap-3">
               <div
                 v-for="stat in profile.stats"
                 :key="stat.label"
-                class="rounded-xl border border-cyan-500/20 bg-black/50 p-3 backdrop-blur-md transition-all hover:border-cyan-400/40 shadow-inner"
+                class="rounded-xl border border-cyan-500/20 bg-black/50 p-2.5 sm:p-3 backdrop-blur-md transition-all hover:border-cyan-400/40 shadow-inner"
               >
-                <div class="font-pixel text-xl font-medium tracking-tight text-cyan-400 sm:text-2xl crt-glow">
+                <div class="font-pixel text-lg font-medium tracking-tight text-cyan-400 sm:text-2xl crt-glow">
                   <CountUp :value="stat.value" :suffix="stat.suffix" />
                 </div>
-                <div class="text-muted-foreground mt-1 flex items-center gap-1.5 font-mono text-[10px] tracking-wider uppercase">
+                <div class="text-muted-foreground mt-1 flex items-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase">
                   <span class="size-1 rounded-full bg-cyan-400 shadow-[0_0_4px_#38bdf8]" />
                   {{ stat.label }}
                 </div>
