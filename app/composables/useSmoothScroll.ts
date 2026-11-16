@@ -54,7 +54,7 @@ export function useSmoothScroll() {
    * Handle a click on an in-page anchor link (`/#work`).
    * Returns true if it handled it, so the caller can preventDefault().
    */
-  function handleAnchor(to: string, offset = -80) {
+  function handleAnchor(to: string, offset = 0) {
     const hash = to.includes('#') ? `#${to.split('#')[1]}` : ''
     if (!hash) return false
     const el = document.querySelector(hash)

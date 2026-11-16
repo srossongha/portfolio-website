@@ -38,10 +38,10 @@ onMounted(() => {
         <!-- Left: availability + email -->
         <div class="max-w-md">
           <div class="mb-5 flex flex-wrap items-center gap-3">
-            <Badge variant="live" class="border-brand/40 bg-card/90">
+            <Badge variant="live" class="border-cyan-500/30 bg-cyan-950/40 text-cyan-300 shadow-[0_0_12px_rgba(56,189,248,0.2)]">
               <span class="relative flex size-1.5">
-                <span class="bg-brand-sprout absolute inline-flex size-full animate-ping rounded-full opacity-70" />
-                <span class="bg-brand-sprout relative inline-flex size-1.5 rounded-full" />
+                <span class="bg-cyan-400 absolute inline-flex size-full animate-ping rounded-full opacity-70" />
+                <span class="bg-cyan-400 relative inline-flex size-1.5 rounded-full shadow-[0_0_6px_#38bdf8]" />
               </span>
               {{ profile.availability }}
             </Badge>
@@ -55,7 +55,7 @@ onMounted(() => {
             class="group block font-serif text-3xl font-medium tracking-tight break-all text-foreground sm:text-4xl"
             data-cursor-label="Email"
           >
-            <span class="bg-linear-to-r from-brand to-brand [background-size:0%_2px] bg-bottom bg-no-repeat transition-[background-size] duration-500 group-hover:[background-size:100%_2px]">
+            <span class="bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 [background-size:0%_2px] bg-bottom bg-no-repeat transition-[background-size] duration-500 group-hover:[background-size:100%_2px]">
               {{ profile.email }}
             </span>
           </a>
@@ -68,14 +68,14 @@ onMounted(() => {
         <!-- Right: link columns -->
         <div class="flex gap-12 sm:gap-20">
           <nav aria-label="Footer">
-            <h2 class="text-brand-ink mb-4 font-mono text-[10px] tracking-[0.25em] uppercase font-semibold">
+            <h2 class="text-cyan-400 mb-4 font-mono text-[10px] tracking-[0.25em] uppercase font-semibold">
               INDEX // SITEMAP
             </h2>
             <ul class="space-y-2.5">
               <li v-for="link in navLinks" :key="link.to">
                 <NuxtLink
                   :to="link.to"
-                  class="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                  class="text-muted-foreground hover:text-cyan-300 text-sm transition-colors"
                 >
                   {{ link.label }}
                 </NuxtLink>
@@ -84,7 +84,7 @@ onMounted(() => {
           </nav>
 
           <div>
-            <h2 class="text-brand-ink mb-4 font-mono text-[10px] tracking-[0.25em] uppercase font-semibold">
+            <h2 class="text-cyan-400 mb-4 font-mono text-[10px] tracking-[0.25em] uppercase font-semibold">
               SIGNALS // NETWORKS
             </h2>
             <ul class="space-y-2.5">
@@ -93,7 +93,7 @@ onMounted(() => {
                   :href="social.href"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors"
+                  class="text-muted-foreground hover:text-cyan-300 inline-flex items-center gap-1.5 text-sm transition-colors"
                 >
                   {{ social.label }}
                   <span class="text-[9px] opacity-60">↗</span>
@@ -107,7 +107,7 @@ onMounted(() => {
       <!-- Bottom bar styled as dispatch receipt -->
       <div class="border-border/60 mt-16 flex flex-col-reverse gap-4 border-t border-dashed pt-6 sm:flex-row sm:items-center sm:justify-between">
         <p class="text-muted-foreground font-mono text-[11px]">
-          © {{ year }} {{ profile.name }}. Designed with Nature & Retro Botanical Craft. Built with Nuxt 4, Vue 3, & Tailwind v4.
+          © {{ year }} {{ profile.name }}. Built with Nuxt 4, Vue 3, & Tailwind v4.
         </p>
 
         <Button

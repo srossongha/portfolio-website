@@ -325,32 +325,32 @@ const LANDMARK_CONFIGS = [
     name: 'Front-end Developer',
     tag: 'NODE_02 // FE_DEV',
     phraseWords: ['front-end', 'developer'],
-    highlightClass: 'crawler-highlight-gold',
-    themeColor: '#facc15',
+    highlightClass: 'crawler-highlight-sky',
+    themeColor: '#7dd3fc',
   },
   {
     id: 'stack',
     name: 'Core Stack',
     tag: 'NODE_03 // CORE_STACK',
     phraseWords: ['vue,', 'nuxt,', 'and', 'react'],
-    highlightClass: 'crawler-highlight-purple',
-    themeColor: '#c084fc',
+    highlightClass: 'crawler-highlight-cyan',
+    themeColor: '#38bdf8',
   },
   {
     id: 'roomie',
     name: 'Roomie (ស្រុកខ្ញុំ)',
     tag: 'NODE_04 // ROOMIE',
     phraseWords: ['roomie'],
-    highlightClass: 'crawler-highlight-emerald',
-    themeColor: '#34d399',
+    highlightClass: 'crawler-highlight-indigo',
+    themeColor: '#818cf8',
   },
   {
     id: 'details',
     name: 'Craft & Details',
     tag: 'NODE_05 // DETAILS',
     phraseWords: ['details'],
-    highlightClass: 'crawler-highlight-rose',
-    themeColor: '#fb7185',
+    highlightClass: 'crawler-highlight-violet',
+    themeColor: '#a78bfa',
   },
 ]
 
@@ -405,7 +405,7 @@ onMounted(() => {
   let currentWaypointIndex = 0
 
   let startX = width * 0.22
-  let startY = 85
+  let startY = Math.max(220, height * 0.25)
 
   /**
    * Snaps a foot target directly onto random letters of nearby text words.
@@ -515,8 +515,8 @@ onMounted(() => {
       bioLeft = bioRect.left - containerRect.left
       bioRight = bioRect.right - containerRect.left
       bioTop = bioRect.top - containerRect.top
-      startX = bioLeft + 45
-      startY = Math.max(45, bioTop - 40)
+      startX = bioLeft + 40
+      startY = Math.max(180, bioTop + 10)
     }
 
     const list: TextLandmark[] = []
@@ -1321,14 +1321,14 @@ function togglePause() {
 
     <!-- Minimal HUD Badge in bottom corner -->
     <div
-      class="pointer-events-auto absolute right-4 bottom-4 z-20 flex items-center gap-2 rounded-full border border-border/60 bg-background/85 px-3 py-1.5 font-mono text-[11px] shadow-sm backdrop-blur-md transition-all hover:border-brand/50 sm:right-6 sm:bottom-6"
+      class="pointer-events-auto absolute right-4 bottom-4 z-20 flex items-center gap-2 rounded-full border border-border/60 bg-background/85 px-3 py-1.5 font-mono text-[11px] shadow-sm backdrop-blur-md transition-all hover:border-cyan-400/50 sm:right-6 sm:bottom-6"
     >
       <span class="relative flex size-2">
         <span
-          class="bg-brand absolute inline-flex size-full rounded-full opacity-75"
+          class="bg-cyan-400 absolute inline-flex size-full rounded-full opacity-75 shadow-[0_0_6px_#38bdf8]"
           :class="{ 'animate-ping': !isPaused }"
         />
-        <span class="bg-brand relative inline-flex size-2 rounded-full" />
+        <span class="bg-cyan-400 relative inline-flex size-2 rounded-full shadow-[0_0_6px_#38bdf8]" />
       </span>
 
       <span class="text-muted-foreground hidden sm:inline">AI Crawler:</span>

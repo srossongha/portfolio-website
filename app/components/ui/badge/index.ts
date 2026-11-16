@@ -21,13 +21,13 @@ export const badgeVariants = cva(
 
         /** Tech-stack chips. Monospace, hairline, transparent. */
         tech:
-          "border-border/70 bg-transparent text-muted-foreground font-mono tracking-tight [a&]:hover:border-brand/50 [a&]:hover:text-brand",
+          "border-border/70 bg-transparent text-muted-foreground font-mono tracking-tight [a&]:hover:border-cyan-400/50 [a&]:hover:text-cyan-400",
 
-        /** Gold-tinted status pill. */
-        brand: "border-brand/25 bg-brand/12 text-brand",
+        /** Cyan-tinted status pill. */
+        brand: "border-cyan-500/30 bg-cyan-950/40 text-cyan-300 shadow-[0_0_10px_rgba(56,189,248,0.15)]",
 
         /** A live dot + label, e.g. "Open to work". */
-        live: "border-brand/25 bg-brand/10 text-brand gap-1.5 pl-1.5",
+        live: "border-cyan-500/30 bg-cyan-950/40 text-cyan-300 gap-1.5 pl-1.5 shadow-[0_0_12px_rgba(56,189,248,0.2)]",
       },
     },
     defaultVariants: {

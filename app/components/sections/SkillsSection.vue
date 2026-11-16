@@ -97,10 +97,10 @@ onMounted(() => {
       style="transform: rotate(-4deg)"
       aria-hidden="true"
     >
-      <!-- Botanical spore amber & emerald wash behind the rows -->
+      <!-- Electric cyan & royal indigo luminous wash behind the marquee rows -->
       <div
-        class="pointer-events-none absolute inset-0 opacity-[0.09]"
-        style="background: linear-gradient(90deg, transparent, var(--brand-sprout) 30%, var(--brand) 70%, transparent)"
+        class="pointer-events-none absolute inset-0 opacity-[0.08]"
+        style="background: linear-gradient(90deg, transparent, #38bdf8 30%, #6366f1 70%, transparent)"
       />
 
       <div class="skill-band-inner space-y-3">
@@ -155,7 +155,7 @@ onMounted(() => {
                 :aria-label="skill.name"
               >
                 <div
-                  class="skill-bar-fill h-full origin-left bg-gradient-to-r from-brand-sprout to-brand shadow-[0_0_6px_var(--brand-sprout)]"
+                  class="skill-bar-fill h-full origin-left bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 shadow-[0_0_8px_rgba(56,189,248,0.5)]"
                   :style="{ transform: `scaleX(${skill.level / 100})` }"
                 />
               </div>

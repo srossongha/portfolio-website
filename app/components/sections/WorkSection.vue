@@ -124,7 +124,7 @@ onUnmounted(() => mm?.revert())
       </div>
 
       <p class="text-muted-foreground mt-8 hidden items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase md:flex">
-        <span class="bg-brand h-px w-10" />
+        <span class="bg-gradient-to-r from-cyan-400 to-indigo-500 h-px w-10 shadow-[0_0_6px_#38bdf8]" />
         Scroll to move sideways
       </p>
     </div>
@@ -146,15 +146,9 @@ onUnmounted(() => mm?.revert())
         <TiltCard :max="6" :lift="18" radius="rounded-2xl" class="h-full">
           <NuxtLink
             :to="`/work/${project.slug}`"
-            class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/70 shadow-[4px_4px_0_0_color-mix(in_oklch,var(--foreground)_12%,transparent)] backdrop-blur-md transition-all duration-500 hover:border-brand/60 hover:shadow-[6px_6px_0_0_color-mix(in_oklch,var(--brand)_30%,transparent)]"
+            class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/70 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-500 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.2)]"
             :data-cursor-label="`View ${project.title}`"
           >
-            <!-- Washi tape pinned to the card header -->
-            <div
-              class="washi-tape top-2 -left-3 w-20 rotate-[-4deg] opacity-85"
-              aria-hidden="true"
-            />
-
             <!-- Subtle ambient tint on hover -->
             <div
               class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
@@ -182,20 +176,20 @@ onUnmounted(() => mm?.revert())
 
               <!-- Specimen header tag & status -->
               <div class="absolute inset-x-0 top-0 flex items-start justify-between p-4 sm:p-5">
-                <span class="rounded-sm border border-foreground/15 bg-background/80 px-2 py-0.5 font-mono text-[10px] tracking-[0.25em] text-foreground/85 uppercase backdrop-blur-md">
+                <span class="rounded-sm border border-foreground/15 bg-background/80 px-2 py-0.5 font-mono text-[10px] tracking-[0.25em] text-cyan-300 uppercase backdrop-blur-md">
                   SPECIMEN // {{ String(i + 1).padStart(2, '0') }}
                 </span>
-                <Badge :variant="project.status === 'building' ? 'brand' : 'tech'" class="border border-border/70 backdrop-blur-md">
+                <Badge :variant="project.status === 'building' ? 'brand' : 'tech'" class="border border-cyan-400/30 backdrop-blur-md">
                   {{ project.status === 'building' ? 'In progress' : project.year }}
                 </Badge>
               </div>
 
               <!-- Hover arrow button -->
               <div
-                class="glass absolute right-4 bottom-4 flex size-10 translate-y-2 items-center justify-center rounded-full border border-border/80 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                class="glass absolute right-4 bottom-4 flex size-10 translate-y-2 items-center justify-center rounded-full border border-cyan-400/40 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 shadow-[0_0_15px_rgba(56,189,248,0.3)]"
                 aria-hidden="true"
               >
-                <ArrowUpRight class="size-4 text-brand-ink" />
+                <ArrowUpRight class="size-4 text-cyan-400" />
               </div>
             </div>
 
@@ -214,7 +208,7 @@ onUnmounted(() => mm?.revert())
               <!-- Highlights / Metrics ticker strip if available -->
               <div v-if="project.metrics?.length" class="mt-4 flex flex-wrap gap-3 border-t border-dashed border-border/60 pt-3">
                 <div v-for="m in project.metrics.slice(0, 2)" :key="m.label" class="flex items-center gap-1.5 font-mono text-[10px]">
-                  <span class="font-semibold text-brand-ink">{{ m.value }}</span>
+                  <span class="font-semibold text-cyan-400">{{ m.value }}</span>
                   <span class="text-muted-foreground">{{ m.label }}</span>
                 </div>
               </div>
@@ -241,17 +235,16 @@ onUnmounted(() => mm?.revert())
       <article class="work-card flex md:w-96 md:shrink-0">
         <NuxtLink
           to="/work"
-          class="group relative flex w-full flex-col items-start justify-end rounded-2xl border border-dashed border-border/90 bg-card/40 p-8 shadow-[3px_3px_0_0_color-mix(in_oklch,var(--foreground)_10%,transparent)] transition-all duration-300 hover:border-brand/70 hover:bg-card/70 hover:shadow-[5px_5px_0_0_color-mix(in_oklch,var(--brand)_25%,transparent)]"
+          class="group relative flex w-full flex-col items-start justify-end rounded-2xl border border-border/80 bg-card/50 p-8 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/60 hover:bg-card/75 hover:shadow-[0_0_25px_rgba(56,189,248,0.2)]"
           data-cursor-label="All work"
         >
-          <div class="washi-tape top-3 right-4 w-16 rotate-[3deg] opacity-75" aria-hidden="true" />
-          <span class="text-brand-ink mb-4 font-mono text-[11px] tracking-[0.25em] uppercase">
+          <span class="text-cyan-400 mb-4 font-mono text-[11px] tracking-[0.25em] uppercase font-semibold">
             ARCHIVE // INDEX
           </span>
           <span class="font-serif text-3xl leading-tight tracking-tight font-medium">
-            Explore the complete<br >field notebook.
+            Explore the complete<br >project index.
           </span>
-          <span class="text-muted-foreground group-hover:text-brand-ink mt-6 inline-flex items-center gap-2 font-mono text-xs tracking-wider uppercase transition-colors">
+          <span class="text-muted-foreground group-hover:text-cyan-300 mt-6 inline-flex items-center gap-2 font-mono text-xs tracking-wider uppercase transition-colors">
             Browse all entries
             <ArrowUpRight class="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
           </span>

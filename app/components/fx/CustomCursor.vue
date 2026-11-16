@@ -115,22 +115,22 @@ onUnmounted(() => cleanup?.())
   >
     <!-- POSITIONER (GSAP writes transform here) -->
     <div ref="dotPos" class="fixed top-0 left-0 will-change-transform">
-      <!-- VISUAL: organic firefly dot (centres itself, scales on hover) -->
+      <!-- VISUAL: luminous cyan dot (centres itself, scales on hover) -->
       <div
-        class="bg-brand-sprout size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_8px_var(--brand-sprout)] transition-transform duration-300"
+        class="bg-cyan-400 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_8px_#38bdf8] transition-transform duration-300"
         :class="isActive ? 'scale-0' : 'scale-100'"
       />
     </div>
 
     <div ref="ringPos" class="fixed top-0 left-0 will-change-transform">
       <div
-        class="border-brand/70 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border"
-        :class="isActive ? 'bg-brand/15 size-16 backdrop-blur-[2px] shadow-[0_0_12px_rgba(251,191,36,0.25)]' : 'size-8'"
+        class="border-cyan-400/60 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border transition-colors"
+        :class="isActive ? 'bg-cyan-950/30 border-cyan-400 size-16 backdrop-blur-[2px] shadow-[0_0_20px_rgba(56,189,248,0.35)]' : 'size-8'"
         style="transition: width 0.35s var(--ease-out-expo), height 0.35s var(--ease-out-expo), background-color 0.35s"
       >
         <span
           v-if="label"
-          class="text-brand-ink font-mono text-[9px] tracking-widest whitespace-nowrap uppercase font-semibold"
+          class="text-cyan-300 font-mono text-[9px] tracking-widest whitespace-nowrap uppercase font-semibold"
         >
           {{ label }}
         </span>

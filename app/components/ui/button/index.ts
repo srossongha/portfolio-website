@@ -40,17 +40,17 @@ export const buttonVariants = cva(
 
         /* --- Custom variants added for this portfolio --------------------- */
 
-        /** Solid gold. The single most important call-to-action on a page. */
+        /** Electric Cyan glow CTA. The single most important call-to-action on a page. */
         brand:
-          "bg-brand text-[oklch(0.16_0.01_65)] font-semibold shadow-[0_1px_0_0_oklch(1_0_0/40%)_inset,0_8px_24px_-8px_var(--brand)] hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0",
+          "bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 text-slate-950 font-semibold shadow-[0_0_20px_rgba(56,189,248,0.35)] hover:shadow-[0_0_30px_rgba(56,189,248,0.55)] hover:scale-[1.02] active:scale-[0.98]",
 
-        /** Frosted panel. Sits on top of the 3D canvas without hiding it. */
+        /** Frosted panel. Sits on top of the canvas without hiding it. */
         glass:
-          "glass text-foreground hover:border-brand/40 hover:bg-brand/10 backdrop-blur-xl",
+          "glass text-foreground hover:border-cyan-400/50 hover:bg-cyan-950/20 backdrop-blur-xl",
 
-        /** Hairline outline that warms to gold on hover. */
+        /** Hairline outline that warms to cyan on hover. */
         hairline:
-          "border border-border text-foreground relative overflow-hidden hover:border-brand/50 hover:text-brand",
+          "border border-border text-foreground relative overflow-hidden hover:border-cyan-400/50 hover:text-cyan-400",
       },
       size: {
         "default": "h-9 px-4 py-2 has-[>svg]:px-3",

@@ -71,7 +71,7 @@ useGsapContext(root, () => {
         <!-- The drawing progress line, sitting exactly on top of the track. -->
         <div
           class="timeline-progress absolute top-2 bottom-2 left-1.75 w-px origin-top scale-y-0 sm:left-37.75"
-          style="background: linear-gradient(to bottom, var(--brand-sprout), var(--brand), var(--brand-deep))"
+          style="background: linear-gradient(to bottom, #38bdf8, #6366f1, #3b82f6)"
           aria-hidden="true"
         />
 
@@ -90,7 +90,7 @@ useGsapContext(root, () => {
             class="border-background bg-card absolute top-1.5 left-0 size-4 rounded-full border-2 sm:left-35.75"
             aria-hidden="true"
           >
-            <div class="timeline-dot size-full rounded-full bg-brand-sprout shadow-[0_0_8px_var(--brand-sprout)]" />
+            <div class="timeline-dot size-full rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]" />
           </div>
 
           <!-- Content: vintage station ledger item -->
@@ -98,7 +98,7 @@ useGsapContext(root, () => {
             <h3 class="font-serif text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
               {{ job.role }}
             </h3>
-            <p class="text-brand-ink mt-1 font-mono text-xs tracking-wider uppercase font-semibold">
+            <p class="text-cyan-400 mt-1 font-mono text-xs tracking-wider uppercase font-semibold">
               {{ job.organisation }}
             </p>
             <p class="text-muted-foreground mt-3 max-w-2xl text-sm leading-relaxed sm:text-base">

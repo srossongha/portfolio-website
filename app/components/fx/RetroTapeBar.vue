@@ -86,17 +86,17 @@ onUnmounted(() => {
 
     <span class="text-border">|</span>
 
-    <!-- Bouncing LED VU Meter -->
-    <div class="flex items-end gap-0.5 h-3 px-0.5" title="Analog VU Level" aria-hidden="true">
-      <span class="w-1 bg-emerald-500 rounded-xs animate-vu [animation-delay:0.1s]" />
-      <span class="w-1 bg-emerald-400 rounded-xs animate-vu [animation-delay:0.35s]" />
-      <span class="w-1 bg-amber-400 rounded-xs animate-vu [animation-delay:0.2s]" />
-      <span class="w-1 bg-red-500 rounded-xs animate-vu [animation-delay:0.5s]" />
+    <!-- Bouncing LED VU Meter (Cyan & Indigo gradient) -->
+    <div class="flex items-end gap-0.5 h-3 px-0.5" title="VU Level" aria-hidden="true">
+      <span class="w-1 bg-cyan-500 rounded-xs animate-vu [animation-delay:0.1s]" />
+      <span class="w-1 bg-cyan-400 rounded-xs animate-vu [animation-delay:0.35s]" />
+      <span class="w-1 bg-sky-400 rounded-xs animate-vu [animation-delay:0.2s]" />
+      <span class="w-1 bg-indigo-500 rounded-xs animate-vu [animation-delay:0.5s]" />
     </div>
 
-    <!-- Catalog stamp -->
+    <!-- Telemetry stamp -->
     <span class="text-muted-foreground hidden text-[10px] tracking-wider uppercase sm:inline">
-      SPECIMEN ARCHIVE
+      TELEMETRY // LIVE
     </span>
   </div>
 </template>

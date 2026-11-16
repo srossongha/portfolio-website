@@ -104,27 +104,21 @@ useGsapContext(root, () => {
           }"
         >
           <div
-            class="relative overflow-hidden rounded-2xl border border-border/80 bg-card/85 p-8 shadow-[4px_4px_0_0_color-mix(in_oklch,var(--foreground)_14%,transparent)] backdrop-blur-md transition-all duration-300 sm:p-12 lg:p-16"
+            class="relative overflow-hidden rounded-2xl border border-border/80 bg-card/85 p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.15)] sm:p-12 lg:p-16"
           >
-            <!-- Washi tape tab on top corner -->
-            <div
-              class="washi-tape top-2.5 right-6 w-20 rotate-[2deg] opacity-80"
-              aria-hidden="true"
-            />
-
             <!-- Halftone dots texture -->
             <div class="bg-retro-dots pointer-events-none absolute inset-0 opacity-20" aria-hidden="true" />
 
-            <!-- Botanical emerald accent hairline along the top edge of each card -->
+            <!-- Electric cyan & royal indigo accent hairline along the top edge of each card -->
             <div
               class="absolute inset-x-0 top-0 h-1"
-              style="background: linear-gradient(90deg, var(--brand-sprout), var(--brand), transparent)"
+              style="background: linear-gradient(90deg, #38bdf8, #6366f1, transparent)"
               aria-hidden="true"
             />
 
             <div class="relative grid gap-8 lg:grid-cols-12 lg:gap-16">
               <div class="lg:col-span-4">
-                <div class="inline-flex items-center gap-2 rounded-sm border border-border/80 bg-muted/60 px-2.5 py-0.5 font-mono text-[11px] tracking-[0.25em] text-brand-ink uppercase">
+                <div class="inline-flex items-center gap-2 rounded-sm border border-cyan-500/30 bg-cyan-950/30 px-2.5 py-0.5 font-mono text-[11px] tracking-[0.25em] text-cyan-300 uppercase">
                   <span>LOG // PHASE {{ step.n }}</span>
                 </div>
                 <!-- Mobile-first typography -->
@@ -139,10 +133,10 @@ useGsapContext(root, () => {
                 </p>
                 <div class="border-border/60 mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-dashed pt-4 font-mono text-[11px] tracking-[0.18em] uppercase text-muted-foreground">
                   <span class="flex items-center gap-2">
-                    <span class="size-1.5 rounded-full bg-brand-sprout" />
+                    <span class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
                     {{ step.detail }}
                   </span>
-                  <span class="text-xs text-brand-ink/75 font-mono">CONFIDENTIAL // VERIFIED</span>
+                  <span class="text-xs text-cyan-400/80 font-mono">CONFIDENTIAL // VERIFIED</span>
                 </div>
               </div>
             </div>

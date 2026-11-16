@@ -61,7 +61,7 @@ function onNavClick(event: MouseEvent, to: string) {
   if (useRoute().path !== '/') return // not on the home page — let it navigate
   event.preventDefault()
   mobileOpen.value = false
-  handleAnchor(to, -90)
+  handleAnchor(to, 0)
 }
 
 // Lock background scrolling while the mobile menu is open, or the page slides
@@ -97,8 +97,8 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
           aria-label="Home"
         >
           <span class="relative flex size-7 items-center justify-center">
-            <span class="border-brand/40 absolute inset-0 rounded-full border transition-transform duration-700 group-hover:rotate-180" />
-            <span class="bg-brand size-1.5 rounded-full" />
+            <span class="border-cyan-400/40 absolute inset-0 rounded-full border transition-transform duration-700 group-hover:rotate-180" />
+            <span class="bg-cyan-400 size-1.5 rounded-full shadow-[0_0_6px_#38bdf8]" />
           </span>
           <span class="font-serif text-lg leading-none tracking-tight">
             {{ profile.name }}
@@ -114,7 +114,7 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
                 class="relative block px-3 py-2 text-sm transition-colors"
                 :class="
                   activeSection === link.section
-                    ? 'text-foreground'
+                    ? 'text-cyan-400 dark:text-cyan-300 font-medium'
                     : 'text-muted-foreground hover:text-foreground'
                 "
                 @click="onNavClick($event, link.to)"
@@ -123,7 +123,7 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
                 <!-- Active underline. Scaling from 0 rather than toggling
                      visibility lets it animate in and out. -->
                 <span
-                  class="bg-brand absolute inset-x-3 -bottom-px h-px origin-left transition-transform duration-400"
+                  class="bg-gradient-to-r from-cyan-400 to-indigo-500 absolute inset-x-3 -bottom-px h-0.5 origin-left transition-transform duration-400 shadow-[0_0_8px_#38bdf8]"
                   :class="activeSection === link.section ? 'scale-x-100' : 'scale-x-0'"
                 />
               </NuxtLink>
