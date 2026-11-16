@@ -148,12 +148,12 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 12px);
 
-  /* Typography: Modern Design Engineering Nerd Font Stack */
+  /* Typography: Authentic Developer Nerd Font Stack (macOS SF Mono / JetBrains Mono) */
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-serif: 'Space Grotesk', 'Syne', -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Menlo', 'Monaco', 'Consolas', ui-monospace, monospace;
-  --font-pixel: 'JetBrains Mono', 'Fira Code', 'SF Mono', ui-monospace, monospace;
-  --font-crt: 'JetBrains Mono', 'Fira Code', 'SF Mono', ui-monospace, monospace;
+  --font-mono: ui-monospace, 'SF Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'JetBrains Mono', 'Fira Code', 'Liberation Mono', monospace;
+  --font-pixel: ui-monospace, 'SF Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'JetBrains Mono', 'Fira Code', monospace;
+  --font-crt: ui-monospace, 'SF Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Custom easing curves */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -313,6 +313,20 @@
        slightly off-screen (we do that a lot in the skewed marquee sections). */
     overflow-x: clip;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Developer Nerd Font: slashed zeros, tabular figures, and crisp terminal rendering */
+  code,
+  kbd,
+  samp,
+  pre,
+  .font-mono,
+  [class*="font-mono"] {
+    font-family: var(--font-mono);
+    font-feature-settings: 'zero' 1, 'ss01' 1, 'cv01' 1, 'tnum' 1;
+    font-variant-numeric: slashed-zero tabular-nums;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Nicer default heading rhythm. */

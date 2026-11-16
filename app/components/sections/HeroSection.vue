@@ -295,6 +295,7 @@ onUnmounted(() => {
             <div class="flex items-center gap-2 text-slate-300 overflow-hidden">
               <span class="text-cyan-400 font-bold select-none">$</span>
               <span class="text-cyan-200 font-semibold truncate">npx songha</span>
+              <span class="crt-cursor text-cyan-400 font-bold select-none text-[11px]">█</span>
               <span class="text-muted-foreground text-[11px] hidden sm:inline"
                 >// Launch interactive engineer CLI</span
               >

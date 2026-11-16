@@ -21,13 +21,33 @@ interface TerminalLine {
   link?: string
 }
 
+function getLoginBanner() {
+  const now = new Date()
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  const day = days[now.getDay()]
+  const month = months[now.getMonth()]
+  const date = String(now.getDate())
+  const hours = String(now.getHours()).padStart(2, '0')
+  const mins = String(now.getMinutes()).padStart(2, '0')
+  const secs = String(now.getSeconds()).padStart(2, '0')
+  return `Last login: ${day} ${month} ${date} ${hours}:${mins}:${secs} on console`
+}
+
 const lines = ref<TerminalLine[]>([
+  { type: 'system', text: 'Last login: Sat Nov 14 23:19:02 on console' },
   { type: 'system', text: '┌──────────────────────────────────────────────────────────────┐' },
   { type: 'system', text: '│ SROS SONGHA — SOFTWARE ENGINEER INTERACTIVE SHELL            │' },
   { type: 'system', text: '│ Institute of Technology of Cambodia (ITC) · Phnom Penh       │' },
   { type: 'system', text: '│ Session active. Type "help" or select a chip to explore.     │' },
   { type: 'system', text: '└──────────────────────────────────────────────────────────────┘' },
 ])
+
+onMounted(() => {
+  if (lines.value[0]?.text.startsWith('Last login:')) {
+    lines.value[0].text = getLoginBanner()
+  }
+})
 
 const currentInput = ref('')
 const history = ref<string[]>([])
