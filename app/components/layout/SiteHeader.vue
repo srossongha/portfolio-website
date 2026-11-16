@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Menu, Search, Terminal, X } from '@lucide/vue'
-import { navLinks, profile } from '~/data/site'
+import { Menu, Search, Terminal, X } from "@lucide/vue";
+import { navLinks, profile } from "~/data/site";
 
 /**
  * Fixed header that turns into a frosted glass bar once you scroll, and hides
@@ -11,15 +11,15 @@ import { navLinks, profile } from '~/data/site'
  * annoying to get back. Reacting to scroll *direction* gives you both.
  */
 
-const { progress, direction } = useScrollProgress()
-const { handleAnchor, stop, start } = useSmoothScroll()
+const { progress, direction } = useScrollProgress();
+const { handleAnchor, stop, start } = useSmoothScroll();
 
-const mobileOpen = ref(false)
-const paletteOpen = ref(false)
-const terminal = useTerminal()
+const mobileOpen = ref(false);
+const paletteOpen = ref(false);
+const terminal = useTerminal();
 
 /** Past the first 6% of the page we switch from transparent to glass. */
-const isScrolled = computed(() => progress.value > 0.02)
+const isScrolled = computed(() => progress.value > 0.02);
 
 /**
  * Hide when scrolling down, but only once we are well past the hero — hiding
@@ -27,50 +27,53 @@ const isScrolled = computed(() => progress.value > 0.02)
  */
 const isHidden = computed(
   () => direction.value === 1 && progress.value > 0.08 && !mobileOpen.value,
-)
+);
 
 /** Which nav item is currently in view, for the active underline. */
-const activeSection = ref('')
+const activeSection = ref("");
 
 onMounted(() => {
   // One IntersectionObserver watching all the sections is far cheaper than a
   // scroll handler measuring each one on every frame.
   const sections = navLinks
     .map((l) => document.getElementById(l.section))
-    .filter(Boolean) as HTMLElement[]
+    .filter(Boolean) as HTMLElement[];
 
-  if (!sections.length) return
+  if (!sections.length) return;
 
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        if (entry.isIntersecting) activeSection.value = entry.target.id
+        if (entry.isIntersecting) activeSection.value = entry.target.id;
       }
     },
     // A band across the middle of the screen: a section counts as "active"
     // only while it occupies the centre, not the moment its top edge appears.
-    { rootMargin: '-45% 0px -45% 0px', threshold: 0 },
-  )
+    { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
+  );
 
-  sections.forEach((s) => observer.observe(s))
-  onUnmounted(() => observer.disconnect())
-})
+  sections.forEach((s) => observer.observe(s));
+  onUnmounted(() => observer.disconnect());
+});
 
 /** Anchor links need intercepting so Lenis handles the scroll, not the browser. */
 function onNavClick(event: MouseEvent, to: string) {
-  if (!to.includes('#')) return // a real route — let Nuxt handle it
-  if (useRoute().path !== '/') return // not on the home page — let it navigate
-  event.preventDefault()
-  mobileOpen.value = false
-  handleAnchor(to, 0)
+  if (!to.includes("#")) return; // a real route — let Nuxt handle it
+  if (useRoute().path !== "/") return; // not on the home page — let it navigate
+  event.preventDefault();
+  mobileOpen.value = false;
+  handleAnchor(to, 0);
 }
 
 // Lock background scrolling while the mobile menu is open, or the page slides
 // around underneath the overlay.
-watch(mobileOpen, (isOpen) => (isOpen ? stop() : start()))
+watch(mobileOpen, (isOpen) => (isOpen ? stop() : start()));
 
 // Close the menu on route change, otherwise it stays open over the new page.
-watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
+watch(
+  () => useRoute().fullPath,
+  () => (mobileOpen.value = false),
+);
 </script>
 
 <template>
@@ -98,8 +101,12 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
           aria-label="Home"
         >
           <span class="relative flex size-7 items-center justify-center">
-            <span class="border-cyan-400/40 absolute inset-0 rounded-full border transition-transform duration-700 group-hover:rotate-180" />
-            <span class="bg-cyan-400 size-1.5 rounded-full shadow-[0_0_6px_#38bdf8]" />
+            <span
+              class="border-cyan-400/40 absolute inset-0 rounded-full border transition-transform duration-700 group-hover:rotate-180"
+            />
+            <span
+              class="bg-cyan-400 size-1.5 rounded-full shadow-[0_0_6px_#38bdf8]"
+            />
           </span>
           <span class="font-serif text-lg leading-none tracking-tight">
             {{ profile.name }}
@@ -125,7 +132,9 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
                      visibility lets it animate in and out. -->
                 <span
                   class="bg-gradient-to-r from-cyan-400 to-indigo-500 absolute inset-x-3 -bottom-px h-0.5 origin-left transition-transform duration-400 shadow-[0_0_8px_#38bdf8]"
-                  :class="activeSection === link.section ? 'scale-x-100' : 'scale-x-0'"
+                  :class="
+                    activeSection === link.section ? 'scale-x-100' : 'scale-x-0'
+                  "
                 />
               </NuxtLink>
             </MagneticWrap>
@@ -158,7 +167,9 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
             @click="paletteOpen = true"
           >
             <Search class="size-3.5" />
-            <kbd class="border-cyan-500/30 bg-cyan-950/40 rounded border px-1.5 py-0.5 font-pixel text-[9px] text-cyan-300">
+            <kbd
+              class="border-cyan-500/30 bg-cyan-950/40 rounded border px-1.5 py-0.5 font-pixel text-[9px] text-cyan-300"
+            >
               ⌘K
             </kbd>
           </Button>
@@ -224,13 +235,19 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
           class="bg-background/98 fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto overscroll-contain border-t border-cyan-500/20 backdrop-blur-2xl md:hidden flex flex-col justify-between"
         >
           <!-- Scanline effect in mobile drawer -->
-          <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-25" />
+          <div
+            class="bg-scanlines pointer-events-none absolute inset-0 opacity-25"
+          />
 
           <div>
             <!-- Terminal Drawer Status Bar -->
-            <div class="flex items-center justify-between border-b border-cyan-500/20 px-6 py-3 font-pixel text-[9px] text-cyan-400 bg-cyan-950/30">
+            <div
+              class="flex items-center justify-between border-b border-cyan-500/20 px-6 py-3 font-pixel text-[9px] text-cyan-400 bg-cyan-950/30"
+            >
               <span class="flex items-center gap-1.5">
-                <span class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
+                <span
+                  class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]"
+                />
                 [ MOBILE_SYS // VT100_CONSOLE ]
               </span>
               <span class="text-cyan-300">ONLINE_</span>
@@ -245,7 +262,11 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
                 <NuxtLink
                   :to="link.to"
                   class="flex items-baseline gap-4 py-4 font-serif text-3xl tracking-tight transition-colors"
-                  :class="activeSection === link.section ? 'text-cyan-400 font-medium' : 'text-foreground hover:text-cyan-300'"
+                  :class="
+                    activeSection === link.section
+                      ? 'text-cyan-400 font-medium'
+                      : 'text-foreground hover:text-cyan-300'
+                  "
                   @click="onNavClick($event, link.to)"
                 >
                   <span class="text-cyan-400 font-pixel text-[10px]">
@@ -258,12 +279,18 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
           </div>
 
           <!-- Bottom CTA & Hardware Telemetry -->
-          <div class="gutter pb-safe flex flex-col gap-3 pt-4" style="--pb-safe: 2.5rem">
+          <div
+            class="gutter pb-safe flex flex-col gap-3 pt-4"
+            style="--pb-safe: 2.5rem"
+          >
             <Button
               variant="outline"
               size="pill"
               class="w-full font-pixel text-xs tracking-wider uppercase border-cyan-400/50 bg-cyan-950/40 text-cyan-300 shadow-[0_0_15px_rgba(56,189,248,0.25)] flex items-center justify-center gap-2"
-              @click="mobileOpen = false; terminal.open()"
+              @click="
+                mobileOpen = false;
+                terminal.open();
+              "
             >
               <Terminal class="size-3.5 text-cyan-400" />
               <span>&gt;_ LAUNCH PET-2001 CLI</span>
@@ -278,7 +305,9 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
             >
               [ DISPATCH MESSAGE ]
             </Button>
-            <p class="text-center font-pixel text-[9px] text-muted-foreground/80 mt-1">
+            <p
+              class="text-center font-pixel text-[9px] text-muted-foreground/80 mt-1"
+            >
               PHNOM_PENH · UTC+7 · MOS_6502
             </p>
           </div>

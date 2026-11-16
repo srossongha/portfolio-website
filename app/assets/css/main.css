@@ -149,10 +149,10 @@
   --radius-2xl: calc(var(--radius) + 12px);
 
   /* Typography: font-sans / font-serif / font-mono / font-pixel / font-crt */
-  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-serif: 'Fraunces', 'Instrument Serif', Georgia, serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', monospace;
-  --font-pixel: 'Silkscreen', 'Geist Mono', monospace;
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: 'Space Grotesk', 'Syne', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+  --font-pixel: 'Pixelify Sans', 'Space Mono', monospace;
   --font-crt: 'VT323', monospace;
 
   /* Custom easing curves */
