@@ -76,7 +76,12 @@ onUnmounted(() => {
     <!-- Live Cambodia UTC+7 Clock -->
     <div class="flex items-center gap-1 text-foreground/90">
       <span class="text-muted-foreground text-[10px]">KH</span>
-      <span class="tabular-nums font-medium tracking-wider">{{ timeString || '17:00:00' }}</span>
+      <ClientOnly>
+        <span class="tabular-nums font-medium tracking-wider">{{ timeString }}</span>
+        <template #fallback>
+          <span class="tabular-nums font-medium tracking-wider text-muted-foreground">--:--:--</span>
+        </template>
+      </ClientOnly>
     </div>
 
     <span class="text-border">|</span>

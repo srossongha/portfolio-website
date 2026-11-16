@@ -15,7 +15,10 @@ import { projects } from '~/data/site'
  */
 
 const route = useRoute()
-const slug = computed(() => route.params.slug as string)
+const slug = computed(() => {
+  const s = route.params.slug
+  return (Array.isArray(s) ? s[0] : s) || ''
+})
 
 const project = computed(() => projects.find((p) => p.slug === slug.value))
 

@@ -63,6 +63,8 @@ const onMouseLeave = () => {
 }
 
 let tick = 0
+let logicalWidth = 0
+let logicalHeight = 0
 
 const render = () => {
   const canvas = canvasRef.value
@@ -70,10 +72,7 @@ const render = () => {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
 
-  const width = canvas.width
-  const height = canvas.height
-
-  ctx.clearRect(0, 0, width, height)
+  ctx.clearRect(0, 0, logicalWidth, logicalHeight)
   tick++
 
   for (let i = 0; i < particles.length; i++) {
@@ -96,11 +95,11 @@ const render = () => {
       }
     }
 
-    // Wrap boundaries smoothly
-    if (p.x < -20) p.x = width + 20
-    if (p.x > width + 20) p.x = -20
-    if (p.y < -20) p.y = height + 20
-    if (p.y > height + 20) p.y = -20
+    // Wrap boundaries smoothly across logical viewport
+    if (p.x < -20) p.x = logicalWidth + 20
+    if (p.x > logicalWidth + 20) p.x = -20
+    if (p.y < -20) p.y = logicalHeight + 20
+    if (p.y > logicalHeight + 20) p.y = -20
 
     // Bioluminescent glow pulsation
     const pulse = Math.sin(tick * p.pulseSpeed + p.pulseOffset)
@@ -142,12 +141,15 @@ const resizeCanvas = () => {
   const dpr = Math.min(window.devicePixelRatio || 1, 2)
   const rect = canvas.parentElement.getBoundingClientRect()
 
-  canvas.width = rect.width * dpr
-  canvas.height = rect.height * dpr
-  const ctx = canvas.getContext('2d')
-  if (ctx) ctx.scale(dpr, dpr)
+  logicalWidth = rect.width
+  logicalHeight = rect.height
 
-  initParticles(rect.width, rect.height)
+  canvas.width = Math.round(rect.width * dpr)
+  canvas.height = Math.round(rect.height * dpr)
+  const ctx = canvas.getContext('2d')
+  if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+
+  initParticles(logicalWidth, logicalHeight)
 }
 
 onMounted(() => {

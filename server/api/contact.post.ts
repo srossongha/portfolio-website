@@ -124,33 +124,35 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  /* --- Delivery ----------------------------------------------------------
-     Right now: logged to the terminal running `npm run dev`. Submit the form
-     and you will see it appear there — proof the round-trip works end to end. */
+  /* --- Delivery ---------------------------------------------------------- */
   const config = useRuntimeConfig(event);
 
-  try {
-    await $fetch(
-      `https://api.telegram.org/bot${config.telegramBotToken}/sendMessage`,
-      {
-        method: "POST",
-        body: {
-          chat_id: config.telegramChatId || 1481815475,
-          text: `📬 New portfolio message
+  if (config.telegramBotToken) {
+    try {
+      await $fetch(
+        `https://api.telegram.org/bot${config.telegramBotToken}/sendMessage`,
+        {
+          method: "POST",
+          body: {
+            chat_id: config.telegramChatId || 1481815475,
+            text: `📬 New portfolio message
 
 Name: ${name}
 Email: ${email}
 
 ${message}`,
+          },
         },
-      },
-    );
-  } catch (err) {
-    console.error("[contact] telegram failed", err);
-    throw createError({
-      statusCode: 502,
-      statusMessage: "Could not send your message. Please try again.",
-    });
+      );
+    } catch (err) {
+      console.error("[contact] telegram delivery failed", err);
+      throw createError({
+        statusCode: 502,
+        statusMessage: "Could not send your message. Please try again or email directly.",
+      });
+    }
+  } else {
+    console.log(`[contact] Dev mode (Telegram token not configured):\nFrom: ${name} <${email}>\n${message}`);
   }
   /* TO SEND REAL EMAIL
      1. Pick a provider (Resend, Postmark, SendGrid) and get an API key.

@@ -361,6 +361,18 @@ const LANDMARK_CONFIGS = [
 let animFrameId: number | null = null
 let resizeObserver: ResizeObserver | null = null
 let intersectionObserver: IntersectionObserver | null = null
+let activeLandmarks: TextLandmark[] = []
+const timerIds: ReturnType<typeof setTimeout>[] = []
+
+onUnmounted(() => {
+  if (animFrameId) cancelAnimationFrame(animFrameId)
+  resizeObserver?.disconnect()
+  intersectionObserver?.disconnect()
+  timerIds.forEach((id) => clearTimeout(id))
+  activeLandmarks.forEach((lm) => {
+    lm.elements.forEach((el) => el.classList.remove(lm.highlightClass))
+  })
+})
 
 onMounted(() => {
   if (reduced.value) return
@@ -388,7 +400,7 @@ onMounted(() => {
   }
 
   let textWords: TextWordTarget[] = []
-  let landmarks: TextLandmark[] = []
+  let landmarks = activeLandmarks
   let waypoints: Waypoint[] = []
   let currentWaypointIndex = 0
 
@@ -576,9 +588,11 @@ onMounted(() => {
     }
   }
 
-  setTimeout(refreshLandmarks, 150)
-  setTimeout(refreshLandmarks, 600)
-  setTimeout(refreshLandmarks, 1500)
+  timerIds.push(
+    setTimeout(refreshLandmarks, 150),
+    setTimeout(refreshLandmarks, 600),
+    setTimeout(refreshLandmarks, 1500),
+  )
 
   // ---------------------------------------------------------------------------
   // Spider Physics & Kinematic State
@@ -1293,15 +1307,6 @@ onMounted(() => {
   }
 
   animFrameId = requestAnimationFrame(loop)
-
-  onUnmounted(() => {
-    if (animFrameId) cancelAnimationFrame(animFrameId)
-    resizeObserver?.disconnect()
-    intersectionObserver?.disconnect()
-    landmarks.forEach((lm) => {
-      lm.elements.forEach((el) => el.classList.remove(lm.highlightClass))
-    })
-  })
 })
 
 function togglePause() {

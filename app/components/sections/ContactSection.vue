@@ -80,10 +80,13 @@ async function onSubmit() {
     form.email = "";
     form.message = "";
   } catch (error) {
-    // `$fetch` throws on any non-2xx response. The server puts a readable
-    // reason in `statusMessage`, so surface that rather than a generic failure.
+    // `$fetch` throws on any non-2xx response. Extract statusMessage from
+    // the ofetch error payload or fallback cleanly.
+    const errObj = error as { data?: { statusMessage?: string; message?: string }; statusMessage?: string; message?: string }
     const message =
-      (error as { statusMessage?: string })?.statusMessage ??
+      errObj?.data?.statusMessage ||
+      errObj?.statusMessage ||
+      errObj?.data?.message ||
       "Something went wrong. Email me directly instead?";
     toast.error(message);
   } finally {

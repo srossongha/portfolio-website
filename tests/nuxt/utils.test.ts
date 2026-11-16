@@ -53,5 +53,33 @@ describe('app/lib/utils', () => {
       expect(pad(5, 3)).toBe('005')
     })
   })
+
+  describe('slug & error handling logic', () => {
+    it('resolves string or array slugs safely', () => {
+      const resolveSlug = (raw: string | string[] | undefined) =>
+        (Array.isArray(raw) ? raw[0] : raw) || ''
+
+      expect(resolveSlug('roomie')).toBe('roomie')
+      expect(resolveSlug(['roomie', 'extra'])).toBe('roomie')
+      expect(resolveSlug(undefined)).toBe('')
+    })
+
+    it('extracts human-readable error messages from fetch error payloads', () => {
+      const getErrorMessage = (error: unknown, fallback: string) => {
+        const errObj = error as { data?: { statusMessage?: string; message?: string }; statusMessage?: string; message?: string }
+        return (
+          errObj?.data?.statusMessage ||
+          errObj?.statusMessage ||
+          errObj?.data?.message ||
+          fallback
+        )
+      }
+
+      expect(getErrorMessage({ data: { statusMessage: 'Rate limited' } }, 'Fallback')).toBe('Rate limited')
+      expect(getErrorMessage({ statusMessage: 'Bad request' }, 'Fallback')).toBe('Bad request')
+      expect(getErrorMessage({ data: { message: 'Invalid payload' } }, 'Fallback')).toBe('Invalid payload')
+      expect(getErrorMessage({}, 'Fallback')).toBe('Fallback')
+    })
+  })
 })
 

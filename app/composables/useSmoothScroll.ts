@@ -30,9 +30,11 @@ export function useSmoothScroll() {
     const instance = lenis()
     if (!instance) {
       // Graceful fallback if Lenis failed to start (or during SSR).
-      if (typeof target === 'number') window?.scrollTo({ top: target })
-      else if (typeof target === 'string')
-        document?.querySelector(target)?.scrollIntoView({ behavior: 'smooth' })
+      if (typeof window !== 'undefined') {
+        if (typeof target === 'number') window.scrollTo({ top: target })
+        else if (typeof target === 'string')
+          document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' })
+      }
       return
     }
     instance.scrollTo(target, { offset, immediate, duration })

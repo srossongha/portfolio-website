@@ -28,9 +28,16 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const el = ref<HTMLElement | null>(null)
-const display = ref(0)
+// Initialize to props.value on server so search engines / initial HTML index the real numbers
+const display = ref(import.meta.server ? props.value : 0)
 const reduced = useReducedMotion()
 let hasRun = false
+
+onMounted(() => {
+  if (!reduced.value) {
+    display.value = 0
+  }
+})
 
 const { stop } = useIntersectionObserver(
   el,
