@@ -67,13 +67,33 @@ function copyCliCommand() {
 
 // Lottie Animation Engine State & Browser File Loader
 const lottiePresets = [
-  { id: 'ai-quantum-core', name: 'AI Core', src: '/animations/ai-quantum-core.lottie', badge: '1.2 KB' },
-  { id: 'retro-gameboy', name: 'GameBoy', src: '/animations/retro-gameboy.lottie', badge: '1.6 KB' },
-  { id: 'code-spark', name: 'Code Spark', src: '/animations/code-spark.lottie', badge: '0.8 KB' },
-  { id: 'game-trophy', name: 'Trophy', src: '/animations/game-trophy.lottie', badge: '0.7 KB' },
+  {
+    id: "ai-quantum-core",
+    name: "AI Core",
+    src: "/animations/ai-quantum-core.lottie",
+    badge: "1.2 KB",
+  },
+  {
+    id: "retro-gameboy",
+    name: "GameBoy",
+    src: "/animations/retro-gameboy.lottie",
+    badge: "1.6 KB",
+  },
+  {
+    id: "code-spark",
+    name: "Code Spark",
+    src: "/animations/code-spark.lottie",
+    badge: "0.8 KB",
+  },
+  {
+    id: "game-trophy",
+    name: "Trophy",
+    src: "/animations/game-trophy.lottie",
+    badge: "0.7 KB",
+  },
 ];
 
-const activeLottieSrc = ref('/animations/ai-quantum-core.lottie');
+const activeLottieSrc = ref("/animations/ai-quantum-core.lottie");
 const userLottieFile = ref<File | null>(null);
 const userFileName = ref<string | null>(null);
 const userFileSize = ref<string | null>(null);
@@ -95,19 +115,19 @@ function handleLottieFileSelect(event: Event) {
   const file = target.files?.[0];
   if (!file) return;
 
-  if (!file.name.endsWith('.lottie') && !file.name.endsWith('.json')) {
-    toast.error('Invalid animation format', {
-      description: 'Please select a valid .lottie or .json file.',
+  if (!file.name.endsWith(".lottie") && !file.name.endsWith(".json")) {
+    toast.error("Invalid animation format", {
+      description: "Please select a valid .lottie or .json file.",
     });
     return;
   }
 
   userLottieFile.value = file;
   userFileName.value = file.name;
-  userFileSize.value = (file.size / 1024).toFixed(1) + ' KB';
-  activeLottieSrc.value = '';
+  userFileSize.value = (file.size / 1024).toFixed(1) + " KB";
+  activeLottieSrc.value = "";
 
-  toast.success('Lottie file imported into browser!', {
+  toast.success("Lottie file imported into browser!", {
     description: `Loaded ${file.name} (${userFileSize.value}) via browser memory.`,
   });
 }
@@ -117,19 +137,19 @@ function handleLottieDrop(e: DragEvent) {
   const file = e.dataTransfer?.files?.[0];
   if (!file) return;
 
-  if (!file.name.endsWith('.lottie') && !file.name.endsWith('.json')) {
-    toast.error('Invalid animation format', {
-      description: 'Please drop a .lottie or .json file.',
+  if (!file.name.endsWith(".lottie") && !file.name.endsWith(".json")) {
+    toast.error("Invalid animation format", {
+      description: "Please drop a .lottie or .json file.",
     });
     return;
   }
 
   userLottieFile.value = file;
   userFileName.value = file.name;
-  userFileSize.value = (file.size / 1024).toFixed(1) + ' KB';
-  activeLottieSrc.value = '';
+  userFileSize.value = (file.size / 1024).toFixed(1) + " KB";
+  activeLottieSrc.value = "";
 
-  toast.success('Lottie file dropped into browser!', {
+  toast.success("Lottie file dropped into browser!", {
     description: `Loaded ${file.name} (${userFileSize.value}) via browser memory.`,
   });
 }
@@ -284,8 +304,9 @@ onUnmounted(() => {
             class="hero-anim hero-bio-text text-muted-foreground mt-4 text-base sm:text-lg leading-relaxed max-w-2xl"
           >
             Computer Science student at the Institute of Technology of Cambodia
-            (ITC). I build production web applications, edge serverless architectures,
-            and responsive interfaces with Vue, Nuxt, React, and TypeScript.
+            (ITC). I build production web applications, edge serverless
+            architectures, and responsive interfaces with Vue, Nuxt, React, and
+            TypeScript.
           </p>
 
           <!-- Quick CLI Terminal Command Bar ($ npx songha) -->
@@ -294,7 +315,9 @@ onUnmounted(() => {
           >
             <div class="flex items-center gap-2 text-slate-300 overflow-hidden">
               <span class="text-cyan-400 font-bold select-none">$</span>
-              <span class="text-cyan-200 font-semibold truncate">npx songha</span>
+              <span class="text-cyan-200 font-semibold truncate"
+                >npx songha</span
+              >
               <span class="crt-cursor text-cyan-400 font-bold select-none text-[11px]">█</span>
               <span class="text-muted-foreground text-[11px] hidden sm:inline"
                 >// Launch interactive engineer CLI</span
@@ -305,7 +328,10 @@ onUnmounted(() => {
               class="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-cyan-500/30 bg-cyan-950/60 px-2.5 py-1 text-[11px] font-medium text-cyan-300 hover:text-white hover:bg-cyan-900/60 transition-colors cursor-pointer"
               @click="copyCliCommand"
             >
-              <component :is="copied ? Check : Copy" class="size-3 text-cyan-400" />
+              <component
+                :is="copied ? Check : Copy"
+                class="size-3 text-cyan-400"
+              />
               <span>{{ copied ? "Copied" : "Copy" }}</span>
             </button>
           </div>
@@ -420,13 +446,17 @@ onUnmounted(() => {
                 <span class="size-2.5 rounded-full bg-amber-500/80" />
                 <span class="size-2.5 rounded-full bg-emerald-500/80" />
               </div>
-              <span class="font-mono text-xs text-cyan-300 font-medium truncate max-w-[130px] sm:max-w-none">
+              <span
+                class="font-mono text-xs text-cyan-300 font-medium truncate max-w-[130px] sm:max-w-none"
+              >
                 songha@workstation: ~
               </span>
             </div>
 
             <!-- Mode Selector Tabs -->
-            <div class="flex items-center gap-1 font-mono text-xs overflow-x-auto no-scrollbar">
+            <div
+              class="flex items-center gap-1 font-mono text-xs overflow-x-auto no-scrollbar"
+            >
               <button
                 type="button"
                 class="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 transition-all text-xs"
@@ -504,243 +534,278 @@ onUnmounted(() => {
             </div>
           </div>
 
-        <!-- Interactive Screen Viewport -->
-        <div
-          class="relative min-h-[260px] bg-slate-950/80 p-4 sm:p-6 flex flex-col justify-center"
-        >
-          <!-- VIEWPORT 01: SONGHA BOY COLOR 8-BIT PLAYABLE GAME CONSOLE -->
-          <div v-show="activeDeck === 'game'" class="py-2">
-            <ClientOnly>
-              <RetroGameBoy />
-              <template #fallback>
-                <div class="h-64 flex items-center justify-center font-mono text-xs text-cyan-400">
-                  Booting Songha Boy Color...
-                </div>
-              </template>
-            </ClientOnly>
-          </div>
-
-          <!-- VIEWPORT 02: HIGH-PERFORMANCE DOTLOTTIE ANIMATION & BROWSER FILE LOADER -->
-          <div v-show="activeDeck === 'lottie'" class="flex flex-col items-center justify-center py-2">
-            <div class="flex items-center justify-between w-full font-mono text-xs text-cyan-400/80 mb-2.5 px-1">
-              <span class="flex items-center gap-2">
-                <span class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]" />
-                <span class="truncate">DotLottie Vector WASM Engine</span>
-              </span>
-              <span class="text-muted-foreground text-[11px] hidden sm:inline">
-                {{ userFileName ? `Custom File (${userFileSize})` : '60fps ThorVG · Sub-2KB' }}
-              </span>
+          <!-- Interactive Screen Viewport -->
+          <div
+            class="relative min-h-[260px] bg-slate-950/80 p-4 sm:p-6 flex flex-col justify-center"
+          >
+            <!-- VIEWPORT 01: SONGHA BOY COLOR 8-BIT PLAYABLE GAME CONSOLE -->
+            <div v-show="activeDeck === 'game'" class="py-2">
+              <ClientOnly>
+                <RetroGameBoy />
+                <template #fallback>
+                  <div
+                    class="h-64 flex items-center justify-center font-mono text-xs text-cyan-400"
+                  >
+                    Booting Songha Boy Color...
+                  </div>
+                </template>
+              </ClientOnly>
             </div>
 
-            <!-- Animation Preset Bar + Browser File Upload Trigger -->
-            <div class="flex flex-wrap items-center justify-center gap-1.5 mb-3 w-full">
-              <button
-                v-for="preset in lottiePresets"
-                :key="preset.id"
-                type="button"
-                class="inline-flex items-center gap-1 rounded-md px-2 py-1 font-mono text-[11px] transition-all"
-                :class="
-                  !userLottieFile && activeLottieSrc === preset.src
-                    ? 'border border-cyan-400/50 bg-cyan-950/80 text-cyan-200 shadow-[0_0_8px_rgba(56,189,248,0.25)]'
-                    : 'border border-cyan-500/15 bg-slate-900/60 text-slate-400 hover:text-cyan-300'
-                "
-                @click="selectLottiePreset(preset.src)"
-              >
-                <span>{{ preset.name }}</span>
-                <span class="text-[10px] text-cyan-500/70 font-semibold">({{ preset.badge }})</span>
-              </button>
-
-              <!-- Upload File from Browser Button -->
-              <button
-                type="button"
-                class="inline-flex items-center gap-1.5 rounded-md px-2 py-1 font-mono text-[11px] transition-all border"
-                :class="
-                  userLottieFile
-                    ? 'border-emerald-400/50 bg-emerald-950/80 text-emerald-200 shadow-[0_0_8px_rgba(52,211,153,0.25)]'
-                    : 'border-cyan-500/30 bg-cyan-950/40 text-cyan-300 hover:bg-cyan-900/50 hover:text-white'
-                "
-                title="Select or drop any .lottie or .json animation from your computer"
-                @click="triggerLottieUpload"
-              >
-                <FileUp class="size-3" />
-                <span>{{ userFileName ? 'Change File' : 'Import File...' }}</span>
-              </button>
-
-              <input
-                ref="lottieFileInput"
-                type="file"
-                accept=".lottie,.json"
-                class="hidden"
-                @change="handleLottieFileSelect"
-              />
-            </div>
-
-            <!-- Custom File Loaded Indicator Strip -->
+            <!-- VIEWPORT 02: HIGH-PERFORMANCE DOTLOTTIE ANIMATION & BROWSER FILE LOADER -->
             <div
-              v-if="userFileName"
-              class="flex items-center gap-2 mb-2 px-3 py-1 rounded-lg border border-emerald-500/30 bg-emerald-950/40 text-emerald-300 font-mono text-xs"
+              v-show="activeDeck === 'lottie'"
+              class="flex flex-col items-center justify-center py-2"
             >
-              <Check class="size-3.5 text-emerald-400" />
-              <span class="truncate max-w-[200px] sm:max-w-xs">{{ userFileName }}</span>
-              <span class="text-emerald-500 text-[10px]">({{ userFileSize }})</span>
-              <button
-                type="button"
-                class="ml-1 text-[10px] text-muted-foreground hover:text-white underline"
-                @click="selectLottiePreset('/animations/ai-quantum-core.lottie')"
-              >
-                Reset
-              </button>
-            </div>
-
-            <!-- Interactive Dropzone / Player Canvas Container -->
-            <ClientOnly>
               <div
-                class="relative flex items-center justify-center rounded-2xl border border-cyan-500/25 bg-slate-900/40 p-4 transition-all duration-200 hover:border-cyan-400/40"
-                @dragover.prevent
-                @drop="handleLottieDrop"
+                class="flex items-center justify-between w-full font-mono text-xs text-cyan-400/80 mb-2.5 px-1"
               >
-                <DotLottiePlayer
-                  :src="activeLottieSrc"
-                  :file="userLottieFile"
-                  class="size-56 sm:size-64"
-                  :autoplay="true"
-                  :loop="true"
+                <span class="flex items-center gap-2">
+                  <span
+                    class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]"
+                  />
+                  <span class="truncate">DotLottie Vector WASM Engine</span>
+                </span>
+                <span
+                  class="text-muted-foreground text-[11px] hidden sm:inline"
+                >
+                  {{
+                    userFileName
+                      ? `Custom File (${userFileSize})`
+                      : "60fps ThorVG · Sub-2KB"
+                  }}
+                </span>
+              </div>
+
+              <!-- Animation Preset Bar + Browser File Upload Trigger -->
+              <div
+                class="flex flex-wrap items-center justify-center gap-1.5 mb-3 w-full"
+              >
+                <button
+                  v-for="preset in lottiePresets"
+                  :key="preset.id"
+                  type="button"
+                  class="inline-flex items-center gap-1 rounded-md px-2 py-1 font-mono text-[11px] transition-all"
+                  :class="
+                    !userLottieFile && activeLottieSrc === preset.src
+                      ? 'border border-cyan-400/50 bg-cyan-950/80 text-cyan-200 shadow-[0_0_8px_rgba(56,189,248,0.25)]'
+                      : 'border border-cyan-500/15 bg-slate-900/60 text-slate-400 hover:text-cyan-300'
+                  "
+                  @click="selectLottiePreset(preset.src)"
+                >
+                  <span>{{ preset.name }}</span>
+                  <span class="text-[10px] text-cyan-500/70 font-semibold"
+                    >({{ preset.badge }})</span
+                  >
+                </button>
+
+                <!-- Upload File from Browser Button -->
+                <button
+                  type="button"
+                  class="inline-flex items-center gap-1.5 rounded-md px-2 py-1 font-mono text-[11px] transition-all border"
+                  :class="
+                    userLottieFile
+                      ? 'border-emerald-400/50 bg-emerald-950/80 text-emerald-200 shadow-[0_0_8px_rgba(52,211,153,0.25)]'
+                      : 'border-cyan-500/30 bg-cyan-950/40 text-cyan-300 hover:bg-cyan-900/50 hover:text-white'
+                  "
+                  title="Select or drop any .lottie or .json animation from your computer"
+                  @click="triggerLottieUpload"
+                >
+                  <FileUp class="size-3" />
+                  <span>{{
+                    userFileName ? "Change File" : "Import File..."
+                  }}</span>
+                </button>
+
+                <input
+                  ref="lottieFileInput"
+                  type="file"
+                  accept=".lottie,.json"
+                  class="hidden"
+                  @change="handleLottieFileSelect"
                 />
               </div>
-              <template #fallback>
-                <div class="size-56 sm:size-64 flex items-center justify-center font-mono text-xs text-cyan-400">
-                  Loading dotLottie engine...
-                </div>
-              </template>
-            </ClientOnly>
 
-            <p class="mt-3 font-mono text-[11px] text-muted-foreground text-center max-w-md">
-              Drag & drop or pick any <code class="text-cyan-300">.lottie</code> or <code class="text-cyan-300">.json</code> file from your browser. Rendered client-side via WebAssembly ThorVG.
-            </p>
-          </div>
-
-          <!-- VIEWPORT 03: REAL TYPESCRIPT PROFILE SPEC -->
-          <div
-            v-show="activeDeck === 'code'"
-            class="font-mono text-xs sm:text-[13px] leading-relaxed text-slate-300 overflow-x-auto py-2"
-          >
-            <p>
-              <span class="text-cyan-400 font-semibold">export const</span>
-              <span class="text-sky-300">songha</span>:
-              <span class="text-indigo-300">SoftwareEngineer</span> = {
-            </p>
-            <p class="pl-4 sm:pl-6">
-              <span class="text-slate-400">name:</span>
-              <span class="text-cyan-200">'Sros Songha'</span>,
-            </p>
-            <p class="pl-4 sm:pl-6">
-              <span class="text-slate-400">role:</span>
-              <span class="text-cyan-200">'Software Engineer'</span>,
-            </p>
-            <p class="pl-4 sm:pl-6">
-              <span class="text-slate-400">currentStatus:</span>
-              <span class="text-cyan-200"
-                >'Front-end Developer Intern @ T.O Group &amp; EKYC
-                Solution'</span
-              >,
-            </p>
-            <p class="pl-4 sm:pl-6">
-              <span class="text-slate-400">education:</span>
-              <span class="text-cyan-200"
-                >'Computer Science @ Institute of Technology of Cambodia
-                (ITC)'</span
-              >,
-            </p>
-            <p class="pl-4 sm:pl-6">
-              <span class="text-slate-400">coreStack:</span> [<span
-                class="text-cyan-200"
-                >'Vue 3'</span
-              >, <span class="text-cyan-200">'Nuxt 4'</span>,
-              <span class="text-cyan-200">'React 19'</span>,
-              <span class="text-cyan-200">'Next.js'</span>,
-              <span class="text-cyan-200">'TypeScript'</span>,
-              <span class="text-cyan-200">'Tailwind CSS'</span>],
-            </p>
-            <p class="pl-4 sm:pl-6">
-              <span class="text-slate-400">infrastructure:</span> [<span
-                class="text-cyan-200"
-                >'Cloudflare Workers'</span
-              >, <span class="text-cyan-200">'Supabase'</span>,
-              <span class="text-cyan-200">'PostgreSQL'</span>,
-              <span class="text-cyan-200">'OpenNext'</span>],
-            </p>
-            <p class="pl-4 sm:pl-6">
-              <span class="text-slate-400">flagshipPlatform:</span>
-              <span class="text-cyan-200">'https://sroknh.com'</span>
-              <span class="text-slate-500">// Roomie (25 Provinces Mapped)</span
-              >,
-            </p>
-            <p class="pl-4 sm:pl-6">
-              <span class="text-slate-400">availability:</span>
-              <span class="text-emerald-400"
-                >'Open to full-time engineering roles &amp; high-impact
-                projects'</span
+              <!-- Custom File Loaded Indicator Strip -->
+              <div
+                v-if="userFileName"
+                class="flex items-center gap-2 mb-2 px-3 py-1 rounded-lg border border-emerald-500/30 bg-emerald-950/40 text-emerald-300 font-mono text-xs"
               >
-            </p>
-            <p>};</p>
-          </div>
-
-          <!-- VIEWPORT 02: 3D VECTOR CORE -->
-          <div v-show="activeDeck === '3d'" class="relative w-full">
-            <div
-              class="flex items-center justify-between font-mono text-xs text-cyan-400/80 mb-2"
-            >
-              <span class="flex items-center gap-2">
-                <span
-                  class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]"
-                />
-                Interactive 3D Geometry Core
-              </span>
-              <span class="text-muted-foreground text-[11px] hidden sm:inline"
-                >Drag to rotate viewport</span
-              >
-            </div>
-            <ClientOnly>
-              <RetroWireframe3D class="h-44 sm:h-52 w-full rounded-lg" />
-              <template #fallback>
-                <div
-                  class="h-44 sm:h-52 w-full flex items-center justify-center font-mono text-xs text-cyan-400"
+                <Check class="size-3.5 text-emerald-400" />
+                <span class="truncate max-w-[200px] sm:max-w-xs">{{
+                  userFileName
+                }}</span>
+                <span class="text-emerald-500 text-[10px]"
+                  >({{ userFileSize }})</span
                 >
-                  Initializing WebGL Core...
-                </div>
-              </template>
-            </ClientOnly>
-          </div>
-
-          <!-- VIEWPORT 03: OSCILLOSCOPE WAVE HARMONICS -->
-          <div v-show="activeDeck === 'wave'" class="relative w-full">
-            <div
-              class="flex items-center justify-between font-mono text-xs text-cyan-400/80 mb-2"
-            >
-              <span class="flex items-center gap-2">
-                <span
-                  class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]"
-                />
-                Realtime Signal Waveform
-              </span>
-              <span class="text-muted-foreground text-[11px] hidden sm:inline"
-                >Hover pointer to modulate harmonics</span
-              >
-            </div>
-            <ClientOnly>
-              <PhosphorWave class="h-40 sm:h-48 w-full rounded-lg" />
-              <template #fallback>
-                <div
-                  class="h-40 sm:h-48 w-full flex items-center justify-center font-mono text-xs text-cyan-400"
+                <button
+                  type="button"
+                  class="ml-1 text-[10px] text-muted-foreground hover:text-white underline"
+                  @click="
+                    selectLottiePreset('/animations/ai-quantum-core.lottie')
+                  "
                 >
-                  Calibrating Oscilloscope...
+                  Reset
+                </button>
+              </div>
+
+              <!-- Interactive Dropzone / Player Canvas Container -->
+              <ClientOnly>
+                <div
+                  class="relative flex items-center justify-center rounded-2xl border border-cyan-500/25 bg-slate-900/40 p-4 transition-all duration-200 hover:border-cyan-400/40"
+                  @dragover.prevent
+                  @drop="handleLottieDrop"
+                >
+                  <DotLottiePlayer
+                    :src="activeLottieSrc"
+                    :file="userLottieFile"
+                    class="size-56 sm:size-64"
+                    :autoplay="true"
+                    :loop="true"
+                  />
                 </div>
-              </template>
-            </ClientOnly>
+                <template #fallback>
+                  <div
+                    class="size-56 sm:size-64 flex items-center justify-center font-mono text-xs text-cyan-400"
+                  >
+                    Loading dotLottie engine...
+                  </div>
+                </template>
+              </ClientOnly>
+
+              <p
+                class="mt-3 font-mono text-[11px] text-muted-foreground text-center max-w-md"
+              >
+                Drag & drop or pick any
+                <code class="text-cyan-300">.lottie</code> or
+                <code class="text-cyan-300">.json</code> file from your browser.
+                Rendered client-side via WebAssembly ThorVG.
+              </p>
+            </div>
+
+            <!-- VIEWPORT 03: REAL TYPESCRIPT PROFILE SPEC -->
+            <div
+              v-show="activeDeck === 'code'"
+              class="font-mono text-xs sm:text-[13px] leading-relaxed text-slate-300 overflow-x-auto py-2"
+            >
+              <p>
+                <span class="text-cyan-400 font-semibold">export const</span>
+                <span class="text-sky-300">songha</span>:
+                <span class="text-indigo-300">SoftwareEngineer</span> = {
+              </p>
+              <p class="pl-4 sm:pl-6">
+                <span class="text-slate-400">name:</span>
+                <span class="text-cyan-200">'Sros Songha'</span>,
+              </p>
+              <p class="pl-4 sm:pl-6">
+                <span class="text-slate-400">role:</span>
+                <span class="text-cyan-200">'Software Engineer'</span>,
+              </p>
+              <p class="pl-4 sm:pl-6">
+                <span class="text-slate-400">currentStatus:</span>
+                <span class="text-cyan-200"
+                  >'Front-end Developer Intern @ T.O Group &amp; EKYC
+                  Solution'</span
+                >,
+              </p>
+              <p class="pl-4 sm:pl-6">
+                <span class="text-slate-400">education:</span>
+                <span class="text-cyan-200"
+                  >'Computer Science @ Institute of Technology of Cambodia
+                  (ITC)'</span
+                >,
+              </p>
+              <p class="pl-4 sm:pl-6">
+                <span class="text-slate-400">coreStack:</span> [<span
+                  class="text-cyan-200"
+                  >'Vue 3'</span
+                >, <span class="text-cyan-200">'Nuxt 4'</span>,
+                <span class="text-cyan-200">'React 19'</span>,
+                <span class="text-cyan-200">'Next.js'</span>,
+                <span class="text-cyan-200">'TypeScript'</span>,
+                <span class="text-cyan-200">'Tailwind CSS'</span>],
+              </p>
+              <p class="pl-4 sm:pl-6">
+                <span class="text-slate-400">infrastructure:</span> [<span
+                  class="text-cyan-200"
+                  >'Cloudflare Workers'</span
+                >, <span class="text-cyan-200">'Supabase'</span>,
+                <span class="text-cyan-200">'PostgreSQL'</span>,
+                <span class="text-cyan-200">'OpenNext'</span>],
+              </p>
+              <p class="pl-4 sm:pl-6">
+                <span class="text-slate-400">flagshipPlatform:</span>
+                <span class="text-cyan-200">'https://sroknh.com'</span>
+                <span class="text-slate-500"
+                  >// Roomie (25 Provinces Mapped)</span
+                >,
+              </p>
+              <p class="pl-4 sm:pl-6">
+                <span class="text-slate-400">availability:</span>
+                <span class="text-emerald-400"
+                  >'Open to full-time engineering roles &amp; high-impact
+                  projects'</span
+                >
+              </p>
+              <p>};</p>
+            </div>
+
+            <!-- VIEWPORT 02: 3D VECTOR CORE -->
+            <div v-show="activeDeck === '3d'" class="relative w-full">
+              <div
+                class="flex items-center justify-between font-mono text-xs text-cyan-400/80 mb-2"
+              >
+                <span class="flex items-center gap-2">
+                  <span
+                    class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]"
+                  />
+                  Interactive 3D Geometry Core
+                </span>
+                <span class="text-muted-foreground text-[11px] hidden sm:inline"
+                  >Drag to rotate viewport</span
+                >
+              </div>
+              <ClientOnly>
+                <RetroWireframe3D class="h-44 sm:h-52 w-full rounded-lg" />
+                <template #fallback>
+                  <div
+                    class="h-44 sm:h-52 w-full flex items-center justify-center font-mono text-xs text-cyan-400"
+                  >
+                    Initializing WebGL Core...
+                  </div>
+                </template>
+              </ClientOnly>
+            </div>
+
+            <!-- VIEWPORT 03: OSCILLOSCOPE WAVE HARMONICS -->
+            <div v-show="activeDeck === 'wave'" class="relative w-full">
+              <div
+                class="flex items-center justify-between font-mono text-xs text-cyan-400/80 mb-2"
+              >
+                <span class="flex items-center gap-2">
+                  <span
+                    class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]"
+                  />
+                  Realtime Signal Waveform
+                </span>
+                <span class="text-muted-foreground text-[11px] hidden sm:inline"
+                  >Hover pointer to modulate harmonics</span
+                >
+              </div>
+              <ClientOnly>
+                <PhosphorWave class="h-40 sm:h-48 w-full rounded-lg" />
+                <template #fallback>
+                  <div
+                    class="h-40 sm:h-48 w-full flex items-center justify-center font-mono text-xs text-cyan-400"
+                  >
+                    Calibrating Oscilloscope...
+                  </div>
+                </template>
+              </ClientOnly>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
       <!-- High-Signal Engineering Metrics Strip (Full Width) -->
       <div
