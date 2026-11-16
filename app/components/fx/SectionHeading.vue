@@ -30,33 +30,29 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <RevealOnScroll :stagger="0.09" :class="align === 'center' ? 'text-center' : ''">
-    <!-- Kicker row with 1970s Phosphor Decrypt Motion -->
+    <!-- Clean architectural kicker -->
     <div
-      class="mb-6 flex items-center gap-3"
+      class="mb-4 flex items-center gap-2.5 font-mono text-xs uppercase tracking-wider"
       :class="align === 'center' ? 'justify-center' : ''"
     >
-      <span v-if="index" class="text-cyan-400 font-pixel text-[10px] tracking-[0.25em] crt-glow">
-        [ {{ index }} ]
+      <span v-if="index" class="text-cyan-400 font-semibold">
+        {{ index }} /
       </span>
-      <span class="bg-cyan-500/30 h-px w-8" aria-hidden="true" />
-      <span class="text-cyan-300/90 font-pixel text-[10px] tracking-[0.25em] uppercase flex items-center gap-1.5">
+      <span class="text-cyan-300/90 font-medium flex items-center gap-2">
         <span class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
-        <TextScramble :text="label" trigger="scroll" />
+        {{ label }}
       </span>
     </div>
 
-    <!-- Title. Mixing an upright serif with an italic fragment gives the page
-         a voice without needing a second typeface. -->
-    <!-- Mobile-first metrics: looser below `sm`, tightening as the type grows.
-         See the fuller note on the h1 in HeroSection.vue. -->
-    <h2 class="font-serif text-[clamp(2.2rem,6vw,4.5rem)] leading-[1.08] tracking-[-0.01em] sm:leading-[0.95] sm:tracking-[-0.025em] text-foreground">
+    <!-- Title in crisp modern Space Grotesk -->
+    <h2 class="font-serif text-[clamp(2.2rem,5.5vw,4.2rem)] font-bold leading-[1.04] tracking-tight text-foreground">
       {{ title }}
-      <span v-if="accent" class="text-cyan-400 not-italic font-light">{{ accent }}</span>
+      <span v-if="accent" class="text-cyan-400 font-medium ml-1 sm:ml-2">{{ accent }}</span>
     </h2>
 
     <p
       v-if="description"
-      class="text-muted-foreground mt-6 max-w-xl text-base leading-relaxed"
+      class="text-muted-foreground mt-4 sm:mt-5 max-w-2xl text-base leading-relaxed"
       :class="align === 'center' ? 'mx-auto' : ''"
     >
       {{ description }}

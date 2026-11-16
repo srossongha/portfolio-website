@@ -22,12 +22,11 @@ interface TerminalLine {
 }
 
 const lines = ref<TerminalLine[]>([
-  { type: 'system', text: '╔══════════════════════════════════════════════════════════════╗' },
-  { type: 'system', text: '║ COMMODORE PET-2001 // MOS-6502 KERNAL V2.0                  ║' },
-  { type: 'system', text: '║ 64K RAM SYSTEM  38911 BASIC BYTES FREE                       ║' },
-  { type: 'system', text: '║ SROS SONGHA (ASUNA) INTERACTIVE TERMINAL READY.             ║' },
-  { type: 'system', text: '╚══════════════════════════════════════════════════════════════╝' },
-  { type: 'output', text: 'Type "help" or tap a command chip below to explore.' },
+  { type: 'system', text: '┌──────────────────────────────────────────────────────────────┐' },
+  { type: 'system', text: '│ SROS SONGHA — SOFTWARE ENGINEER INTERACTIVE SHELL            │' },
+  { type: 'system', text: '│ Institute of Technology of Cambodia (ITC) · Phnom Penh       │' },
+  { type: 'system', text: '│ Session active. Type "help" or select a chip to explore.     │' },
+  { type: 'system', text: '└──────────────────────────────────────────────────────────────┘' },
 ])
 
 const currentInput = ref('')
@@ -205,7 +204,7 @@ watch(open, (isOpen) => {
         class="fixed inset-0 z-100 flex items-center justify-center p-3 sm:p-6 backdrop-blur-xl bg-black/75"
         role="dialog"
         aria-modal="true"
-        aria-label="PET-2001 Terminal Console"
+        aria-label="Developer Terminal Console"
       >
         <!-- CRT Monitor Shell Box -->
         <div class="relative flex h-[85vh] max-h-[640px] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border-2 border-cyan-400/50 bg-[#060a12] shadow-[0_0_50px_rgba(56,189,248,0.3)]">
@@ -216,8 +215,8 @@ watch(open, (isOpen) => {
           <div class="relative flex items-center justify-between border-b border-cyan-500/30 bg-cyan-950/40 px-4 py-2.5">
             <div class="flex items-center gap-2">
               <span class="size-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]" />
-              <span class="font-pixel text-[10px] font-semibold tracking-wider text-cyan-300 uppercase">
-                [ PET-2001 // MOS_6502_SHELL ]
+              <span class="font-mono text-xs font-semibold tracking-wider text-cyan-300 uppercase">
+                SONGHA_DEV // INTERACTIVE_CLI
               </span>
             </div>
 

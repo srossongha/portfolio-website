@@ -143,12 +143,12 @@ watch(
 
         <!-- ------------------------------------------------------- actions -->
         <div class="flex items-center gap-1.5 sm:gap-2">
-          <!-- 1970s CLI Shell button -->
+          <!-- Interactive CLI Shell button -->
           <Button
             variant="ghost"
             size="sm"
-            class="hidden items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3 py-1 font-pixel text-[10px] text-cyan-300 shadow-[0_0_10px_rgba(56,189,248,0.2)] transition-all hover:border-cyan-400 hover:bg-cyan-900/50 hover:shadow-[0_0_16px_rgba(56,189,248,0.35)] sm:inline-flex"
-            aria-label="Open PET-2001 CLI terminal"
+            class="hidden items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3 py-1 font-mono text-xs text-cyan-300 transition-all hover:border-cyan-400 hover:bg-cyan-900/50 hover:shadow-[0_0_16px_rgba(56,189,248,0.3)] sm:inline-flex"
+            aria-label="Open interactive terminal"
             data-cursor-label="CLI"
             @click="terminal.open()"
           >
@@ -168,7 +168,7 @@ watch(
           >
             <Search class="size-3.5" />
             <kbd
-              class="border-cyan-500/30 bg-cyan-950/40 rounded border px-1.5 py-0.5 font-pixel text-[9px] text-cyan-300"
+              class="border-border/60 bg-muted/40 rounded border px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground"
             >
               ⌘K
             </kbd>
@@ -269,8 +269,8 @@ watch(
                   "
                   @click="onNavClick($event, link.to)"
                 >
-                  <span class="text-cyan-400 font-pixel text-[10px]">
-                    #0{{ i + 1 }}
+                  <span class="text-cyan-400 font-mono text-xs font-semibold">
+                    0{{ i + 1 }} /
                   </span>
                   <span>{{ link.label }}</span>
                 </NuxtLink>
@@ -286,29 +286,29 @@ watch(
             <Button
               variant="outline"
               size="pill"
-              class="w-full font-pixel text-xs tracking-wider uppercase border-cyan-400/50 bg-cyan-950/40 text-cyan-300 shadow-[0_0_15px_rgba(56,189,248,0.25)] flex items-center justify-center gap-2"
+              class="w-full font-mono text-xs tracking-wider border-cyan-400/50 bg-cyan-950/40 text-cyan-300 shadow-[0_0_15px_rgba(56,189,248,0.25)] flex items-center justify-center gap-2"
               @click="
                 mobileOpen = false;
                 terminal.open();
               "
             >
               <Terminal class="size-3.5 text-cyan-400" />
-              <span>&gt;_ LAUNCH PET-2001 CLI</span>
+              <span>Launch Terminal CLI</span>
             </Button>
 
             <Button
               variant="brand"
               size="pill"
-              class="w-full font-pixel text-xs tracking-wider uppercase shadow-[0_0_20px_rgba(56,189,248,0.35)]"
+              class="w-full text-xs font-semibold shadow-[0_0_20px_rgba(56,189,248,0.35)]"
               as="a"
               :href="`mailto:${profile.email}`"
             >
-              [ DISPATCH MESSAGE ]
+              Send Message
             </Button>
             <p
-              class="text-center font-pixel text-[9px] text-muted-foreground/80 mt-1"
+              class="text-center font-mono text-xs text-muted-foreground mt-1"
             >
-              PHNOM_PENH · UTC+7 · MOS_6502
+              Phnom Penh, Cambodia · UTC+7
             </p>
           </div>
         </div>

@@ -165,15 +165,15 @@ async function onSubmit() {
               novalidate
               @submit.prevent="onSubmit"
             >
-              <!-- Transmission Channel Header -->
-              <div class="mb-6 flex items-center justify-between border-b border-cyan-500/20 pb-3">
+              <!-- Contact Form Header -->
+              <div class="mb-6 flex items-center justify-between border-b border-border/40 pb-3">
                 <div class="flex items-center gap-2">
                   <span class="size-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]" />
-                  <span class="font-pixel text-[10px] tracking-wider text-cyan-300 uppercase font-semibold">
-                    DISPATCH TRANSMISSION // ENCRYPTED CHANNEL
+                  <span class="font-mono text-xs font-semibold text-cyan-300">
+                    Direct Message
                   </span>
                 </div>
-                <span class="font-pixel text-[9px] text-cyan-400/70 hidden sm:inline-block">UTC+7</span>
+                <span class="font-mono text-xs text-muted-foreground hidden sm:inline-block">Phnom Penh (UTC+7)</span>
               </div>
               <!-- HONEYPOT.
                    A field a human never sees and never fills in. Bots fill every

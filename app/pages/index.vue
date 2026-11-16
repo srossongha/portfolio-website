@@ -28,9 +28,9 @@ useSeoMeta({
     <HeroSection />
     <AboutSection />
     <WorkSection />
+    <ExperienceSection />
     <SkillsSection />
     <ProcessSection />
-    <ExperienceSection />
     <ContactSection />
   </div>
 </template>

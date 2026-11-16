@@ -212,8 +212,8 @@ const displayValue = computed(() => String(Math.round(progress.value)).padStart(
         class="preloader-name font-serif text-6xl leading-[0.95] tracking-tight sm:text-7xl font-medium text-foreground"
       />
 
-      <p class="preloader-role text-cyan-400 font-pixel text-[10px] tracking-[0.25em] uppercase">
-        {{ profile.role }} · [FRONT-END INTERN] · MOS_6502
+      <p class="preloader-role text-cyan-400 font-mono text-xs tracking-wider">
+        {{ profile.role }} · {{ profile.currentRole }}
       </p>
     </div>
 
@@ -224,15 +224,15 @@ const displayValue = computed(() => String(Math.round(progress.value)).padStart(
              the GPU, width changes force a layout on every single frame. -->
         <div class="preloader-bar-fill bg-cyan-400 h-full w-full origin-left scale-x-0 shadow-[0_0_8px_#38bdf8]" />
       </div>
-      <div class="mt-4 flex items-end justify-between">
-        <span class="text-cyan-400/80 font-pixel text-[9px] tracking-[0.25em] uppercase">
-          [ BOOTSTRAP_SEQUENCE ]
+      <div class="mt-4 flex items-end justify-between font-mono text-xs">
+        <span class="text-muted-foreground tracking-wider">
+          Initializing environment...
         </span>
         <span
           ref="counterEl"
-          class="preloader-counter font-pixel text-4xl leading-none tabular-nums sm:text-5xl text-cyan-400 crt-glow"
+          class="preloader-counter text-2xl sm:text-3xl font-light tabular-nums text-cyan-400"
         >
-          {{ displayValue }}
+          {{ displayValue }}%
         </span>
       </div>
     </div>

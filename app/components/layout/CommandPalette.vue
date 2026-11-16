@@ -113,10 +113,10 @@ const sectionIcons: Record<string, Component> = {
           <Home class="size-4 opacity-60" />
           <span>Home</span>
         </CommandItem>
-        <CommandItem value="interactive terminal cli shell pet2001" class="gap-3" @select="run(() => terminal.open())">
+        <CommandItem value="interactive terminal cli shell" class="gap-3" @select="run(() => terminal.open())">
           <Terminal class="size-4 text-cyan-400 opacity-80" />
           <span>Interactive CLI Terminal</span>
-          <span class="ml-auto font-pixel text-[9px] text-cyan-400/80">[PET-2001]</span>
+          <span class="ml-auto font-mono text-[10px] text-cyan-400/80">[CLI]</span>
         </CommandItem>
         <CommandItem
           v-for="link in navLinks"
