@@ -109,24 +109,25 @@ useGsapContext(root, () => {
             />
           </div>
 
-          <!-- CV Download card & actions -->
+          <!-- CV Download card & actions styled as an expedition archive slip -->
           <div
-            class="about-cv-card border-border/70 bg-card/40 hover:border-brand/40 mt-12 rounded-2xl border p-5 backdrop-blur-md transition-all sm:p-6"
+            class="about-cv-card relative mt-12 overflow-hidden rounded-2xl border border-dashed border-border/90 bg-card/75 p-5 shadow-[3px_3px_0_0_color-mix(in_oklch,var(--foreground)_12%,transparent)] backdrop-blur-md transition-all hover:border-brand/60 sm:p-6"
           >
+            <div class="washi-tape -top-2 right-6 w-16 rotate-[-2deg] opacity-70" aria-hidden="true" />
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div class="flex items-center gap-3.5">
-                <div class="bg-brand/10 border-brand/20 text-brand flex size-11 shrink-0 items-center justify-center rounded-xl border">
+                <div class="bg-brand/15 border-brand/30 text-brand-ink flex size-11 shrink-0 items-center justify-center rounded-xl border">
                   <FileText class="size-5" />
                 </div>
                 <div>
                   <div class="flex flex-wrap items-center gap-2">
                     <span class="font-serif text-base font-medium text-foreground sm:text-lg">Curriculum Vitae</span>
-                    <span class="border-brand/30 bg-brand/10 text-brand rounded-full border px-2 py-0.5 font-mono text-[10px] font-semibold tracking-wider uppercase">
-                      PDF · 337 KB
+                    <span class="border-brand/40 bg-brand/15 text-brand-ink rounded-xs border px-2 py-0.5 font-mono text-[10px] font-semibold tracking-wider uppercase">
+                      ARCHIVE · 337 KB
                     </span>
                   </div>
                   <p class="text-muted-foreground mt-0.5 text-xs">
-                    Skills, work experience, and educational background.
+                    Comprehensive education at ITC, internships at T.O Group & EKYC, and production stack.
                   </p>
                 </div>
               </div>
@@ -136,7 +137,7 @@ useGsapContext(root, () => {
                   :href="profile.cvUrl"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="border-border/70 hover:border-brand/50 hover:text-foreground text-muted-foreground inline-flex h-10 items-center gap-1.5 rounded-full border px-3.5 font-mono text-xs transition-colors"
+                  class="retro-btn border-border/80 bg-background/80 hover:text-foreground text-muted-foreground inline-flex h-10 items-center gap-1.5 rounded-full px-3.5 font-mono text-xs transition-colors"
                   data-cursor-label="Preview"
                   aria-label="Preview Sros Songha's CV in browser"
                 >
@@ -152,7 +153,7 @@ useGsapContext(root, () => {
                     :href="profile.cvUrl"
                     download="SROS Songha.pdf"
                     target="_blank"
-                    class="h-10 gap-2 rounded-full px-5 font-medium shadow-sm transition-all"
+                    class="retro-btn h-10 gap-2 rounded-full bg-brand px-5 font-medium text-background hover:bg-brand-soft"
                     :data-cursor-label="isDownloaded ? 'Saved!' : 'Download'"
                     aria-label="Download Sros Songha's Curriculum Vitae (PDF)"
                     @click="handleDownload"
@@ -177,11 +178,11 @@ useGsapContext(root, () => {
               :href="social.href"
               :target="social.href.startsWith('http') ? '_blank' : undefined"
               rel="noopener noreferrer"
-              class="group border-border hover:border-brand/50 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors"
+              class="group retro-btn border-border/80 bg-card/60 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-foreground/90 transition-all hover:border-brand/60"
               :data-cursor-label="social.label"
             >
-              <span class="bg-brand/60 group-hover:bg-brand size-1.5 rounded-full transition-colors" />
-              {{ social.label }}
+              <span class="bg-brand-sprout group-hover:bg-brand size-1.5 rounded-full transition-colors" />
+              <span class="font-medium">{{ social.label }}</span>
               <span class="text-muted-foreground font-mono text-xs">{{ social.handle }}</span>
             </a>
           </RevealOnScroll>
@@ -191,30 +192,44 @@ useGsapContext(root, () => {
         <div class="lg:col-span-5">
           <div class="flex gap-6">
             <!-- The drawing rule -->
-            <div class="about-rule bg-linear-to-b from-brand via-brand/40 to-transparent hidden w-px shrink-0 sm:block" />
+            <div class="about-rule bg-linear-to-b from-brand via-brand-sprout/40 to-transparent hidden w-px shrink-0 sm:block" />
 
             <div class="flex-1">
-              <!-- Portrait -->
+              <!-- Vintage Photographic Plate Portrait -->
               <TiltCard :max="7" :lift="18" radius="rounded-2xl" class="mb-10">
-                <div class="border-border/60 relative aspect-4/5 overflow-hidden rounded-2xl border">
-                  <img
-                    src="/images/profile.jpeg"
-                    :alt="profile.name"
-                    class="absolute inset-0 size-full object-cover"
-                  />
+                <div class="group relative overflow-hidden rounded-2xl border border-border/90 bg-card p-2.5 shadow-[5px_5px_0_0_color-mix(in_oklch,var(--foreground)_14%,transparent)] transition-all duration-300 hover:shadow-[7px_7px_0_0_color-mix(in_oklch,var(--brand)_30%,transparent)]">
+                  <!-- Washi tape at top left corner -->
+                  <div class="washi-tape -top-1 -left-2 w-16 rotate-[-5deg] opacity-80" aria-hidden="true" />
 
-                  <!-- Scrim so the name plate stays legible over the photo -->
-                  <div
-                    class="absolute inset-0"
-                    style="background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent 45%)"
-                  />
+                  <div class="relative aspect-4/5 overflow-hidden rounded-xl border border-border/70 bg-muted">
+                    <img
+                      src="/images/profile.jpeg"
+                      :alt="profile.name"
+                      class="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-102"
+                    />
 
-                  <!-- Name plate -->
-                  <div class="absolute inset-x-0 bottom-0 p-6">
-                    <p class="font-serif text-3xl tracking-tight text-white">{{ profile.name }}</p>
-                    <p class="mt-1 font-mono text-[10px] tracking-[0.25em] text-white/70 uppercase">
-                      {{ profile.role }}
-                    </p>
+                    <!-- Warm analog film & subtle scanline texture -->
+                    <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-15" aria-hidden="true" />
+
+                    <!-- Scrim so the name plate stays legible over the photo -->
+                    <div
+                      class="absolute inset-0"
+                      style="background: linear-gradient(to top, rgba(11, 20, 16, 0.88), transparent 45%)"
+                    />
+
+                    <!-- Botanical field tag on photo top right -->
+                    <div class="absolute top-3 right-3 rounded-xs border border-white/20 bg-black/60 px-2 py-0.5 font-mono text-[9px] tracking-widest text-emerald-300 uppercase backdrop-blur-md">
+                      ARCHIVE NO. 2026-KH
+                    </div>
+
+                    <!-- Name plate -->
+                    <div class="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                      <p class="font-serif text-3xl font-medium tracking-tight text-white">{{ profile.name }}</p>
+                      <p class="mt-1 flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-white/80 uppercase">
+                        <span class="size-1 rounded-full bg-emerald-400" />
+                        {{ profile.role }} · ITC CAMBODIA
+                      </p>
+                    </div>
                   </div>
                 </div>
               </TiltCard>

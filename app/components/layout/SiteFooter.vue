@@ -21,56 +21,61 @@ onMounted(() => {
 </script>
 
 <template>
-  <footer class="border-border/60 relative border-t">
-    <!-- Oversized wordmark bleeding off the bottom edge. Cropping type like
-         this is a reliable way to make a footer feel designed rather than
-         left over. `select-none` stops it hijacking text selection. -->
+  <footer class="relative border-t border-dashed border-border/80 bg-background/90 pt-4">
+    <!-- Halftone retro dots background -->
+    <div class="bg-retro-dots pointer-events-none absolute inset-0 opacity-20" aria-hidden="true" />
+
+    <!-- Oversized wordmark bleeding off the bottom edge in Fraunces serif -->
     <div class="pointer-events-none absolute inset-x-0 bottom-0 overflow-hidden select-none" aria-hidden="true">
-      <p class="text-foreground/4 translate-y-[22%] text-center font-serif text-[clamp(5rem,22vw,20rem)] leading-none tracking-tighter">
+      <p class="text-foreground/4 translate-y-[22%] text-center font-serif text-[clamp(5rem,22vw,20rem)] leading-none tracking-tight">
         {{ profile.name }}
       </p>
     </div>
 
-    <!-- gutter + pb-safe: notch-aware sides, and the last thing on the page
-         clears the home indicator instead of tucking under it. -->
+    <!-- gutter + pb-safe -->
     <div class="gutter pb-safe relative mx-auto max-w-350 pt-16" style="--pb-safe: 4rem">
       <div class="flex flex-col gap-12 md:flex-row md:justify-between">
         <!-- Left: availability + email -->
-        <div class="max-w-sm">
-          <Badge variant="live" class="mb-5">
-            <span class="relative flex size-1.5">
-              <span class="bg-brand absolute inline-flex size-full animate-ping rounded-full opacity-70" />
-              <span class="bg-brand relative inline-flex size-1.5 rounded-full" />
+        <div class="max-w-md">
+          <div class="mb-5 flex flex-wrap items-center gap-3">
+            <Badge variant="live" class="border-brand/40 bg-card/90">
+              <span class="relative flex size-1.5">
+                <span class="bg-brand-sprout absolute inline-flex size-full animate-ping rounded-full opacity-70" />
+                <span class="bg-brand-sprout relative inline-flex size-1.5 rounded-full" />
+              </span>
+              {{ profile.availability }}
+            </Badge>
+            <span class="rounded-xs border border-border/80 bg-muted/60 px-2 py-0.5 font-mono text-[10px] tracking-wider text-muted-foreground uppercase">
+              STATION: PHNOM PENH
             </span>
-            {{ profile.availability }}
-          </Badge>
+          </div>
 
           <a
             :href="`mailto:${profile.email}`"
-            class="group block font-serif text-3xl tracking-tight break-all sm:text-4xl"
+            class="group block font-serif text-3xl font-medium tracking-tight break-all text-foreground sm:text-4xl"
             data-cursor-label="Email"
           >
-            <span class="bg-linear-to-r from-brand to-brand [background-size:0%_1px] bg-bottom bg-no-repeat transition-[background-size] duration-500 group-hover:[background-size:100%_1px]">
+            <span class="bg-linear-to-r from-brand to-brand [background-size:0%_2px] bg-bottom bg-no-repeat transition-[background-size] duration-500 group-hover:[background-size:100%_2px]">
               {{ profile.email }}
             </span>
           </a>
 
           <p class="text-muted-foreground mt-4 font-mono text-xs">
-            {{ profile.location }} — <ClientOnly>{{ time }}<template #fallback>--:--</template></ClientOnly>
+            {{ profile.location }} — <ClientOnly>{{ time }}<template #fallback>--:--</template></ClientOnly> · UTC+7 Timezone
           </p>
         </div>
 
         <!-- Right: link columns -->
         <div class="flex gap-12 sm:gap-20">
           <nav aria-label="Footer">
-            <h2 class="text-muted-foreground mb-4 font-mono text-[10px] tracking-[0.25em] uppercase">
-              Sitemap
+            <h2 class="text-brand-ink mb-4 font-mono text-[10px] tracking-[0.25em] uppercase font-semibold">
+              INDEX // SITEMAP
             </h2>
             <ul class="space-y-2.5">
               <li v-for="link in navLinks" :key="link.to">
                 <NuxtLink
                   :to="link.to"
-                  class="text-muted-foreground hover:text-brand text-sm transition-colors"
+                  class="text-muted-foreground hover:text-foreground text-sm transition-colors"
                 >
                   {{ link.label }}
                 </NuxtLink>
@@ -79,8 +84,8 @@ onMounted(() => {
           </nav>
 
           <div>
-            <h2 class="text-muted-foreground mb-4 font-mono text-[10px] tracking-[0.25em] uppercase">
-              Elsewhere
+            <h2 class="text-brand-ink mb-4 font-mono text-[10px] tracking-[0.25em] uppercase font-semibold">
+              SIGNALS // NETWORKS
             </h2>
             <ul class="space-y-2.5">
               <li v-for="social in socials" :key="social.href">
@@ -88,10 +93,10 @@ onMounted(() => {
                   :href="social.href"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-muted-foreground hover:text-brand inline-flex items-center gap-1.5 text-sm transition-colors"
+                  class="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm transition-colors"
                 >
                   {{ social.label }}
-                  <span class="text-[9px] opacity-50">↗</span>
+                  <span class="text-[9px] opacity-60">↗</span>
                 </a>
               </li>
             </ul>
@@ -99,19 +104,19 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Bottom bar -->
-      <div class="border-border/50 mt-16 flex flex-col-reverse gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
+      <!-- Bottom bar styled as dispatch receipt -->
+      <div class="border-border/60 mt-16 flex flex-col-reverse gap-4 border-t border-dashed pt-6 sm:flex-row sm:items-center sm:justify-between">
         <p class="text-muted-foreground font-mono text-[11px]">
-          © {{ year }} {{ profile.name }}. Built with Nuxt, Vue, and Tailwind CSS.
+          © {{ year }} {{ profile.name }}. Designed with Nature & Retro Botanical Craft. Built with Nuxt 4, Vue 3, & Tailwind v4.
         </p>
 
         <Button
           variant="ghost"
           size="sm"
-          class="text-muted-foreground hover:text-brand -ml-2 gap-2 self-start rounded-full sm:ml-0 sm:self-auto"
+          class="retro-btn text-muted-foreground hover:text-foreground -ml-2 gap-2 self-start rounded-full border border-border/80 bg-card/60 sm:ml-0 sm:self-auto"
           @click="scrollTo(0)"
         >
-          <ArrowUp class="size-3.5" />
+          <ArrowUp class="size-3.5 text-brand-ink" />
           Back to top
         </Button>
       </div>

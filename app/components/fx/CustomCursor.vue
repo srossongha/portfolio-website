@@ -115,22 +115,22 @@ onUnmounted(() => cleanup?.())
   >
     <!-- POSITIONER (GSAP writes transform here) -->
     <div ref="dotPos" class="fixed top-0 left-0 will-change-transform">
-      <!-- VISUAL (centres itself, scales on hover) -->
+      <!-- VISUAL: organic firefly dot (centres itself, scales on hover) -->
       <div
-        class="bg-brand size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full transition-transform duration-300"
+        class="bg-brand-sprout size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_8px_var(--brand-sprout)] transition-transform duration-300"
         :class="isActive ? 'scale-0' : 'scale-100'"
       />
     </div>
 
     <div ref="ringPos" class="fixed top-0 left-0 will-change-transform">
       <div
-        class="border-brand/60 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border"
-        :class="isActive ? 'bg-brand/10 size-16 backdrop-blur-[2px]' : 'size-8'"
+        class="border-brand/70 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border"
+        :class="isActive ? 'bg-brand/15 size-16 backdrop-blur-[2px] shadow-[0_0_12px_rgba(251,191,36,0.25)]' : 'size-8'"
         style="transition: width 0.35s var(--ease-out-expo), height 0.35s var(--ease-out-expo), background-color 0.35s"
       >
         <span
           v-if="label"
-          class="text-brand font-mono text-[9px] tracking-widest whitespace-nowrap uppercase"
+          class="text-brand-ink font-mono text-[9px] tracking-widest whitespace-nowrap uppercase font-semibold"
         >
           {{ label }}
         </span>

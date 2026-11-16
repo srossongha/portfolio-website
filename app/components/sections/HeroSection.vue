@@ -99,108 +99,130 @@ onUnmounted(() => introCtx?.revert())
   <section
     id="hero"
     ref="root"
-    class="relative flex min-h-svh items-center overflow-hidden"
+    class="relative flex min-h-svh items-center overflow-hidden bg-background"
   >
     <!-- -------------------------------------------------- ambient backdrop -->
-    <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      <div
-        class="absolute -top-[15%] right-[5%] size-[min(70vw,40rem)] rounded-full opacity-60 blur-3xl"
-        style="background: radial-gradient(circle, var(--brand-soft), transparent 70%)"
-      />
-      <div
-        class="absolute bottom-[10%] left-[5%] size-[min(50vw,28rem)] rounded-full opacity-35 blur-3xl"
-        style="background: radial-gradient(circle, color-mix(in oklch, var(--brand) 25%, transparent), transparent 70%)"
-      />
-    </div>
+    <!-- Volumetric Forest Sunbeams -->
+    <SunbeamRays />
 
-    <!-- Hairline grid, faded towards edges -->
-    <div class="bg-grid mask-radial-fade pointer-events-none absolute inset-0 opacity-45" aria-hidden="true" />
+    <!-- Interactive Forest Spores & Fireflies Canvas -->
+    <CanopyParticles />
 
-    <!-- Soft vignette to keep text contrast crisp -->
+    <!-- Subtle Halftone Botanical Dots -->
+    <div class="bg-retro-dots mask-radial-fade pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
+
+    <!-- Soft organic vignette for optimal reading contrast -->
     <div
       class="pointer-events-none absolute inset-0"
       aria-hidden="true"
-      style="background: radial-gradient(ellipse 85% 65% at 50% 45%, transparent 30%, var(--background) 95%)"
+      style="background: radial-gradient(ellipse 90% 70% at 50% 45%, transparent 25%, var(--background) 96%)"
     />
 
     <!-- ------------------------------------------------------------ text -->
-    <!-- pt clears the fixed header; pb leaves room for the scroll hint.
-         Keeping the total under 100svh on a laptop is the whole reason the
-         type scale above caps where it does. -->
     <div class="hero-parallax relative mx-auto w-full max-w-350 px-5 pt-24 pb-20 sm:px-8 lg:px-12">
-      <!-- Eyebrow -->
-      <div class="hero-anim hero-eyebrow mb-8 flex flex-wrap items-center gap-3">
-        <Badge variant="live">
-          <span class="relative flex size-1.5">
-            <span class="bg-brand absolute inline-flex size-full animate-ping rounded-full opacity-70" />
-            <span class="bg-brand relative inline-flex size-1.5 rounded-full" />
+      <!-- Eyebrow row with retro tape bar & status -->
+      <div class="hero-anim hero-eyebrow mb-8 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex flex-wrap items-center gap-3">
+          <Badge variant="live" class="border-brand/40 bg-card/90 shadow-xs">
+            <span class="relative flex size-1.5">
+              <span class="bg-brand-sprout absolute inline-flex size-full animate-ping rounded-full opacity-70" />
+              <span class="bg-brand-sprout relative inline-flex size-1.5 rounded-full" />
+            </span>
+            {{ profile.availability }}
+          </Badge>
+          <span class="text-muted-foreground font-mono text-[11px] tracking-[0.28em] uppercase">
+            {{ profile.location }}
           </span>
-          {{ profile.availability }}
-        </Badge>
-        <span class="text-muted-foreground font-mono text-[11px] tracking-[0.28em] uppercase">
-          {{ profile.location }}
-        </span>
+        </div>
+
+        <!-- Retro Tape Deck Bar -->
+        <RetroTapeBar class="hidden sm:inline-flex" />
       </div>
 
-      <!-- Name. Two lines, tightly leaded, mixing upright serif with italic so
-           it reads as editorial rather than as a default h1.
+      <!-- Main Name & Editorial Title -->
+      <div class="relative">
+        <!-- Floating Rotating Botanical Seal (desktop) -->
+        <div
+          class="pointer-events-none absolute -top-8 right-0 hidden lg:block xl:right-8"
+          aria-hidden="true"
+        >
+          <div class="animate-spin-slow relative size-28 text-muted-foreground/60 select-none">
+            <svg viewBox="0 0 100 100" class="size-full fill-current">
+              <path
+                id="hero-seal-path"
+                d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                fill="none"
+              />
+              <text font-size="8.8" font-family="'Geist Mono', monospace" letter-spacing="2.2">
+                <textPath href="#hero-seal-path" startOffset="0%">
+                  SROS SONGHA ✦ FIELD ARCHIVE ✦ EST. 2026 ✦
+                </textPath>
+              </text>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center font-serif text-lg text-brand-ink">
+              ✦
+            </div>
+          </div>
+        </div>
 
-           The leading/tracking are written MOBILE-FIRST, then tightened from
-           `sm:` up. 0.85 leading is right at the 112px this reaches on a
-           desktop — the lines interlock and read as one block. At the 38px it
-           falls back to on a phone the same ratio puts the descenders of line
-           one into the ascenders of line two, and -0.03em tracking makes the
-           letters touch. Same face, same design, metrics that suit the size. -->
-      <h1 class="hero-title font-serif leading-[1.02] tracking-[-0.01em] sm:leading-[0.85] sm:tracking-[-0.03em]">
-        <SplitText
-          :text="profile.role"
-          class="hero-anim block text-[clamp(2.4rem,8vw,7rem)]"
-        />
-        <!--
-          DELIBERATELY NOT SPLIT.
-          `text-gradient` works by painting a gradient on the element and
-          clipping it to that element's text (`background-clip: text`). Split
-          text breaks this: each character sits in its own inline-block with
-          `will-change: transform`, which promotes it to a separate paint layer,
-          so the parent's clipped background never shows through and the line
-          renders completely invisible.
-          Animating this line as one block keeps the gradient AND the motion.
-        -->
-        <em class="hero-line-2 text-gradient block text-[clamp(1.8rem,5.5vw,5rem)] italic">
-          {{ profile.tagline }}
-        </em>
-      </h1>
+        <h1 class="hero-title font-serif leading-[1.02] tracking-[-0.01em] sm:leading-[0.88] sm:tracking-[-0.03em]">
+          <SplitText
+            :text="profile.role"
+            class="hero-anim block text-[clamp(2.4rem,8vw,7rem)] font-medium text-foreground"
+          />
+          <em class="hero-line-2 text-gradient block text-[clamp(1.8rem,5.5vw,5.2rem)] font-light italic">
+            {{ profile.tagline }}
+          </em>
+        </h1>
+      </div>
 
       <!-- Supporting line -->
-      <p class="hero-anim hero-tagline text-muted-foreground mt-6 max-w-lg leading-relaxed sm:text-lg">
+      <p class="hero-anim hero-tagline text-muted-foreground mt-6 max-w-xl text-base leading-relaxed sm:text-lg">
         {{ profile.bio[0] }}
       </p>
 
-      <!-- Calls to action -->
-      <div class="mt-8 flex flex-wrap items-center gap-3">
+      <!-- Calls to action with tactile retro physics -->
+      <div class="mt-8 flex flex-wrap items-center gap-4">
         <MagneticWrap :strength="0.3" class="hero-anim hero-cta">
-          <Button variant="brand" size="pill" data-cursor-label="Work" @click="scrollTo('#work', { offset: -60 })">
-            View selected work
+          <Button
+            variant="brand"
+            size="pill"
+            class="retro-btn bg-brand text-background font-medium hover:bg-brand-soft"
+            data-cursor-label="Explore"
+            @click="scrollTo('#work', { offset: -60 })"
+          >
+            Explore field work
             <ArrowUpRight class="size-4" />
           </Button>
         </MagneticWrap>
 
         <MagneticWrap :strength="0.3" class="hero-anim hero-cta">
-          <Button variant="glass" size="pill" as="a" :href="`mailto:${profile.email}`" data-cursor-label="Say hi">
-            Get in touch
+          <Button
+            variant="glass"
+            size="pill"
+            class="retro-btn border-border/80 bg-card/75 text-foreground backdrop-blur-md"
+            as="a"
+            :href="`mailto:${profile.email}`"
+            data-cursor-label="Say hi"
+          >
+            Dispatch message
           </Button>
         </MagneticWrap>
+
+        <!-- Mobile only tape deck -->
+        <RetroTapeBar class="sm:hidden mt-2" />
       </div>
 
-      <!-- Stats strip -->
-      <dl class="border-border/60 mt-12 grid max-w-4xl grid-cols-2 gap-y-6 border-t pt-6 sm:grid-cols-4">
-        <div v-for="stat in profile.stats" :key="stat.label" class="hero-anim hero-stat">
+      <!-- Stats strip styled as an expedition log ledger -->
+      <dl class="border-border/60 mt-12 grid max-w-4xl grid-cols-2 gap-y-6 border-t border-dashed pt-6 sm:grid-cols-4">
+        <div v-for="stat in profile.stats" :key="stat.label" class="hero-anim hero-stat relative group">
           <dt class="sr-only">{{ stat.label }}</dt>
           <dd>
-            <span class="block font-serif text-3xl tracking-tight sm:text-4xl">
+            <span class="block font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
               <CountUp :value="stat.value" :suffix="stat.suffix" />
             </span>
-            <span class="text-muted-foreground mt-1 block font-mono text-[10px] tracking-[0.2em] uppercase">
+            <span class="text-muted-foreground mt-1 flex items-center gap-1.5 font-mono text-[10px] tracking-[0.2em] uppercase">
+              <span class="size-1 rounded-full bg-brand-sprout/80" />
               {{ stat.label }}
             </span>
           </dd>
@@ -208,15 +230,14 @@ onUnmounted(() => introCtx?.revert())
       </dl>
     </div>
 
-    <!-- Scroll hint. Pinned right rather than centred so it can never collide
-         with the stats row on a short laptop screen. -->
+    <!-- Scroll hint with analog ticker -->
     <button
       class="hero-anim hero-hint text-muted-foreground hover:text-brand absolute right-5 bottom-6 hidden flex-col items-center gap-2 transition-colors sm:right-8 lg:right-12 lg:flex"
       aria-label="Scroll to content"
       @click="scrollTo('#work', { offset: -60 })"
     >
       <span class="font-mono text-[10px] tracking-[0.3em] uppercase">Scroll</span>
-      <ArrowDown class="size-3.5 animate-scroll-hint" />
+      <ArrowDown class="size-3.5 animate-scroll-hint text-brand" />
     </button>
   </section>
 </template>

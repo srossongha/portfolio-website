@@ -71,7 +71,7 @@ useGsapContext(root, () => {
         <!-- The drawing progress line, sitting exactly on top of the track. -->
         <div
           class="timeline-progress absolute top-2 bottom-2 left-1.75 w-px origin-top scale-y-0 sm:left-37.75"
-          style="background: linear-gradient(to bottom, var(--brand), var(--brand-deep))"
+          style="background: linear-gradient(to bottom, var(--brand-sprout), var(--brand), var(--brand-deep))"
           aria-hidden="true"
         />
 
@@ -81,30 +81,34 @@ useGsapContext(root, () => {
           class="timeline-item relative flex flex-col gap-2 pb-14 pl-8 last:pb-0 sm:flex-row sm:gap-0 sm:pl-0"
         >
           <!-- Period column (desktop) -->
-          <div class="text-muted-foreground shrink-0 font-mono text-[11px] tracking-[0.15em] uppercase sm:w-36 sm:pt-1.5">
+          <div class="text-muted-foreground shrink-0 font-mono text-[11px] tracking-[0.18em] uppercase sm:w-36 sm:pt-1.5">
             {{ job.period }}
           </div>
 
-          <!-- The dot, centred on the line. -->
+          <!-- The dot, centred on the line with an organic aura -->
           <div
-            class="border-background bg-brand absolute top-1.5 left-0 size-3.75 rounded-full border-4 sm:left-36"
+            class="border-background bg-card absolute top-1.5 left-0 size-4 rounded-full border-2 sm:left-35.75"
             aria-hidden="true"
           >
-            <div class="timeline-dot bg-brand size-full rounded-full" />
+            <div class="timeline-dot size-full rounded-full bg-brand-sprout shadow-[0_0_8px_var(--brand-sprout)]" />
           </div>
 
-          <!-- Content -->
-          <div class="sm:pl-12">
-            <h3 class="font-serif text-2xl tracking-tight sm:text-3xl">
+          <!-- Content: vintage station ledger item -->
+          <div class="group relative rounded-xl border border-transparent p-4 transition-all duration-300 hover:border-border/70 hover:bg-card/50 sm:pl-12">
+            <h3 class="font-serif text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
               {{ job.role }}
             </h3>
-            <p class="text-brand/90 mt-1 text-sm">{{ job.organisation }}</p>
-            <p class="text-muted-foreground mt-4 max-w-2xl leading-relaxed">
+            <p class="text-brand-ink mt-1 font-mono text-xs tracking-wider uppercase font-semibold">
+              {{ job.organisation }}
+            </p>
+            <p class="text-muted-foreground mt-3 max-w-2xl text-sm leading-relaxed sm:text-base">
               {{ job.description }}
             </p>
-            <ul class="mt-5 flex flex-wrap gap-1.5">
+            <ul class="mt-4 flex flex-wrap gap-1.5">
               <li v-for="tag in job.tags" :key="tag">
-                <Badge variant="tech">{{ tag }}</Badge>
+                <Badge variant="tech" class="border border-border/60 bg-muted/40 font-mono text-[10px]">
+                  {{ tag }}
+                </Badge>
               </li>
             </ul>
           </div>

@@ -181,14 +181,14 @@ const displayValue = computed(() => String(Math.round(progress.value)).padStart(
       />
     </div>
 
-    <!-- A soft gold glow so the panel is not a flat black rectangle. -->
+    <!-- A soft botanical moss & sunlight glow so the panel is not a flat black rectangle. -->
     <div
       class="pointer-events-none absolute inset-0 opacity-60"
       aria-hidden="true"
       style="
         background: radial-gradient(
           ellipse 60% 50% at 50% 55%,
-          color-mix(in oklch, var(--brand) 12%, transparent),
+          color-mix(in oklch, var(--brand-sprout) 12%, var(--brand) 8%),
           transparent 70%
         );
       "
@@ -196,24 +196,24 @@ const displayValue = computed(() => String(Math.round(progress.value)).padStart(
 
     <!-- Centre content -->
     <div class="relative flex flex-col items-center gap-6 px-6 text-center">
-      <!-- Rotating brand mark -->
+      <!-- Rotating brand mark with dual-tone ring -->
       <div class="preloader-mark relative size-14">
         <div class="border-brand/30 absolute inset-0 rounded-full border" />
         <div
-          class="border-t-brand absolute inset-0 animate-spin rounded-full border border-transparent"
+          class="border-t-brand-sprout border-r-brand absolute inset-0 animate-spin rounded-full border border-transparent"
           style="animation-duration: 1.4s"
         />
-        <div class="bg-brand absolute inset-[42%] rounded-full" />
+        <div class="bg-brand-sprout absolute inset-[42%] rounded-full shadow-[0_0_8px_var(--brand-sprout)]" />
       </div>
 
       <SplitText
         :text="profile.name"
         as="h1"
-        class="preloader-name font-serif text-6xl leading-[0.95] tracking-tight sm:text-7xl"
+        class="preloader-name font-serif text-6xl leading-[0.95] tracking-tight sm:text-7xl font-medium text-foreground"
       />
 
       <p class="preloader-role text-muted-foreground font-mono text-[11px] tracking-[0.32em] uppercase">
-        {{ profile.role }}
+        {{ profile.role }} · BOTANICAL FIELD LAB
       </p>
     </div>
 
@@ -222,7 +222,7 @@ const displayValue = computed(() => String(Math.round(progress.value)).padStart(
       <div class="preloader-bar bg-border/60 relative h-px w-full overflow-hidden">
         <!-- scaleX is animated instead of width: transforms are composited on
              the GPU, width changes force a layout on every single frame. -->
-        <div class="preloader-bar-fill bg-brand h-full w-full origin-left scale-x-0" />
+        <div class="preloader-bar-fill bg-linear-to-r from-brand-sprout to-brand h-full w-full origin-left scale-x-0" />
       </div>
       <div class="mt-4 flex items-end justify-between">
         <span class="text-muted-foreground font-mono text-[10px] tracking-[0.3em] uppercase">

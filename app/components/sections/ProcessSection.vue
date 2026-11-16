@@ -104,32 +104,46 @@ useGsapContext(root, () => {
           }"
         >
           <div
-            class="glass border-border/70 relative overflow-hidden rounded-3xl border p-8 sm:p-12 lg:p-16"
-            style="background-color: color-mix(in oklch, var(--card) 88%, transparent)"
+            class="relative overflow-hidden rounded-2xl border border-border/80 bg-card/85 p-8 shadow-[4px_4px_0_0_color-mix(in_oklch,var(--foreground)_14%,transparent)] backdrop-blur-md transition-all duration-300 sm:p-12 lg:p-16"
           >
-            <!-- A gold hairline along the top edge of each card. -->
+            <!-- Washi tape tab on top corner -->
             <div
-              class="absolute inset-x-0 top-0 h-px"
-              style="background: linear-gradient(90deg, transparent, var(--brand), transparent)"
+              class="washi-tape top-2.5 right-6 w-20 rotate-[2deg] opacity-80"
               aria-hidden="true"
             />
 
-            <div class="grid gap-8 lg:grid-cols-12 lg:gap-16">
+            <!-- Halftone dots texture -->
+            <div class="bg-retro-dots pointer-events-none absolute inset-0 opacity-20" aria-hidden="true" />
+
+            <!-- Botanical emerald accent hairline along the top edge of each card -->
+            <div
+              class="absolute inset-x-0 top-0 h-1"
+              style="background: linear-gradient(90deg, var(--brand-sprout), var(--brand), transparent)"
+              aria-hidden="true"
+            />
+
+            <div class="relative grid gap-8 lg:grid-cols-12 lg:gap-16">
               <div class="lg:col-span-4">
-                <span class="text-brand/80 font-mono text-sm tracking-[0.3em]">{{ step.n }}</span>
-                <!-- Mobile-first metrics — see the note in HeroSection.vue. -->
-                <h3 class="mt-4 font-serif text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.12] tracking-normal sm:leading-none sm:tracking-tight">
+                <div class="inline-flex items-center gap-2 rounded-sm border border-border/80 bg-muted/60 px-2.5 py-0.5 font-mono text-[11px] tracking-[0.25em] text-brand-ink uppercase">
+                  <span>LOG // PHASE {{ step.n }}</span>
+                </div>
+                <!-- Mobile-first typography -->
+                <h3 class="mt-4 font-serif text-[clamp(2.2rem,4.5vw,3.6rem)] font-medium leading-[1.08] tracking-tight text-foreground">
                   {{ step.title }}
                 </h3>
               </div>
 
               <div class="lg:col-span-8">
-                <p class="text-[clamp(1rem,1.8vw,1.35rem)] leading-relaxed">
+                <p class="text-[clamp(1.05rem,1.8vw,1.35rem)] leading-relaxed text-foreground/90 font-light">
                   {{ step.body }}
                 </p>
-                <p class="text-muted-foreground border-border/60 mt-8 border-t pt-4 font-mono text-[11px] tracking-[0.18em] uppercase">
-                  {{ step.detail }}
-                </p>
+                <div class="border-border/60 mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-dashed pt-4 font-mono text-[11px] tracking-[0.18em] uppercase text-muted-foreground">
+                  <span class="flex items-center gap-2">
+                    <span class="size-1.5 rounded-full bg-brand-sprout" />
+                    {{ step.detail }}
+                  </span>
+                  <span class="text-xs text-brand-ink/75 font-mono">CONFIDENTIAL // VERIFIED</span>
+                </div>
               </div>
             </div>
           </div>

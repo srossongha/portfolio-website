@@ -143,71 +143,93 @@ onUnmounted(() => mm?.revert())
         :key="project.slug"
         class="work-card md:w-[min(78vw,30rem)] md:shrink-0"
       >
-        <TiltCard :max="6" :lift="20" radius="rounded-3xl" class="h-full">
+        <TiltCard :max="6" :lift="18" radius="rounded-2xl" class="h-full">
           <NuxtLink
             :to="`/work/${project.slug}`"
-            class="group border-border/70 bg-card/40 relative flex h-full flex-col overflow-hidden rounded-3xl border backdrop-blur-sm transition-colors duration-500 hover:border-transparent"
+            class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/70 shadow-[4px_4px_0_0_color-mix(in_oklch,var(--foreground)_12%,transparent)] backdrop-blur-md transition-all duration-500 hover:border-brand/60 hover:shadow-[6px_6px_0_0_color-mix(in_oklch,var(--brand)_30%,transparent)]"
             :data-cursor-label="`View ${project.title}`"
           >
-            <!-- Per-project gradient, revealed on hover. Giving each project its
-                 own colour is what stops the row looking like a spreadsheet. -->
+            <!-- Washi tape pinned to the card header -->
             <div
-              class="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+              class="washi-tape top-2 -left-3 w-20 rotate-[-4deg] opacity-85"
+              aria-hidden="true"
+            />
+
+            <!-- Subtle ambient tint on hover -->
+            <div
+              class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
               :style="{
-                background: `linear-gradient(150deg, color-mix(in oklch, ${project.accent[0]} 14%, transparent), color-mix(in oklch, ${project.accent[1]} 4%, transparent) 55%, transparent)`,
+                background: `linear-gradient(145deg, color-mix(in oklch, ${project.accent[0]} 12%, transparent), color-mix(in oklch, ${project.accent[1]} 5%, transparent) 60%, transparent)`,
               }"
               aria-hidden="true"
             />
 
-            <!-- Visual panel -->
-            <div class="relative aspect-16/10 overflow-hidden">
+            <!-- Visual cartridge panel -->
+            <div class="relative aspect-16/10 overflow-hidden border-b border-border/60 bg-muted/40">
               <div
                 class="absolute inset-0 transition-transform duration-[1.2s] group-hover:scale-105"
                 :style="{
-                  background: `radial-gradient(circle at 30% 25%, ${project.accent[0]}, transparent 55%),
-                               radial-gradient(circle at 75% 70%, ${project.accent[1]}, transparent 55%),
-                               var(--card)`,
+                  background: `radial-gradient(ellipse at 35% 30%, ${project.accent[0]}, transparent 65%),
+                               radial-gradient(ellipse at 80% 75%, ${project.accent[1]}, transparent 65%),
+                               color-mix(in oklch, var(--card) 90%, black)`,
                 }"
                 style="transition-timing-function: var(--ease-out-expo)"
               />
-              <div class="bg-grid absolute inset-0 opacity-30" />
 
-              <!-- Index + status -->
-              <div class="absolute inset-x-0 top-0 flex items-start justify-between p-5">
-                <span class="font-mono text-[11px] tracking-[0.25em] text-white/70">
-                  {{ String(i + 1).padStart(2, '0') }}
+              <!-- Botanical dot matrix & scanline textures -->
+              <div class="bg-retro-dots absolute inset-0 opacity-25" />
+              <div class="bg-scanlines absolute inset-0 opacity-15" />
+
+              <!-- Specimen header tag & status -->
+              <div class="absolute inset-x-0 top-0 flex items-start justify-between p-4 sm:p-5">
+                <span class="rounded-sm border border-foreground/15 bg-background/80 px-2 py-0.5 font-mono text-[10px] tracking-[0.25em] text-foreground/85 uppercase backdrop-blur-md">
+                  SPECIMEN // {{ String(i + 1).padStart(2, '0') }}
                 </span>
-                <Badge :variant="project.status === 'building' ? 'brand' : 'tech'" class="backdrop-blur-md">
+                <Badge :variant="project.status === 'building' ? 'brand' : 'tech'" class="border border-border/70 backdrop-blur-md">
                   {{ project.status === 'building' ? 'In progress' : project.year }}
                 </Badge>
               </div>
 
-              <!-- Hover arrow -->
+              <!-- Hover arrow button -->
               <div
-                class="glass absolute right-5 bottom-5 flex size-11 translate-y-3 items-center justify-center rounded-full opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"
+                class="glass absolute right-4 bottom-4 flex size-10 translate-y-2 items-center justify-center rounded-full border border-border/80 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
                 aria-hidden="true"
               >
-                <ArrowUpRight class="size-4" />
+                <ArrowUpRight class="size-4 text-brand-ink" />
               </div>
             </div>
 
-            <!-- Text panel -->
+            <!-- Text panel: field log details -->
             <div class="relative flex flex-1 flex-col p-6 sm:p-7">
-              <h3 class="font-serif text-2xl tracking-tight sm:text-3xl">
-                {{ project.title }}
-              </h3>
-              <p class="text-muted-foreground mt-2 text-sm leading-relaxed">
+              <div class="flex items-baseline justify-between gap-2">
+                <h3 class="font-serif text-2xl font-medium tracking-tight sm:text-3xl">
+                  {{ project.title }}
+                </h3>
+              </div>
+
+              <p class="text-muted-foreground mt-2.5 text-sm leading-relaxed">
                 {{ project.tagline }}
               </p>
 
-              <!-- mt-auto pushes the stack to the bottom so every card's chips
-                   line up regardless of how long the tagline is. -->
-              <ul class="mt-auto flex flex-wrap gap-1.5 pt-6">
+              <!-- Highlights / Metrics ticker strip if available -->
+              <div v-if="project.metrics?.length" class="mt-4 flex flex-wrap gap-3 border-t border-dashed border-border/60 pt-3">
+                <div v-for="m in project.metrics.slice(0, 2)" :key="m.label" class="flex items-center gap-1.5 font-mono text-[10px]">
+                  <span class="font-semibold text-brand-ink">{{ m.value }}</span>
+                  <span class="text-muted-foreground">{{ m.label }}</span>
+                </div>
+              </div>
+
+              <!-- Stack badges -->
+              <ul class="mt-auto flex flex-wrap gap-1.5 pt-5">
                 <li v-for="tech in project.stack.slice(0, 4)" :key="tech">
-                  <Badge variant="tech">{{ tech }}</Badge>
+                  <Badge variant="tech" class="border border-border/60 bg-muted/40 font-mono text-[10px]">
+                    {{ tech }}
+                  </Badge>
                 </li>
                 <li v-if="project.stack.length > 4">
-                  <Badge variant="tech">+{{ project.stack.length - 4 }}</Badge>
+                  <Badge variant="tech" class="border border-border/60 bg-muted/40 font-mono text-[10px]">
+                    +{{ project.stack.length - 4 }}
+                  </Badge>
                 </li>
               </ul>
             </div>
@@ -215,22 +237,22 @@ onUnmounted(() => mm?.revert())
         </TiltCard>
       </article>
 
-      <!-- Closing panel: a call to action at the end of the horizontal run, so
-           the section resolves rather than just stopping. -->
+      <!-- Closing panel: retro archive dispatch ticket -->
       <article class="work-card flex md:w-96 md:shrink-0">
         <NuxtLink
           to="/work"
-          class="group border-border/70 hover:border-brand/50 flex w-full flex-col items-start justify-end rounded-3xl border border-dashed p-8 transition-colors"
+          class="group relative flex w-full flex-col items-start justify-end rounded-2xl border border-dashed border-border/90 bg-card/40 p-8 shadow-[3px_3px_0_0_color-mix(in_oklch,var(--foreground)_10%,transparent)] transition-all duration-300 hover:border-brand/70 hover:bg-card/70 hover:shadow-[5px_5px_0_0_color-mix(in_oklch,var(--brand)_25%,transparent)]"
           data-cursor-label="All work"
         >
-          <span class="text-brand mb-4 font-mono text-[11px] tracking-[0.25em] uppercase">
-            Archive
+          <div class="washi-tape top-3 right-4 w-16 rotate-[3deg] opacity-75" aria-hidden="true" />
+          <span class="text-brand-ink mb-4 font-mono text-[11px] tracking-[0.25em] uppercase">
+            ARCHIVE // INDEX
           </span>
-          <span class="font-serif text-3xl leading-tight tracking-tight">
-            See everything,<br >including the experiments.
+          <span class="font-serif text-3xl leading-tight tracking-tight font-medium">
+            Explore the complete<br >field notebook.
           </span>
-          <span class="text-muted-foreground group-hover:text-brand mt-6 inline-flex items-center gap-2 text-sm transition-colors">
-            Browse all projects
+          <span class="text-muted-foreground group-hover:text-brand-ink mt-6 inline-flex items-center gap-2 font-mono text-xs tracking-wider uppercase transition-colors">
+            Browse all entries
             <ArrowUpRight class="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
           </span>
         </NuxtLink>

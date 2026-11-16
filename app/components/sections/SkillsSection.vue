@@ -97,10 +97,10 @@ onMounted(() => {
       style="transform: rotate(-4deg)"
       aria-hidden="true"
     >
-      <!-- A gold wash behind the rows ties the band to the palette. -->
+      <!-- Botanical spore amber & emerald wash behind the rows -->
       <div
-        class="pointer-events-none absolute inset-0 opacity-[0.07]"
-        style="background: linear-gradient(90deg, transparent, var(--brand), transparent)"
+        class="pointer-events-none absolute inset-0 opacity-[0.09]"
+        style="background: linear-gradient(90deg, transparent, var(--brand-sprout) 30%, var(--brand) 70%, transparent)"
       />
 
       <div class="skill-band-inner space-y-3">
@@ -155,7 +155,7 @@ onMounted(() => {
                 :aria-label="skill.name"
               >
                 <div
-                  class="skill-bar-fill bg-brand h-full origin-left"
+                  class="skill-bar-fill h-full origin-left bg-gradient-to-r from-brand-sprout to-brand shadow-[0_0_6px_var(--brand-sprout)]"
                   :style="{ transform: `scaleX(${skill.level / 100})` }"
                 />
               </div>
