@@ -10,26 +10,29 @@
 
 interface Props {
   /** The small monospace index, e.g. "02". */
-  index?: string
+  index?: string;
   /** The kicker above the title. */
-  label: string
-  title: string
+  label: string;
+  title: string;
   /** Optional italic serif fragment appended to the title. */
-  accent?: string
-  description?: string
-  align?: 'left' | 'center'
+  accent?: string;
+  description?: string;
+  align?: "left" | "center";
 }
 
 withDefaults(defineProps<Props>(), {
-  index: '',
-  accent: '',
-  description: '',
-  align: 'left',
-})
+  index: "",
+  accent: "",
+  description: "",
+  align: "left",
+});
 </script>
 
 <template>
-  <RevealOnScroll :stagger="0.09" :class="align === 'center' ? 'text-center' : ''">
+  <RevealOnScroll
+    :stagger="0.09"
+    :class="align === 'center' ? 'text-center' : ''"
+  >
     <!-- Clean architectural kicker -->
     <div
       class="mb-4 flex items-center gap-2.5 font-mono text-xs uppercase tracking-wider"
@@ -39,15 +42,21 @@ withDefaults(defineProps<Props>(), {
         {{ index }} /
       </span>
       <span class="text-cyan-300/90 font-medium flex items-center gap-2">
-        <span class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
+        <span
+          class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]"
+        />
         {{ label }}
       </span>
     </div>
 
     <!-- Title in crisp modern Space Grotesk -->
-    <h2 class="font-serif text-[clamp(2.2rem,5.5vw,4.2rem)] font-bold leading-[1.04] tracking-tight text-foreground">
+    <h2
+      class="font-serif text-[clamp(2.2rem,5.5vw,4.2rem)] font-bold leading-[1.04] tracking-tight text-foreground"
+    >
       {{ title }}
-      <span v-if="accent" class="text-cyan-400 font-medium ml-1 sm:ml-2">{{ accent }}</span>
+      <span v-if="accent" class="text-cyan-400 font-medium ml-1 sm:ml-2">{{
+        accent
+      }}</span>
     </h2>
 
     <p

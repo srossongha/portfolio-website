@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import gsap from 'gsap'
+import gsap from "gsap";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -10,14 +10,18 @@ import {
   Box,
   Code2,
   Mail,
-  Send,
-} from '@lucide/vue'
-import { profile, socials } from '~/data/site'
-import CyanAurora from '~/components/fx/CyanAurora.vue'
-import PhosphorWave from '~/components/fx/PhosphorWave.vue'
-import RetroWireframe3D from '~/components/fx/RetroWireframe3D.vue'
-import CountUp from '~/components/fx/CountUp.vue'
-import MagneticWrap from '~/components/fx/MagneticWrap.vue'
+  Gamepad2,
+  Sparkles,
+} from "@lucide/vue";
+import { profile, socials } from "~/data/site";
+import CyanAurora from "~/components/fx/CyanAurora.vue";
+import PhosphorWave from "~/components/fx/PhosphorWave.vue";
+import RetroWireframe3D from "~/components/fx/RetroWireframe3D.vue";
+import RetroGameBoy from "~/components/fx/RetroGameBoy.vue";
+import DotLottiePlayer from "~/components/fx/DotLottiePlayer.vue";
+import EngineerBadgeSvg from "~/components/svg/EngineerBadgeSvg.vue";
+import CountUp from "~/components/fx/CountUp.vue";
+import MagneticWrap from "~/components/fx/MagneticWrap.vue";
 
 /**
  * HeroSection.vue — Modern High-End Software Engineer Workstation
@@ -25,62 +29,78 @@ import MagneticWrap from '~/components/fx/MagneticWrap.vue'
  * Clean, human, professional:
  * - Clear role: Software Engineer (Front-end Developer Intern)
  * - Honest, direct copy without fake sci-fi tropes or AI buzzwords
- * - Interactive technical console with real TypeScript spec, 3D core, and wave
+ * - Interactive technical console with Songha Boy (8-bit), dotLottie engine, TypeScript spec, 3D core, and wave
  * - High-contrast cyan & midnight slate palette with smooth 60fps animations
  */
 
-const root = ref<HTMLElement | null>(null)
-const { isReady } = useAppReady()
-const reduced = useReducedMotion()
-const { scrollTo } = useSmoothScroll()
-const terminal = useTerminal()
+const root = ref<HTMLElement | null>(null);
+const { isReady } = useAppReady();
+const reduced = useReducedMotion();
+const { scrollTo } = useSmoothScroll();
+const terminal = useTerminal();
 
-const activeDeck = ref<'code' | '3d' | 'wave'>('code')
-let introCtx: gsap.Context | undefined
+const activeDeck = ref<"game" | "lottie" | "code" | "3d" | "wave">("game");
+let introCtx: gsap.Context | undefined;
 
 // Live Phnom Penh time
-const localTime = ref('')
+const localTime = ref("");
 onMounted(() => {
   const updateTime = () => {
-    localTime.value = new Date().toLocaleTimeString('en-US', {
-      timeZone: 'Asia/Phnom_Penh',
-      hour: '2-digit',
-      minute: '2-digit',
+    localTime.value = new Date().toLocaleTimeString("en-US", {
+      timeZone: "Asia/Phnom_Penh",
+      hour: "2-digit",
+      minute: "2-digit",
       hour12: false,
-    })
-  }
-  updateTime()
-  const timer = setInterval(updateTime, 1000 * 30)
-  onUnmounted(() => clearInterval(timer))
-})
+    });
+  };
+  updateTime();
+  const timer = setInterval(updateTime, 1000 * 30);
+  onUnmounted(() => clearInterval(timer));
+});
 
 const stopWatching = watch(
   isReady,
   (ready) => {
-    if (!ready || !root.value) return
-    stopWatching()
+    if (!ready || !root.value) return;
+    stopWatching();
 
     if (reduced.value) {
-      gsap.set('.hero-anim', { opacity: 1, y: 0 })
-      return
+      gsap.set(".hero-anim", { opacity: 1, y: 0 });
+      return;
     }
 
     introCtx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-      tl.from('.hero-eyebrow', { opacity: 0, y: 16, duration: 0.6 })
-        .from('.hero-title-text', { opacity: 0, y: 20, duration: 0.75 }, '-=0.4')
-        .from('.hero-role-text', { opacity: 0, y: 16, duration: 0.7 }, '-=0.5')
-        .from('.hero-bio-text', { opacity: 0, y: 14, duration: 0.65 }, '-=0.45')
-        .from('.hero-action-btn', { opacity: 0, y: 14, duration: 0.6, stagger: 0.06 }, '-=0.4')
-        .from('.hero-social-pill', { opacity: 0, y: 10, duration: 0.5, stagger: 0.04 }, '-=0.35')
-        .from('.hero-deck-chassis', { opacity: 0, y: 20, duration: 0.8, ease: 'power3.out' }, '-=0.5')
-    }, root.value)
+      tl.from(".hero-eyebrow", { opacity: 0, y: 16, duration: 0.6 })
+        .from(
+          ".hero-title-text",
+          { opacity: 0, y: 20, duration: 0.75 },
+          "-=0.4",
+        )
+        .from(".hero-role-text", { opacity: 0, y: 16, duration: 0.7 }, "-=0.5")
+        .from(".hero-bio-text", { opacity: 0, y: 14, duration: 0.65 }, "-=0.45")
+        .from(
+          ".hero-action-btn",
+          { opacity: 0, y: 14, duration: 0.6, stagger: 0.06 },
+          "-=0.4",
+        )
+        .from(
+          ".hero-social-pill",
+          { opacity: 0, y: 10, duration: 0.5, stagger: 0.04 },
+          "-=0.35",
+        )
+        .from(
+          ".hero-deck-chassis",
+          { opacity: 0, y: 20, duration: 0.8, ease: "power3.out" },
+          "-=0.5",
+        );
+    }, root.value);
   },
   { immediate: true },
-)
+);
 
-onUnmounted(() => introCtx?.revert())
+onUnmounted(() => introCtx?.revert());
 </script>
 
 <template>
@@ -94,17 +114,27 @@ onUnmounted(() => introCtx?.revert())
 
     <div class="relative mx-auto w-full max-w-350 px-5 sm:px-8 lg:px-12">
       <!-- Top Status & Location Bar -->
-      <div class="hero-anim hero-eyebrow mb-6 sm:mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-border/40 pb-4">
+      <div
+        class="hero-anim hero-eyebrow mb-6 sm:mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-border/40 pb-4"
+      >
         <div class="flex flex-wrap items-center gap-3">
-          <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3 py-1 font-mono text-xs text-cyan-300">
-            <span class="size-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
+          <div
+            class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3 py-1 font-mono text-xs text-cyan-300"
+          >
+            <span
+              class="size-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"
+            />
             <span>Available for Software Engineering Roles</span>
           </div>
 
-          <span class="text-muted-foreground flex items-center gap-1.5 font-mono text-xs">
+          <span
+            class="text-muted-foreground flex items-center gap-1.5 font-mono text-xs"
+          >
             <MapPin class="size-3.5 text-cyan-400" />
             <span>Phnom Penh, Cambodia</span>
-            <span v-if="localTime" class="text-cyan-400/80">({{ localTime }} UTC+7)</span>
+            <span v-if="localTime" class="text-cyan-400/80"
+              >({{ localTime }} UTC+7)</span
+            >
           </span>
         </div>
 
@@ -119,104 +149,152 @@ onUnmounted(() => introCtx?.revert())
       </div>
 
       <!-- Main Typographic Authority Section -->
-      <div class="max-w-4xl">
-        <div class="hero-anim hero-title-text">
-          <h1 class="font-serif text-[clamp(2.8rem,7vw,5.5rem)] font-bold leading-[1.02] tracking-tight text-foreground">
-            {{ profile.name }}
-          </h1>
-        </div>
-
-        <div class="hero-anim hero-role-text mt-3 flex flex-wrap items-center gap-3">
-          <h2 class="font-serif text-[clamp(1.5rem,3.8vw,2.8rem)] font-normal leading-tight tracking-tight text-cyan-400">
-            {{ profile.role }}
-          </h2>
-          <span class="rounded-full border border-cyan-500/25 bg-cyan-950/50 px-3 py-1 font-mono text-xs text-cyan-200">
-            Front-end Developer Intern @ T.O Group &amp; EKYC Solution
-          </span>
-        </div>
-
-        <p class="hero-anim hero-bio-text text-muted-foreground mt-5 max-w-2xl text-base sm:text-lg leading-relaxed">
-          Computer Science student at the Institute of Technology of Cambodia (ITC). I build production web applications, reliable backend integrations, and responsive interfaces with Vue, Nuxt, React, and TypeScript.
-        </p>
-
-        <!-- Primary Action Array -->
-        <div class="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
-          <MagneticWrap :strength="0.25" class="hero-anim hero-action-btn w-full sm:w-auto">
-            <Button
-              size="pill"
-              class="w-full sm:w-auto group inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 hover:bg-cyan-300 px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_0_20px_rgba(56,189,248,0.25)] transition-all duration-300 hover:scale-[1.02]"
-              data-cursor-label="Explore"
-              @click="scrollTo('#work', { offset: 0 })"
+      <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+        <div class="max-w-3xl">
+          <div class="hero-anim hero-title-text">
+            <h1
+              class="font-serif text-[clamp(2.8rem,7vw,5.5rem)] font-bold leading-[1.02] tracking-tight text-foreground"
             >
-              <span>Explore Projects</span>
-              <ArrowUpRight class="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Button>
-          </MagneticWrap>
+              {{ profile.name }}
+            </h1>
+          </div>
 
-          <MagneticWrap :strength="0.25" class="hero-anim hero-action-btn w-full sm:w-auto">
-            <Button
-              size="pill"
-              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-border/80 bg-card/70 px-5 py-3 text-sm font-medium text-foreground backdrop-blur-md transition-all duration-300 hover:border-cyan-400 hover:bg-card/90 hover:text-cyan-300"
-              as="a"
-              :href="profile.cvUrl"
-              download="SROS Songha.pdf"
-              target="_blank"
-              data-cursor-label="Resume"
-            >
-              <Download class="size-4 text-cyan-400" />
-              <span>Download CV</span>
-            </Button>
-          </MagneticWrap>
-
-          <MagneticWrap :strength="0.25" class="hero-anim hero-action-btn w-full sm:w-auto">
-            <Button
-              variant="ghost"
-              size="pill"
-              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-border/50 px-5 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-cyan-300 hover:border-cyan-400/40 hover:bg-cyan-950/20"
-              as="a"
-              :href="`mailto:${profile.email}`"
-              data-cursor-label="Contact"
-            >
-              <Mail class="size-4 text-cyan-400" />
-              <span>Get in Touch</span>
-            </Button>
-          </MagneticWrap>
-
-          <MagneticWrap :strength="0.25" class="hero-anim hero-action-btn w-full sm:w-auto">
-            <Button
-              variant="ghost"
-              size="pill"
-              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-mono text-xs text-muted-foreground transition-colors hover:text-cyan-300 hover:bg-cyan-950/20"
-              data-cursor-label="CLI Shell"
-              @click="terminal.open()"
-            >
-              <Terminal class="size-3.5 text-cyan-400" />
-              <span>&gt;_ Terminal</span>
-            </Button>
-          </MagneticWrap>
-        </div>
-
-        <!-- Social Links -->
-        <div class="mt-6 flex flex-wrap items-center gap-2">
-          <span class="text-muted-foreground font-mono text-xs mr-1">Connect:</span>
-          <a
-            v-for="s in socials.slice(0, 5)"
-            :key="s.label"
-            :href="s.href"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hero-anim hero-social-pill group rounded-lg border border-border/60 bg-card/40 px-3 py-1 font-mono text-xs text-muted-foreground backdrop-blur-md transition-all hover:border-cyan-400/50 hover:text-cyan-300"
-            :data-cursor-label="s.label"
+          <div
+            class="hero-anim hero-role-text mt-3 flex flex-wrap items-center gap-3"
           >
-            <span class="text-foreground group-hover:text-cyan-400 font-medium">{{ s.label }}</span>
-          </a>
+            <h2
+              class="font-serif text-[clamp(1.5rem,3.8vw,2.8rem)] font-normal leading-tight tracking-tight text-cyan-400"
+            >
+              {{ profile.role }}
+            </h2>
+            <span
+              class="rounded-full border border-cyan-500/25 bg-cyan-950/50 px-3 py-1 font-mono text-xs text-cyan-200"
+            >
+              Front-end Developer Intern @ T.O Group &amp; EKYC Solution
+            </span>
+          </div>
+
+          <p
+            class="hero-anim hero-bio-text text-muted-foreground mt-5 max-w-2xl text-base sm:text-lg leading-relaxed"
+          >
+            Computer Science student at the Institute of Technology of Cambodia
+            (ITC). I build production web applications, reliable backend
+            integrations, and responsive interfaces with Vue, Nuxt, React, and
+            TypeScript.
+          </p>
+
+          <!-- Primary Action Array -->
+          <div
+            class="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4"
+          >
+            <MagneticWrap
+              :strength="0.25"
+              class="hero-anim hero-action-btn w-full sm:w-auto"
+            >
+              <Button
+                size="pill"
+                class="w-full sm:w-auto group inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 hover:bg-cyan-300 px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_0_20px_rgba(56,189,248,0.25)] transition-all duration-300 hover:scale-[1.02]"
+                data-cursor-label="Explore"
+                @click="scrollTo('#work', { offset: 0 })"
+              >
+                <span>Explore Projects</span>
+                <ArrowUpRight
+                  class="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </Button>
+            </MagneticWrap>
+
+            <MagneticWrap
+              :strength="0.25"
+              class="hero-anim hero-action-btn w-full sm:w-auto"
+            >
+              <Button
+                size="pill"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-border/80 bg-card/70 px-5 py-3 text-sm font-medium text-foreground backdrop-blur-md transition-all duration-300 hover:border-cyan-400 hover:bg-card/90 hover:text-cyan-300"
+                as="a"
+                :href="profile.cvUrl"
+                download="SROS Songha.pdf"
+                target="_blank"
+                data-cursor-label="Resume"
+              >
+                <Download class="size-4 text-cyan-400" />
+                <span>Download CV</span>
+              </Button>
+            </MagneticWrap>
+
+            <MagneticWrap
+              :strength="0.25"
+              class="hero-anim hero-action-btn w-full sm:w-auto"
+            >
+              <Button
+                variant="ghost"
+                size="pill"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-border/50 px-5 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-cyan-300 hover:border-cyan-400/40 hover:bg-cyan-950/20"
+                as="a"
+                :href="`mailto:${profile.email}`"
+                data-cursor-label="Contact"
+              >
+                <Mail class="size-4 text-cyan-400" />
+                <span>Get in Touch</span>
+              </Button>
+            </MagneticWrap>
+
+            <MagneticWrap
+              :strength="0.25"
+              class="hero-anim hero-action-btn w-full sm:w-auto"
+            >
+              <Button
+                variant="ghost"
+                size="pill"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-mono text-xs text-muted-foreground transition-colors hover:text-cyan-300 hover:bg-cyan-950/20"
+                data-cursor-label="CLI Shell"
+                @click="terminal.open()"
+              >
+                <Terminal class="size-3.5 text-cyan-400" />
+                <span>&gt;_ Terminal</span>
+              </Button>
+            </MagneticWrap>
+          </div>
+
+          <!-- Social Links -->
+          <div class="mt-6 flex flex-wrap items-center gap-2">
+            <span class="text-muted-foreground font-mono text-xs mr-1"
+              >Connect:</span
+            >
+            <a
+              v-for="s in socials.slice(0, 5)"
+              :key="s.label"
+              :href="s.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hero-anim hero-social-pill group rounded-lg border border-border/60 bg-card/40 px-3 py-1 font-mono text-xs text-muted-foreground backdrop-blur-md transition-all hover:border-cyan-400/50 hover:text-cyan-300"
+              :data-cursor-label="s.label"
+            >
+              <span
+                class="text-foreground group-hover:text-cyan-400 font-medium"
+                >{{ s.label }}</span
+              >
+            </a>
+          </div>
+        </div>
+
+        <!-- Clean SVG Engineering Seal Badge -->
+        <div class="hero-anim hidden lg:flex flex-col items-center justify-center shrink-0 pt-2">
+          <EngineerBadgeSvg class="size-32 drop-shadow-[0_0_20px_rgba(56,189,248,0.2)]" />
+          <span class="mt-2.5 font-mono text-[10px] text-cyan-400/80 uppercase tracking-widest text-center">
+            Verified ITC Engineer
+          </span>
         </div>
       </div>
 
       <!-- Modern Interactive Engineering Workstation Console -->
-      <div class="hero-anim hero-deck-chassis mt-12 sm:mt-14 overflow-hidden rounded-2xl border border-cyan-500/25 bg-slate-950/90 shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+      <div
+        class="hero-anim hero-deck-chassis mt-12 sm:mt-14 overflow-hidden rounded-2xl border border-cyan-500/25 bg-slate-950/90 shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-xl"
+      >
         <!-- Console Window Header -->
-        <div class="flex flex-wrap items-center justify-between border-b border-cyan-500/20 bg-slate-900/60 px-4 py-3 sm:px-6">
+        <div
+          class="flex flex-wrap items-center justify-between border-b border-cyan-500/20 bg-slate-900/60 px-4 py-3 sm:px-6"
+        >
           <div class="flex items-center gap-3">
             <!-- macOS Window Controls -->
             <div class="flex items-center gap-1.5">
@@ -230,13 +308,43 @@ onUnmounted(() => introCtx?.revert())
           </div>
 
           <!-- Mode Selector Tabs -->
-          <div class="flex items-center gap-1 mt-2 sm:mt-0 font-mono text-xs">
+          <div class="flex flex-wrap items-center gap-1 mt-2 sm:mt-0 font-mono text-xs">
             <button
               type="button"
-              class="inline-flex items-center gap-1.5 rounded-md px-3 py-1 transition-all"
-              :class="activeDeck === 'code'
-                ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                : 'text-muted-foreground hover:text-cyan-300 border border-transparent'"
+              class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-all"
+              :class="
+                activeDeck === 'game'
+                  ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
+                  : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+              "
+              @click="activeDeck = 'game'"
+            >
+              <Gamepad2 class="size-3.5" />
+              <span>Songha Boy (8-Bit)</span>
+            </button>
+
+            <button
+              type="button"
+              class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-all"
+              :class="
+                activeDeck === 'lottie'
+                  ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
+                  : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+              "
+              @click="activeDeck = 'lottie'"
+            >
+              <Sparkles class="size-3.5" />
+              <span>dotLottie</span>
+            </button>
+
+            <button
+              type="button"
+              class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-all"
+              :class="
+                activeDeck === 'code'
+                  ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
+                  : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+              "
               @click="activeDeck = 'code'"
             >
               <Code2 class="size-3.5" />
@@ -245,10 +353,12 @@ onUnmounted(() => introCtx?.revert())
 
             <button
               type="button"
-              class="inline-flex items-center gap-1.5 rounded-md px-3 py-1 transition-all"
-              :class="activeDeck === '3d'
-                ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                : 'text-muted-foreground hover:text-cyan-300 border border-transparent'"
+              class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-all"
+              :class="
+                activeDeck === '3d'
+                  ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
+                  : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+              "
               @click="activeDeck = '3d'"
             >
               <Box class="size-3.5" />
@@ -257,10 +367,12 @@ onUnmounted(() => introCtx?.revert())
 
             <button
               type="button"
-              class="inline-flex items-center gap-1.5 rounded-md px-3 py-1 transition-all"
-              :class="activeDeck === 'wave'
-                ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                : 'text-muted-foreground hover:text-cyan-300 border border-transparent'"
+              class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-all"
+              :class="
+                activeDeck === 'wave'
+                  ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
+                  : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+              "
               @click="activeDeck = 'wave'"
             >
               <Activity class="size-3.5" />
@@ -270,34 +382,139 @@ onUnmounted(() => introCtx?.revert())
         </div>
 
         <!-- Interactive Screen Viewport -->
-        <div class="relative min-h-[240px] sm:min-h-[280px] bg-slate-950/80 p-4 sm:p-6 flex flex-col justify-center">
-          <!-- VIEWPORT 01: REAL TYPESCRIPT PROFILE SPEC -->
-          <div v-show="activeDeck === 'code'" class="font-mono text-xs sm:text-[13px] leading-relaxed text-slate-300 overflow-x-auto py-2">
-            <p><span class="text-cyan-400 font-semibold">export const</span> <span class="text-sky-300">songha</span>: <span class="text-indigo-300">SoftwareEngineer</span> = {</p>
-            <p class="pl-4 sm:pl-6"><span class="text-slate-400">name:</span> <span class="text-cyan-200">'Sros Songha'</span>,</p>
-            <p class="pl-4 sm:pl-6"><span class="text-slate-400">role:</span> <span class="text-cyan-200">'Software Engineer'</span>,</p>
-            <p class="pl-4 sm:pl-6"><span class="text-slate-400">currentStatus:</span> <span class="text-cyan-200">'Front-end Developer Intern @ T.O Group &amp; EKYC Solution'</span>,</p>
-            <p class="pl-4 sm:pl-6"><span class="text-slate-400">education:</span> <span class="text-cyan-200">'Computer Science @ Institute of Technology of Cambodia (ITC)'</span>,</p>
-            <p class="pl-4 sm:pl-6"><span class="text-slate-400">coreStack:</span> [<span class="text-cyan-200">'Vue 3'</span>, <span class="text-cyan-200">'Nuxt 4'</span>, <span class="text-cyan-200">'React 19'</span>, <span class="text-cyan-200">'Next.js'</span>, <span class="text-cyan-200">'TypeScript'</span>, <span class="text-cyan-200">'Tailwind CSS'</span>],</p>
-            <p class="pl-4 sm:pl-6"><span class="text-slate-400">infrastructure:</span> [<span class="text-cyan-200">'Cloudflare Workers'</span>, <span class="text-cyan-200">'Supabase'</span>, <span class="text-cyan-200">'PostgreSQL'</span>, <span class="text-cyan-200">'OpenNext'</span>],</p>
-            <p class="pl-4 sm:pl-6"><span class="text-slate-400">flagshipPlatform:</span> <span class="text-cyan-200">'https://sroknh.com'</span> <span class="text-slate-500">// Roomie (25 Provinces Mapped)</span>,</p>
-            <p class="pl-4 sm:pl-6"><span class="text-slate-400">availability:</span> <span class="text-emerald-400">'Open to full-time engineering roles &amp; high-impact projects'</span></p>
+        <div
+          class="relative min-h-[260px] bg-slate-950/80 p-4 sm:p-6 flex flex-col justify-center"
+        >
+          <!-- VIEWPORT 01: SONGHA BOY COLOR 8-BIT PLAYABLE GAME CONSOLE -->
+          <div v-show="activeDeck === 'game'" class="py-2">
+            <ClientOnly>
+              <RetroGameBoy />
+              <template #fallback>
+                <div class="h-64 flex items-center justify-center font-mono text-xs text-cyan-400">
+                  Booting Songha Boy Color...
+                </div>
+              </template>
+            </ClientOnly>
+          </div>
+
+          <!-- VIEWPORT 02: HIGH-PERFORMANCE DOTLOTTIE ANIMATION -->
+          <div v-show="activeDeck === 'lottie'" class="flex flex-col items-center justify-center py-4">
+            <div class="flex items-center justify-between w-full font-mono text-xs text-cyan-400/80 mb-3 px-2">
+              <span class="flex items-center gap-2">
+                <span class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]" />
+                Native dotLottie Vector Engine (.lottie)
+              </span>
+              <span class="text-muted-foreground text-[11px] hidden sm:inline">1.6 KB Payload · 60fps ThorVG WASM</span>
+            </div>
+
+            <ClientOnly>
+              <div class="relative flex items-center justify-center rounded-2xl border border-cyan-500/20 bg-slate-900/40 p-4">
+                <DotLottiePlayer
+                  src="/animations/retro-gameboy.lottie"
+                  class="size-60 sm:size-72"
+                  :autoplay="true"
+                  :loop="true"
+                />
+              </div>
+              <template #fallback>
+                <div class="size-60 flex items-center justify-center font-mono text-xs text-cyan-400">
+                  Loading dotLottie engine...
+                </div>
+              </template>
+            </ClientOnly>
+
+            <p class="mt-4 font-mono text-xs text-muted-foreground text-center max-w-md">
+              Rendered with WebAssembly ThorVG canvas pipeline. Lightweight vector art compiled with zero loss in resolution.
+            </p>
+          </div>
+
+          <!-- VIEWPORT 03: REAL TYPESCRIPT PROFILE SPEC -->
+          <div
+            v-show="activeDeck === 'code'"
+            class="font-mono text-xs sm:text-[13px] leading-relaxed text-slate-300 overflow-x-auto py-2"
+          >
+            <p>
+              <span class="text-cyan-400 font-semibold">export const</span>
+              <span class="text-sky-300">songha</span>:
+              <span class="text-indigo-300">SoftwareEngineer</span> = {
+            </p>
+            <p class="pl-4 sm:pl-6">
+              <span class="text-slate-400">name:</span>
+              <span class="text-cyan-200">'Sros Songha'</span>,
+            </p>
+            <p class="pl-4 sm:pl-6">
+              <span class="text-slate-400">role:</span>
+              <span class="text-cyan-200">'Software Engineer'</span>,
+            </p>
+            <p class="pl-4 sm:pl-6">
+              <span class="text-slate-400">currentStatus:</span>
+              <span class="text-cyan-200"
+                >'Front-end Developer Intern @ T.O Group &amp; EKYC
+                Solution'</span
+              >,
+            </p>
+            <p class="pl-4 sm:pl-6">
+              <span class="text-slate-400">education:</span>
+              <span class="text-cyan-200"
+                >'Computer Science @ Institute of Technology of Cambodia
+                (ITC)'</span
+              >,
+            </p>
+            <p class="pl-4 sm:pl-6">
+              <span class="text-slate-400">coreStack:</span> [<span
+                class="text-cyan-200"
+                >'Vue 3'</span
+              >, <span class="text-cyan-200">'Nuxt 4'</span>,
+              <span class="text-cyan-200">'React 19'</span>,
+              <span class="text-cyan-200">'Next.js'</span>,
+              <span class="text-cyan-200">'TypeScript'</span>,
+              <span class="text-cyan-200">'Tailwind CSS'</span>],
+            </p>
+            <p class="pl-4 sm:pl-6">
+              <span class="text-slate-400">infrastructure:</span> [<span
+                class="text-cyan-200"
+                >'Cloudflare Workers'</span
+              >, <span class="text-cyan-200">'Supabase'</span>,
+              <span class="text-cyan-200">'PostgreSQL'</span>,
+              <span class="text-cyan-200">'OpenNext'</span>],
+            </p>
+            <p class="pl-4 sm:pl-6">
+              <span class="text-slate-400">flagshipPlatform:</span>
+              <span class="text-cyan-200">'https://sroknh.com'</span>
+              <span class="text-slate-500">// Roomie (25 Provinces Mapped)</span
+              >,
+            </p>
+            <p class="pl-4 sm:pl-6">
+              <span class="text-slate-400">availability:</span>
+              <span class="text-emerald-400"
+                >'Open to full-time engineering roles &amp; high-impact
+                projects'</span
+              >
+            </p>
             <p>};</p>
           </div>
 
           <!-- VIEWPORT 02: 3D VECTOR CORE -->
           <div v-show="activeDeck === '3d'" class="relative w-full">
-            <div class="flex items-center justify-between font-mono text-xs text-cyan-400/80 mb-2">
+            <div
+              class="flex items-center justify-between font-mono text-xs text-cyan-400/80 mb-2"
+            >
               <span class="flex items-center gap-2">
-                <span class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]" />
+                <span
+                  class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]"
+                />
                 Interactive 3D Geometry Core
               </span>
-              <span class="text-muted-foreground text-[11px] hidden sm:inline">Drag to rotate viewport</span>
+              <span class="text-muted-foreground text-[11px] hidden sm:inline"
+                >Drag to rotate viewport</span
+              >
             </div>
             <ClientOnly>
               <RetroWireframe3D class="h-44 sm:h-52 w-full rounded-lg" />
               <template #fallback>
-                <div class="h-44 sm:h-52 w-full flex items-center justify-center font-mono text-xs text-cyan-400">
+                <div
+                  class="h-44 sm:h-52 w-full flex items-center justify-center font-mono text-xs text-cyan-400"
+                >
                   Initializing WebGL Core...
                 </div>
               </template>
@@ -306,17 +523,25 @@ onUnmounted(() => introCtx?.revert())
 
           <!-- VIEWPORT 03: OSCILLOSCOPE WAVE HARMONICS -->
           <div v-show="activeDeck === 'wave'" class="relative w-full">
-            <div class="flex items-center justify-between font-mono text-xs text-cyan-400/80 mb-2">
+            <div
+              class="flex items-center justify-between font-mono text-xs text-cyan-400/80 mb-2"
+            >
               <span class="flex items-center gap-2">
-                <span class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]" />
+                <span
+                  class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]"
+                />
                 Realtime Signal Waveform
               </span>
-              <span class="text-muted-foreground text-[11px] hidden sm:inline">Hover pointer to modulate harmonics</span>
+              <span class="text-muted-foreground text-[11px] hidden sm:inline"
+                >Hover pointer to modulate harmonics</span
+              >
             </div>
             <ClientOnly>
               <PhosphorWave class="h-40 sm:h-48 w-full rounded-lg" />
               <template #fallback>
-                <div class="h-40 sm:h-48 w-full flex items-center justify-center font-mono text-xs text-cyan-400">
+                <div
+                  class="h-40 sm:h-48 w-full flex items-center justify-center font-mono text-xs text-cyan-400"
+                >
                   Calibrating Oscilloscope...
                 </div>
               </template>
@@ -325,16 +550,22 @@ onUnmounted(() => introCtx?.revert())
         </div>
 
         <!-- Integrated Engineering Stats Strip -->
-        <div class="grid grid-cols-2 divide-x divide-y sm:divide-y-0 sm:grid-cols-4 divide-cyan-500/20 border-t border-cyan-500/20 bg-slate-950/90">
+        <div
+          class="grid grid-cols-2 divide-x divide-y sm:divide-y-0 sm:grid-cols-4 divide-cyan-500/20 border-t border-cyan-500/20 bg-slate-950/90"
+        >
           <div
             v-for="stat in profile.stats"
             :key="stat.label"
             class="p-4 sm:p-5 text-center sm:text-left transition-colors hover:bg-cyan-950/20"
           >
-            <div class="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-cyan-400">
+            <div
+              class="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-cyan-400"
+            >
               <CountUp :value="stat.value" :suffix="stat.suffix" />
             </div>
-            <div class="text-muted-foreground mt-1 font-mono text-xs uppercase tracking-wider">
+            <div
+              class="text-muted-foreground mt-1 font-mono text-xs uppercase tracking-wider"
+            >
               {{ stat.label }}
             </div>
           </div>

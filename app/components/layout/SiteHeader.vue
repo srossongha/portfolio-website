@@ -305,9 +305,7 @@ watch(
             >
               Send Message
             </Button>
-            <p
-              class="text-center font-mono text-xs text-muted-foreground mt-1"
-            >
+            <p class="text-center font-mono text-xs text-muted-foreground mt-1">
               Phnom Penh, Cambodia · UTC+7
             </p>
           </div>

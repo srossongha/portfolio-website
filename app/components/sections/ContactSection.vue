@@ -82,7 +82,11 @@ async function onSubmit() {
   } catch (error) {
     // `$fetch` throws on any non-2xx response. Extract statusMessage from
     // the ofetch error payload or fallback cleanly.
-    const errObj = error as { data?: { statusMessage?: string; message?: string }; statusMessage?: string; message?: string }
+    const errObj = error as {
+      data?: { statusMessage?: string; message?: string };
+      statusMessage?: string;
+      message?: string;
+    };
     const message =
       errObj?.data?.statusMessage ||
       errObj?.statusMessage ||
@@ -105,7 +109,6 @@ async function onSubmit() {
     ref="root"
     class="relative overflow-hidden py-28 sm:py-36 lg:py-44"
   >
-
     <div class="relative mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
       <div class="grid gap-16 lg:grid-cols-12 lg:gap-20">
         <!-- ------------------------------------------------------- pitch -->
@@ -166,14 +169,21 @@ async function onSubmit() {
               @submit.prevent="onSubmit"
             >
               <!-- Contact Form Header -->
-              <div class="mb-6 flex items-center justify-between border-b border-border/40 pb-3">
+              <div
+                class="mb-6 flex items-center justify-between border-b border-border/40 pb-3"
+              >
                 <div class="flex items-center gap-2">
-                  <span class="size-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]" />
+                  <span
+                    class="size-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]"
+                  />
                   <span class="font-mono text-xs font-semibold text-cyan-300">
                     Direct Message
                   </span>
                 </div>
-                <span class="font-mono text-xs text-muted-foreground hidden sm:inline-block">Phnom Penh (UTC+7)</span>
+                <span
+                  class="font-mono text-xs text-muted-foreground hidden sm:inline-block"
+                  >Phnom Penh (UTC+7)</span
+                >
               </div>
               <!-- HONEYPOT.
                    A field a human never sees and never fills in. Bots fill every

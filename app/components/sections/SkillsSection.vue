@@ -3,6 +3,7 @@ import { Code2, Database, Wrench, Binary, Layers } from '@lucide/vue'
 import { marqueeRows } from '~/data/site'
 import SectionHeading from '~/components/fx/SectionHeading.vue'
 import MarqueeRow from '~/components/fx/MarqueeRow.vue'
+import TechRadarSvg from '~/components/svg/TechRadarSvg.vue'
 
 /**
  * SkillsSection.vue — Modern Technical Stack Matrix
@@ -77,8 +78,41 @@ const systems = [
         description="A disciplined, production-tested arsenal. Real architectural systems deployed to production without arbitrary percentage bars."
       />
 
+      <!-- Interactive SVG Competency Radar & Architecture -->
+      <div class="mt-12 overflow-hidden rounded-2xl border border-cyan-500/25 bg-slate-950/85 p-6 sm:p-8 backdrop-blur-xl">
+        <div class="grid gap-8 lg:grid-cols-12 lg:items-center">
+          <div class="lg:col-span-6 flex flex-col justify-center">
+            <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3 py-1 font-mono text-xs text-cyan-300 w-fit">
+              <span class="size-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]" />
+              <span>Mathematical Vector Radar (Clean SVG)</span>
+            </div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-bold text-foreground mt-4">
+              Discipline distribution &amp; architectural balance.
+            </h3>
+            <p class="text-muted-foreground mt-3 text-sm sm:text-base leading-relaxed">
+              Software engineering is more than writing UI widgets. It requires solid algorithmic foundations from the Institute of Technology of Cambodia (ITC), strict compile-time type safety, and edge-native serverless systems.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-2 font-mono text-xs">
+              <span class="rounded-lg border border-border/60 bg-slate-900/60 px-3 py-1.5 text-slate-300">
+                ★ 96% Front-end Architecture
+              </span>
+              <span class="rounded-lg border border-border/60 bg-slate-900/60 px-3 py-1.5 text-slate-300">
+                ★ 95% Type Determinism
+              </span>
+              <span class="rounded-lg border border-border/60 bg-slate-900/60 px-3 py-1.5 text-slate-300">
+                ★ 90% Serverless Edge
+              </span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 flex justify-center">
+            <TechRadarSvg />
+          </div>
+        </div>
+      </div>
+
       <!-- 4-Column Systems Architecture Grid -->
-      <div class="mt-12 lg:mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-10 lg:mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <div
           v-for="sys in systems"
           :key="sys.layer"
