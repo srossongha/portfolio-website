@@ -172,10 +172,20 @@ async function onSubmit() {
         <div class="lg:col-span-7">
           <RevealOnScroll direction="up">
             <form
-              class="glass border-border/70 rounded-3xl border p-6 sm:p-10"
+              class="relative overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-950/85 p-6 sm:p-10 shadow-[0_16px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
               novalidate
               @submit.prevent="onSubmit"
             >
+              <!-- Transmission Channel Header -->
+              <div class="mb-6 flex items-center justify-between border-b border-cyan-500/20 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="size-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]" />
+                  <span class="font-pixel text-[10px] tracking-wider text-cyan-300 uppercase font-semibold">
+                    DISPATCH TRANSMISSION // ENCRYPTED CHANNEL
+                  </span>
+                </div>
+                <span class="font-pixel text-[9px] text-cyan-400/70 hidden sm:inline-block">UTC+7</span>
+              </div>
               <!-- HONEYPOT.
                    A field a human never sees and never fills in. Bots fill every
                    input they find, so a non-empty value here is a near-certain
