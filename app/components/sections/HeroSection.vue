@@ -198,7 +198,7 @@ onUnmounted(() => introCtx?.revert());
 
           <div class="hero-anim hero-role-text mt-3">
             <h2
-              class="text-gradient font-serif text-[clamp(1.6rem,4.5vw,3.6rem)] font-light italic leading-tight"
+              class="text-gradient font-serif text-[clamp(1.6rem,4.5vw,3.6rem)] font-light not-italic leading-tight tracking-tight"
             >
               {{ profile.role }}
             </h2>
