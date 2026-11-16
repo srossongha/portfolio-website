@@ -148,9 +148,9 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 12px);
 
-  /* Typography: Authentic Developer Nerd Font Stack (macOS SF Mono / JetBrains Mono) */
-  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-serif: 'Space Grotesk', 'Syne', -apple-system, sans-serif;
+  /* Typography: Authentic macOS Native & Developer Nerd Font Stack (SF Pro / SF Mono / JetBrains Mono) */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Space Grotesk', 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: ui-monospace, 'SF Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'JetBrains Mono', 'Fira Code', 'Liberation Mono', monospace;
   --font-pixel: ui-monospace, 'SF Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'JetBrains Mono', 'Fira Code', monospace;
   --font-crt: ui-monospace, 'SF Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'JetBrains Mono', 'Fira Code', monospace;

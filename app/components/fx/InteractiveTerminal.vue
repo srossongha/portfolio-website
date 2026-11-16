@@ -12,6 +12,7 @@ import { profile, projects, skillGroups } from '~/data/site'
 
 const open = defineModel<boolean>('open', { default: false })
 const soundEnabled = ref(false)
+const isMaximized = ref(false)
 const inputEl = ref<HTMLInputElement | null>(null)
 const outputContainer = ref<HTMLElement | null>(null)
 
@@ -87,7 +88,7 @@ function execute(cmdStr?: string) {
   const raw = (cmdStr ?? currentInput.value).trim()
   if (!raw) return
 
-  lines.value.push({ type: 'input', text: `> ${raw}` })
+  lines.value.push({ type: 'input', text: `songha@macbook ~ % ${raw}` })
   history.value.push(raw)
   historyIndex = -1
   currentInput.value = ''
@@ -226,36 +227,57 @@ watch(open, (isOpen) => {
         aria-modal="true"
         aria-label="Developer Terminal Console"
       >
-        <!-- CRT Monitor Shell Box -->
-        <div class="relative flex h-[85vh] max-h-[640px] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border-2 border-cyan-400/50 bg-[#060a12] shadow-[0_0_50px_rgba(56,189,248,0.3)]">
-          <!-- CRT Scanlines overlay -->
-          <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-25" />
-
-          <!-- Terminal Title Bar -->
-          <div class="relative flex items-center justify-between border-b border-cyan-500/30 bg-cyan-950/40 px-4 py-2.5">
-            <div class="flex items-center gap-2">
-              <span class="size-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]" />
-              <span class="font-mono text-xs font-semibold tracking-wider text-cyan-300 uppercase">
-                SONGHA_DEV // INTERACTIVE_CLI
-              </span>
-            </div>
-
+        <!-- macOS Terminal Window Shell Box -->
+        <div
+          class="relative flex w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0c1017]/95 shadow-[0_25px_60px_rgba(0,0,0,0.65)] backdrop-blur-2xl transition-all duration-300"
+          :class="isMaximized ? 'h-[95vh] max-w-5xl' : 'h-[85vh] max-h-[640px] max-w-2xl'"
+        >
+          <!-- Terminal Title Bar (macOS Window Chrome) -->
+          <div class="relative flex items-center justify-between border-b border-white/10 bg-slate-900/80 px-4 py-2.5 backdrop-blur-md">
+            <!-- macOS Traffic Light Window Controls -->
             <div class="flex items-center gap-2">
               <button
                 type="button"
-                class="rounded p-1 text-cyan-400 hover:text-cyan-200 transition-colors"
+                class="group relative size-3 rounded-full bg-[#ff5f56] border border-[#e0443e] flex items-center justify-center transition-transform hover:scale-105 cursor-pointer shadow-sm"
+                title="Close Window (Esc)"
+                @click="open = false"
+              >
+                <X class="size-2 text-black/80 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </button>
+              <button
+                type="button"
+                class="group relative size-3 rounded-full bg-[#ffbd2e] border border-[#dea123] flex items-center justify-center transition-transform hover:scale-105 cursor-pointer shadow-sm"
+                title="Clear Terminal"
+                @click="execute('clear')"
+              >
+                <span class="w-1.5 h-0.5 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </button>
+              <button
+                type="button"
+                class="group relative size-3 rounded-full bg-[#27c93f] border border-[#1aab29] flex items-center justify-center transition-transform hover:scale-105 cursor-pointer shadow-sm"
+                title="Toggle Fullscreen"
+                @click="isMaximized = !isMaximized"
+              >
+                <component :is="isMaximized ? Minimize2 : Maximize2" class="size-2 text-black/80 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </button>
+            </div>
+
+            <!-- macOS Window Centered Title -->
+            <div class="absolute left-1/2 -translate-x-1/2 flex items-center gap-1.5 pointer-events-none">
+              <span class="font-mono text-xs font-medium text-slate-300">
+                songha — -zsh — 80×24
+              </span>
+            </div>
+
+            <!-- Audio Chirp Toggle Button -->
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
+                class="rounded p-1 text-slate-400 hover:text-cyan-300 transition-colors"
                 :title="soundEnabled ? 'Mute Beeps' : 'Enable Beeps'"
                 @click="soundEnabled = !soundEnabled"
               >
                 <component :is="soundEnabled ? Volume2 : VolumeX" class="size-3.5" />
-              </button>
-
-              <button
-                type="button"
-                class="rounded p-1 text-cyan-400 hover:text-cyan-200 transition-colors"
-                @click="open = false"
-              >
-                <X class="size-4" />
               </button>
             </div>
           </div>
@@ -269,10 +291,10 @@ watch(open, (isOpen) => {
               v-for="(line, idx) in lines"
               :key="idx"
               :class="{
-                'text-cyan-400/70': line.type === 'system',
+                'text-cyan-400/80': line.type === 'system',
                 'text-cyan-300 font-semibold': line.type === 'input',
                 'text-slate-200': line.type === 'output',
-                'text-cyan-400 crt-glow': line.type === 'success',
+                'text-cyan-400 font-medium': line.type === 'success',
                 'text-red-400': line.type === 'error',
                 'text-cyan-300 font-mono tracking-widest text-[10px]': line.type === 'matrix',
               }"
@@ -289,28 +311,28 @@ watch(open, (isOpen) => {
             </div>
           </div>
 
-          <!-- Mobile Quick-Command Chips -->
-          <div class="relative border-t border-cyan-500/20 bg-cyan-950/20 px-4 py-2 flex flex-wrap gap-1.5">
-            <span class="font-mono text-[10px] uppercase tracking-wider text-cyan-400/80 mr-1 self-center">EXEC:</span>
+          <!-- Quick-Command Chips -->
+          <div class="relative border-t border-white/5 bg-slate-900/40 px-4 py-2 flex flex-wrap gap-1.5">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-slate-400 mr-1 self-center">EXEC:</span>
             <button
               v-for="chip in ['help', 'about', 'projects', 'skills', 'cv', 'matrix', 'clear']"
               :key="chip"
               type="button"
-              class="rounded border border-cyan-400/30 bg-black/60 px-2.5 py-0.5 font-mono text-xs text-cyan-300 hover:border-cyan-400 hover:bg-cyan-950/50 transition-colors"
+              class="rounded border border-cyan-500/25 bg-slate-950/80 px-2.5 py-0.5 font-mono text-xs text-cyan-300 hover:border-cyan-400 hover:bg-cyan-950/50 transition-colors cursor-pointer"
               @click="execute(chip)"
             >
               {{ chip }}
             </button>
           </div>
 
-          <!-- Input Bar with Blinking Cursor -->
-          <div class="relative flex items-center border-t border-cyan-500/30 bg-black/70 px-4 py-3">
-            <span class="font-mono text-xs text-cyan-400 font-bold mr-2">&gt;</span>
+          <!-- Input Bar with Blinking macOS Block Cursor -->
+          <div class="relative flex items-center border-t border-white/10 bg-black/60 px-4 py-3">
+            <span class="font-mono text-xs text-cyan-400 font-bold mr-2 select-none">songha@macbook ~ %</span>
             <input
               ref="inputEl"
               v-model="currentInput"
               type="text"
-              class="flex-1 bg-transparent font-mono text-xs text-cyan-300 outline-none caret-cyan-400 placeholder:text-cyan-600/50"
+              class="flex-1 bg-transparent font-mono text-xs text-cyan-200 outline-none caret-transparent placeholder:text-slate-600"
               placeholder="Type command ('help', 'projects', 'cv')..."
               autocomplete="off"
               autocorrect="off"
@@ -318,7 +340,7 @@ watch(open, (isOpen) => {
               spellcheck="false"
               @keydown="handleKeydown"
             />
-            <span class="crt-cursor inline-block text-cyan-300 font-bold ml-1">█</span>
+            <span class="crt-cursor inline-block text-white font-bold ml-1">█</span>
           </div>
         </div>
       </div>

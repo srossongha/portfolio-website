@@ -153,6 +153,7 @@ const toastPosition = computed(() =>
 
     <PreloaderScreen />
     <CustomCursor />
+    <AmbientSpaceShmup />
 
     <!-- Film grain over everything. Purely decorative, hence aria-hidden. -->
     <div class="grain-overlay" aria-hidden="true" />

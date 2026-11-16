@@ -74,6 +74,12 @@ const lottiePresets = [
     badge: "1.2 KB",
   },
   {
+    id: "retro-space-odyssey",
+    name: "Space Odyssey",
+    src: "/animations/retro-space-odyssey.lottie",
+    badge: "2.0 KB",
+  },
+  {
     id: "retro-gameboy",
     name: "GameBoy",
     src: "/animations/retro-gameboy.lottie",
@@ -318,7 +324,7 @@ onUnmounted(() => {
               <span class="text-cyan-200 font-semibold truncate"
                 >npx songha</span
               >
-              <span class="crt-cursor text-cyan-400 font-bold select-none text-[11px]">█</span>
+              <span class="crt-cursor text-white font-bold select-none text-[11px]">█</span>
               <span class="text-muted-foreground text-[11px] hidden sm:inline"
                 >// Launch interactive engineer CLI</span
               >
