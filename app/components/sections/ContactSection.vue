@@ -2,6 +2,7 @@
 import { Check, Loader2, Send } from "@lucide/vue";
 import { toast } from "vue-sonner";
 import { profile, socials } from "~/data/site";
+import DotLottiePlayer from "~/components/fx/DotLottiePlayer.vue";
 
 /**
  * Contact — a real, working form.
@@ -163,7 +164,43 @@ async function onSubmit() {
         <!-- -------------------------------------------------------- form -->
         <div class="lg:col-span-7">
           <RevealOnScroll direction="up">
+            <!-- Success Screen with Vector dotLottie Animation -->
+            <div
+              v-if="isSent"
+              class="relative overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-950/85 p-8 sm:p-12 text-center shadow-[0_16px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl flex flex-col items-center justify-center min-h-[420px]"
+            >
+              <ClientOnly>
+                <DotLottiePlayer
+                  src="/animations/mail-sent.lottie"
+                  class="size-24 mb-4"
+                  :autoplay="true"
+                  :loop="false"
+                />
+                <template #fallback>
+                  <div class="size-16 rounded-full bg-cyan-950/60 border border-cyan-400/40 flex items-center justify-center text-cyan-300 mb-4">
+                    <Check class="size-8 text-cyan-400" />
+                  </div>
+                </template>
+              </ClientOnly>
+              <h3 class="font-serif text-2xl sm:text-3xl font-bold text-foreground">
+                Message Dispatched
+              </h3>
+              <p class="text-muted-foreground mt-2 max-w-md text-sm sm:text-base leading-relaxed">
+                Thank you for reaching out. Your message has landed directly in my inbox. I read everything and usually reply within 24 to 48 hours.
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                class="mt-6 border-cyan-500/30 text-cyan-300 hover:text-white hover:bg-cyan-950/50 rounded-xl"
+                @click="isSent = false"
+              >
+                Send Another Message
+              </Button>
+            </div>
+
+            <!-- Interactive Direct Form -->
             <form
+              v-else
               class="relative overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-950/85 p-6 sm:p-10 shadow-[0_16px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
               novalidate
               @submit.prevent="onSubmit"

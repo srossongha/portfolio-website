@@ -77,7 +77,17 @@ const otherProjects = computed(() =>
                 <span
                   class="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3 py-1 font-mono text-xs font-medium text-cyan-300"
                 >
-                  <Sparkles class="size-3" />
+                  <ClientOnly>
+                    <DotLottiePlayer
+                      src="/animations/pulse-radar.lottie"
+                      class="size-3.5 shrink-0"
+                      :autoplay="true"
+                      :loop="true"
+                    />
+                    <template #fallback>
+                      <Sparkles class="size-3" />
+                    </template>
+                  </ClientOnly>
                   <span>Flagship Production Platform</span>
                 </span>
                 <span class="font-mono text-xs text-muted-foreground">

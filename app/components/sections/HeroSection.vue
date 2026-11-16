@@ -14,6 +14,8 @@ import {
   Sparkles,
   Copy,
   Check,
+  Upload,
+  FileUp,
 } from "@lucide/vue";
 import { toast } from "vue-sonner";
 import { profile, socials } from "~/data/site";
@@ -61,6 +63,75 @@ function copyCliCommand() {
       copied.value = false;
     }, 2500);
   }
+}
+
+// Lottie Animation Engine State & Browser File Loader
+const lottiePresets = [
+  { id: 'ai-quantum-core', name: 'AI Core', src: '/animations/ai-quantum-core.lottie', badge: '1.2 KB' },
+  { id: 'retro-gameboy', name: 'GameBoy', src: '/animations/retro-gameboy.lottie', badge: '1.6 KB' },
+  { id: 'code-spark', name: 'Code Spark', src: '/animations/code-spark.lottie', badge: '0.8 KB' },
+  { id: 'game-trophy', name: 'Trophy', src: '/animations/game-trophy.lottie', badge: '0.7 KB' },
+];
+
+const activeLottieSrc = ref('/animations/ai-quantum-core.lottie');
+const userLottieFile = ref<File | null>(null);
+const userFileName = ref<string | null>(null);
+const userFileSize = ref<string | null>(null);
+const lottieFileInput = ref<HTMLInputElement | null>(null);
+
+function selectLottiePreset(src: string) {
+  userLottieFile.value = null;
+  userFileName.value = null;
+  userFileSize.value = null;
+  activeLottieSrc.value = src;
+}
+
+function triggerLottieUpload() {
+  lottieFileInput.value?.click();
+}
+
+function handleLottieFileSelect(event: Event) {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+  if (!file) return;
+
+  if (!file.name.endsWith('.lottie') && !file.name.endsWith('.json')) {
+    toast.error('Invalid animation format', {
+      description: 'Please select a valid .lottie or .json file.',
+    });
+    return;
+  }
+
+  userLottieFile.value = file;
+  userFileName.value = file.name;
+  userFileSize.value = (file.size / 1024).toFixed(1) + ' KB';
+  activeLottieSrc.value = '';
+
+  toast.success('Lottie file imported into browser!', {
+    description: `Loaded ${file.name} (${userFileSize.value}) via browser memory.`,
+  });
+}
+
+function handleLottieDrop(e: DragEvent) {
+  e.preventDefault();
+  const file = e.dataTransfer?.files?.[0];
+  if (!file) return;
+
+  if (!file.name.endsWith('.lottie') && !file.name.endsWith('.json')) {
+    toast.error('Invalid animation format', {
+      description: 'Please drop a .lottie or .json file.',
+    });
+    return;
+  }
+
+  userLottieFile.value = file;
+  userFileName.value = file.name;
+  userFileSize.value = (file.size / 1024).toFixed(1) + ' KB';
+  activeLottieSrc.value = '';
+
+  toast.success('Lottie file dropped into browser!', {
+    description: `Loaded ${file.name} (${userFileSize.value}) via browser memory.`,
+  });
 }
 
 // Live Phnom Penh time
@@ -145,9 +216,19 @@ onUnmounted(() => {
           <div
             class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3 py-1 font-mono text-xs text-cyan-300"
           >
-            <span
-              class="size-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"
-            />
+            <ClientOnly>
+              <DotLottiePlayer
+                src="/animations/pulse-radar.lottie"
+                class="size-3.5 shrink-0"
+                :autoplay="true"
+                :loop="true"
+              />
+              <template #fallback>
+                <span
+                  class="size-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"
+                />
+              </template>
+            </ClientOnly>
             <span>Available for Software Engineering Roles</span>
           </div>
 
@@ -438,34 +519,102 @@ onUnmounted(() => {
             </ClientOnly>
           </div>
 
-          <!-- VIEWPORT 02: HIGH-PERFORMANCE DOTLOTTIE ANIMATION -->
-          <div v-show="activeDeck === 'lottie'" class="flex flex-col items-center justify-center py-4">
-            <div class="flex items-center justify-between w-full font-mono text-xs text-cyan-400/80 mb-3 px-2">
+          <!-- VIEWPORT 02: HIGH-PERFORMANCE DOTLOTTIE ANIMATION & BROWSER FILE LOADER -->
+          <div v-show="activeDeck === 'lottie'" class="flex flex-col items-center justify-center py-2">
+            <div class="flex items-center justify-between w-full font-mono text-xs text-cyan-400/80 mb-2.5 px-1">
               <span class="flex items-center gap-2">
                 <span class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]" />
-                Native dotLottie Vector Engine (.lottie)
+                <span class="truncate">DotLottie Vector WASM Engine</span>
               </span>
-              <span class="text-muted-foreground text-[11px] hidden sm:inline">1.6 KB Payload · 60fps ThorVG WASM</span>
+              <span class="text-muted-foreground text-[11px] hidden sm:inline">
+                {{ userFileName ? `Custom File (${userFileSize})` : '60fps ThorVG · Sub-2KB' }}
+              </span>
             </div>
 
+            <!-- Animation Preset Bar + Browser File Upload Trigger -->
+            <div class="flex flex-wrap items-center justify-center gap-1.5 mb-3 w-full">
+              <button
+                v-for="preset in lottiePresets"
+                :key="preset.id"
+                type="button"
+                class="inline-flex items-center gap-1 rounded-md px-2 py-1 font-mono text-[11px] transition-all"
+                :class="
+                  !userLottieFile && activeLottieSrc === preset.src
+                    ? 'border border-cyan-400/50 bg-cyan-950/80 text-cyan-200 shadow-[0_0_8px_rgba(56,189,248,0.25)]'
+                    : 'border border-cyan-500/15 bg-slate-900/60 text-slate-400 hover:text-cyan-300'
+                "
+                @click="selectLottiePreset(preset.src)"
+              >
+                <span>{{ preset.name }}</span>
+                <span class="text-[10px] text-cyan-500/70 font-semibold">({{ preset.badge }})</span>
+              </button>
+
+              <!-- Upload File from Browser Button -->
+              <button
+                type="button"
+                class="inline-flex items-center gap-1.5 rounded-md px-2 py-1 font-mono text-[11px] transition-all border"
+                :class="
+                  userLottieFile
+                    ? 'border-emerald-400/50 bg-emerald-950/80 text-emerald-200 shadow-[0_0_8px_rgba(52,211,153,0.25)]'
+                    : 'border-cyan-500/30 bg-cyan-950/40 text-cyan-300 hover:bg-cyan-900/50 hover:text-white'
+                "
+                title="Select or drop any .lottie or .json animation from your computer"
+                @click="triggerLottieUpload"
+              >
+                <FileUp class="size-3" />
+                <span>{{ userFileName ? 'Change File' : 'Import File...' }}</span>
+              </button>
+
+              <input
+                ref="lottieFileInput"
+                type="file"
+                accept=".lottie,.json"
+                class="hidden"
+                @change="handleLottieFileSelect"
+              />
+            </div>
+
+            <!-- Custom File Loaded Indicator Strip -->
+            <div
+              v-if="userFileName"
+              class="flex items-center gap-2 mb-2 px-3 py-1 rounded-lg border border-emerald-500/30 bg-emerald-950/40 text-emerald-300 font-mono text-xs"
+            >
+              <Check class="size-3.5 text-emerald-400" />
+              <span class="truncate max-w-[200px] sm:max-w-xs">{{ userFileName }}</span>
+              <span class="text-emerald-500 text-[10px]">({{ userFileSize }})</span>
+              <button
+                type="button"
+                class="ml-1 text-[10px] text-muted-foreground hover:text-white underline"
+                @click="selectLottiePreset('/animations/ai-quantum-core.lottie')"
+              >
+                Reset
+              </button>
+            </div>
+
+            <!-- Interactive Dropzone / Player Canvas Container -->
             <ClientOnly>
-              <div class="relative flex items-center justify-center rounded-2xl border border-cyan-500/20 bg-slate-900/40 p-4">
+              <div
+                class="relative flex items-center justify-center rounded-2xl border border-cyan-500/25 bg-slate-900/40 p-4 transition-all duration-200 hover:border-cyan-400/40"
+                @dragover.prevent
+                @drop="handleLottieDrop"
+              >
                 <DotLottiePlayer
-                  src="/animations/retro-gameboy.lottie"
-                  class="size-60 sm:size-72"
+                  :src="activeLottieSrc"
+                  :file="userLottieFile"
+                  class="size-56 sm:size-64"
                   :autoplay="true"
                   :loop="true"
                 />
               </div>
               <template #fallback>
-                <div class="size-60 flex items-center justify-center font-mono text-xs text-cyan-400">
+                <div class="size-56 sm:size-64 flex items-center justify-center font-mono text-xs text-cyan-400">
                   Loading dotLottie engine...
                 </div>
               </template>
             </ClientOnly>
 
-            <p class="mt-4 font-mono text-xs text-muted-foreground text-center max-w-md">
-              Rendered with WebAssembly ThorVG canvas pipeline. Lightweight vector art compiled with zero loss in resolution.
+            <p class="mt-3 font-mono text-[11px] text-muted-foreground text-center max-w-md">
+              Drag & drop or pick any <code class="text-cyan-300">.lottie</code> or <code class="text-cyan-300">.json</code> file from your browser. Rendered client-side via WebAssembly ThorVG.
             </p>
           </div>
 

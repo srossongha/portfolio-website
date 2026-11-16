@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import DotLottiePlayer from '~/components/fx/DotLottiePlayer.vue'
+
 /**
  * The shared section header: a numbered label, a big serif title, and an
  * optional supporting line.
@@ -42,9 +44,19 @@ withDefaults(defineProps<Props>(), {
         {{ index }} /
       </span>
       <span class="text-cyan-300/90 font-medium flex items-center gap-2">
-        <span
-          class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]"
-        />
+        <ClientOnly>
+          <DotLottiePlayer
+            src="/animations/pulse-radar.lottie"
+            class="size-4 shrink-0"
+            :autoplay="true"
+            :loop="true"
+          />
+          <template #fallback>
+            <span
+              class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]"
+            />
+          </template>
+        </ClientOnly>
         {{ label }}
       </span>
     </div>

@@ -995,6 +995,824 @@ function buildCodeSparkLottie() {
 }
 
 // -----------------------------------------------------------------------------
+// 4. Futuristic AI Quantum Neural Core Animation (ai-quantum-core)
+// -----------------------------------------------------------------------------
+function buildAiQuantumCoreLottie() {
+  const w = 300
+  const h = 300
+  const fr = 60
+  const op = 120 // 2 seconds loop at 60fps
+
+  return {
+    v: '5.7.4',
+    fr,
+    ip: 0,
+    op,
+    w,
+    h,
+    nm: 'AI Quantum Neural Core',
+    ddd: 0,
+    assets: [],
+    layers: [
+      // Layer 1: Expanding Quantum Shockwave Pulse (Wave 1)
+      {
+        ddd: 0,
+        ind: 1,
+        ty: 4,
+        nm: 'Shockwave Wave A',
+        sr: 1,
+        ks: {
+          o: {
+            a: 1,
+            k: [
+              { t: 0, s: [90], e: [0] },
+              { t: 60, s: [0], e: [90] },
+              { t: 61, s: [90], e: [0] },
+              { t: 120, s: [0], e: [0] }
+            ]
+          },
+          r: { a: 0, k: 0 },
+          p: { a: 0, k: [150, 150, 0] },
+          a: { a: 0, k: [0, 0, 0] },
+          s: {
+            a: 1,
+            k: [
+              { t: 0, s: [25, 25, 100], e: [180, 180, 100] },
+              { t: 60, s: [180, 180, 100], e: [25, 25, 100] },
+              { t: 61, s: [25, 25, 100], e: [180, 180, 100] },
+              { t: 120, s: [180, 180, 100], e: [25, 25, 100] }
+            ]
+          }
+        },
+        ao: 0,
+        shapes: [
+          {
+            ty: 'gr',
+            it: [
+              {
+                ty: 'el',
+                d: 1,
+                p: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [100, 100] }
+              },
+              {
+                ty: 'st',
+                c: { a: 0, k: [0.22, 0.74, 0.97, 1] }, // Cyan #38bdf8
+                o: { a: 0, k: 90 },
+                w: { a: 0, k: 2 }
+              },
+              {
+                ty: 'tr',
+                p: { a: 0, k: [0, 0] },
+                a: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [100, 100] },
+                r: { a: 0, k: 0 },
+                o: { a: 0, k: 100 }
+              }
+            ],
+            nm: 'Wave Ring'
+          }
+        ],
+        ip: 0,
+        op
+      },
+      // Layer 2: Orbiting Quantum Particles (4 Staggered Sparks)
+      {
+        ddd: 0,
+        ind: 2,
+        ty: 4,
+        nm: 'Orbiting Starlight Spark A',
+        sr: 1,
+        ks: {
+          o: {
+            a: 1,
+            k: [
+              { t: 0, s: [20], e: [100] },
+              { t: 60, s: [100], e: [20] },
+              { t: 120, s: [20], e: [20] }
+            ]
+          },
+          r: {
+            a: 1,
+            k: [
+              { t: 0, s: [0], e: [360] },
+              { t: 120, s: [360], e: [720] }
+            ]
+          },
+          p: { a: 0, k: [150, 150, 0] },
+          a: { a: 0, k: [0, 0, 0] },
+          s: {
+            a: 1,
+            k: [
+              { t: 0, s: [80, 80, 100], e: [120, 120, 100] },
+              { t: 60, s: [120, 120, 100], e: [80, 80, 100] },
+              { t: 120, s: [80, 80, 100], e: [80, 80, 100] }
+            ]
+          }
+        },
+        ao: 0,
+        shapes: [
+          {
+            ty: 'gr',
+            it: [
+              // Spark at offset (radius 85)
+              {
+                ty: 'sr',
+                sy: 1, // Star
+                p: { a: 0, k: 4 },
+                pt: { a: 0, k: [0, -85] },
+                ir: { a: 0, k: 3 },
+                or: { a: 0, k: 10 },
+                is: { a: 0, k: 0 },
+                os: { a: 0, k: 0 },
+                r: { a: 0, k: 0 }
+              },
+              {
+                ty: 'fl',
+                c: { a: 0, k: [0.66, 0.35, 0.98, 1] }, // Electric violet #a855f7
+                o: { a: 0, k: 100 }
+              },
+              // Opposite Spark
+              {
+                ty: 'sr',
+                sy: 1,
+                p: { a: 0, k: 4 },
+                pt: { a: 0, k: [0, 85] },
+                ir: { a: 0, k: 3 },
+                or: { a: 0, k: 10 },
+                is: { a: 0, k: 0 },
+                os: { a: 0, k: 0 },
+                r: { a: 0, k: 0 }
+              },
+              {
+                ty: 'fl',
+                c: { a: 0, k: [0.22, 0.74, 0.97, 1] }, // Cyan #38bdf8
+                o: { a: 0, k: 100 }
+              },
+              {
+                ty: 'tr',
+                p: { a: 0, k: [0, 0] },
+                a: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [100, 100] },
+                r: { a: 0, k: 0 },
+                o: { a: 0, k: 100 }
+              }
+            ],
+            nm: 'Sparks Group'
+          }
+        ],
+        ip: 0,
+        op
+      },
+      // Layer 3: Outer Rotating Tech Hexagonal Containment Field
+      {
+        ddd: 0,
+        ind: 3,
+        ty: 4,
+        nm: 'Hexagon Containment Ring',
+        sr: 1,
+        ks: {
+          o: { a: 0, k: 90 },
+          r: {
+            a: 1,
+            k: [
+              { t: 0, s: [0], e: [180] },
+              { t: 120, s: [180], e: [360] }
+            ]
+          },
+          p: { a: 0, k: [150, 150, 0] },
+          a: { a: 0, k: [0, 0, 0] },
+          s: { a: 0, k: [100, 100, 100] }
+        },
+        ao: 0,
+        shapes: [
+          {
+            ty: 'gr',
+            it: [
+              // Outer Hexagon
+              {
+                ty: 'sr',
+                sy: 2, // Polygon
+                p: { a: 0, k: 6 },
+                pt: { a: 0, k: [0, 0] },
+                or: { a: 0, k: 88 },
+                os: { a: 0, k: 8 },
+                r: { a: 0, k: 0 },
+                nm: 'Hexagon Poly'
+              },
+              {
+                ty: 'st',
+                c: { a: 0, k: [0.22, 0.74, 0.97, 1] }, // Cyan
+                o: { a: 0, k: 70 },
+                w: { a: 0, k: 2 }
+              },
+              // Inner Circular Frame
+              {
+                ty: 'el',
+                d: 1,
+                p: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [148, 148] }
+              },
+              {
+                ty: 'st',
+                c: { a: 0, k: [0.15, 0.35, 0.55, 1] },
+                o: { a: 0, k: 50 },
+                w: { a: 0, k: 1.5 }
+              },
+              {
+                ty: 'tr',
+                p: { a: 0, k: [0, 0] },
+                a: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [100, 100] },
+                r: { a: 0, k: 0 },
+                o: { a: 0, k: 100 }
+              }
+            ],
+            nm: 'Hexagon Cage'
+          }
+        ],
+        ip: 0,
+        op
+      },
+      // Layer 4: Counter-Rotating Gyroscopic 3D Orbital Ring (Purple / Violet)
+      {
+        ddd: 0,
+        ind: 4,
+        ty: 4,
+        nm: '3D Gyro Ring Purple',
+        sr: 1,
+        ks: {
+          o: { a: 0, k: 95 },
+          r: {
+            a: 1,
+            k: [
+              { t: 0, s: [360], e: [180] },
+              { t: 120, s: [180], e: [0] }
+            ]
+          },
+          p: { a: 0, k: [150, 150, 0] },
+          a: { a: 0, k: [0, 0, 0] },
+          s: { a: 0, k: [100, 100, 100] }
+        },
+        ao: 0,
+        shapes: [
+          {
+            ty: 'gr',
+            it: [
+              // Elliptical Gyro Path
+              {
+                ty: 'el',
+                d: 1,
+                p: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [142, 68] }
+              },
+              {
+                ty: 'st',
+                c: { a: 0, k: [0.66, 0.35, 0.98, 1] }, // Violet #a855f7
+                o: { a: 0, k: 80 },
+                w: { a: 0, k: 2.2 }
+              },
+              // Orbital Node Bead
+              {
+                ty: 'el',
+                d: 1,
+                p: { a: 0, k: [71, 0] },
+                s: { a: 0, k: [8, 8] }
+              },
+              {
+                ty: 'fl',
+                c: { a: 0, k: [0.93, 0.85, 1, 1] }, // Bright lavender
+                o: { a: 0, k: 100 }
+              },
+              {
+                ty: 'tr',
+                p: { a: 0, k: [0, 0] },
+                a: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [100, 100] },
+                r: { a: 0, k: 0 },
+                o: { a: 0, k: 100 }
+              }
+            ],
+            nm: 'Gyro Ring Purple'
+          }
+        ],
+        ip: 0,
+        op
+      },
+      // Layer 5: Tilted Inner Gyroscope Ring (Emerald Neon #34d399)
+      {
+        ddd: 0,
+        ind: 5,
+        ty: 4,
+        nm: '3D Gyro Ring Emerald',
+        sr: 1,
+        ks: {
+          o: { a: 0, k: 90 },
+          r: {
+            a: 1,
+            k: [
+              { t: 0, s: [-60], e: [120] },
+              { t: 120, s: [120], e: [300] }
+            ]
+          },
+          p: { a: 0, k: [150, 150, 0] },
+          a: { a: 0, k: [0, 0, 0] },
+          s: { a: 0, k: [100, 100, 100] }
+        },
+        ao: 0,
+        shapes: [
+          {
+            ty: 'gr',
+            it: [
+              {
+                ty: 'el',
+                d: 1,
+                p: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [108, 52] }
+              },
+              {
+                ty: 'st',
+                c: { a: 0, k: [0.2, 0.83, 0.6, 1] }, // Emerald #34d399
+                o: { a: 0, k: 85 },
+                w: { a: 0, k: 2 }
+              },
+              // Orbital Node Bead
+              {
+                ty: 'el',
+                d: 1,
+                p: { a: 0, k: [-54, 0] },
+                s: { a: 0, k: [7, 7] }
+              },
+              {
+                ty: 'fl',
+                c: { a: 0, k: [0.75, 1, 0.9, 1] }, // Bright mint
+                o: { a: 0, k: 100 }
+              },
+              {
+                ty: 'tr',
+                p: { a: 0, k: [0, 0] },
+                a: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [100, 100] },
+                r: { a: 0, k: 0 },
+                o: { a: 0, k: 100 }
+              }
+            ],
+            nm: 'Gyro Ring Emerald'
+          }
+        ],
+        ip: 0,
+        op
+      },
+      // Layer 6: Central AI Singularity Quantum Hyper-Diamond
+      {
+        ddd: 0,
+        ind: 6,
+        ty: 4,
+        nm: 'AI Singularity Hyper-Diamond',
+        sr: 1,
+        ks: {
+          o: { a: 0, k: 100 },
+          r: {
+            a: 1,
+            k: [
+              { t: 0, s: [0], e: [90] },
+              { t: 60, s: [90], e: [180] },
+              { t: 120, s: [180], e: [270] }
+            ]
+          },
+          p: { a: 0, k: [150, 150, 0] },
+          a: { a: 0, k: [0, 0, 0] },
+          s: {
+            a: 1,
+            k: [
+              { t: 0, s: [90, 90, 100], e: [118, 118, 100] },
+              { t: 60, s: [118, 118, 100], e: [90, 90, 100] },
+              { t: 120, s: [90, 90, 100], e: [90, 90, 100] }
+            ]
+          }
+        },
+        ao: 0,
+        shapes: [
+          {
+            ty: 'gr',
+            it: [
+              // Outer Glowing Diamond
+              {
+                ty: 'sr',
+                sy: 1, // Star
+                p: { a: 0, k: 4 },
+                pt: { a: 0, k: [0, 0] },
+                ir: { a: 0, k: 14 },
+                or: { a: 0, k: 34 },
+                is: { a: 0, k: 0 },
+                os: { a: 0, k: 0 },
+                r: { a: 0, k: 0 },
+                nm: 'Hyper Diamond'
+              },
+              {
+                ty: 'fl',
+                c: { a: 0, k: [0.0, 0.92, 1.0, 0.85] }, // Vibrant cyan
+                o: { a: 0, k: 90 }
+              },
+              {
+                ty: 'st',
+                c: { a: 0, k: [1, 1, 1, 1] }, // Pure white outline
+                o: { a: 0, k: 95 },
+                w: { a: 0, k: 2.5 }
+              },
+              // Inner Core Singularity
+              {
+                ty: 'el',
+                d: 1,
+                p: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [14, 14] }
+              },
+              {
+                ty: 'fl',
+                c: { a: 0, k: [1, 1, 1, 1] }, // White hot center
+                o: { a: 0, k: 100 }
+              },
+              {
+                ty: 'tr',
+                p: { a: 0, k: [0, 0] },
+                a: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [100, 100] },
+                r: { a: 0, k: 0 },
+                o: { a: 0, k: 100 }
+              }
+            ],
+            nm: 'Singularity Core'
+          }
+        ],
+        ip: 0,
+        op
+      }
+    ]
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 5. Clean Radar Pulse / Signal Beacon (pulse-radar)
+// -----------------------------------------------------------------------------
+function buildPulseRadarLottie() {
+  const w = 100
+  const h = 100
+  const fr = 60
+  const op = 90 // 1.5s loop
+
+  return {
+    v: '5.7.4',
+    fr,
+    ip: 0,
+    op,
+    w,
+    h,
+    nm: 'Pulse Radar Signal',
+    ddd: 0,
+    assets: [],
+    layers: [
+      // Layer 1: Central Glowing Core
+      {
+        ddd: 0,
+        ind: 1,
+        ty: 4,
+        nm: 'Core Beacon',
+        sr: 1,
+        ks: {
+          o: { a: 0, k: 100 },
+          r: { a: 0, k: 0 },
+          p: { a: 0, k: [50, 50, 0] },
+          a: { a: 0, k: [0, 0, 0] },
+          s: {
+            a: 1,
+            k: [
+              { t: 0, s: [85, 85, 100], e: [120, 120, 100] },
+              { t: 45, s: [120, 120, 100], e: [85, 85, 100] },
+              { t: 90, s: [85, 85, 100], e: [85, 85, 100] }
+            ]
+          }
+        },
+        ao: 0,
+        shapes: [
+          {
+            ty: 'gr',
+            it: [
+              {
+                ty: 'el',
+                d: 1,
+                p: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [16, 16] }
+              },
+              {
+                ty: 'fl',
+                c: { a: 0, k: [0.22, 0.74, 0.97, 1] }, // Cyan #38bdf8
+                o: { a: 0, k: 100 }
+              },
+              {
+                ty: 'st',
+                c: { a: 0, k: [1, 1, 1, 1] }, // White highlight
+                o: { a: 0, k: 90 },
+                w: { a: 0, k: 2 }
+              },
+              {
+                ty: 'tr',
+                p: { a: 0, k: [0, 0] },
+                a: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [100, 100] },
+                r: { a: 0, k: 0 },
+                o: { a: 0, k: 100 }
+              }
+            ],
+            nm: 'Dot'
+          }
+        ],
+        ip: 0,
+        op
+      },
+      // Layer 2: Expanding Radar Wave 1
+      {
+        ddd: 0,
+        ind: 2,
+        ty: 4,
+        nm: 'Radar Wave 1',
+        sr: 1,
+        ks: {
+          o: {
+            a: 1,
+            k: [
+              { t: 0, s: [90], e: [0] },
+              { t: 55, s: [0], e: [0] },
+              { t: 90, s: [0], e: [90] }
+            ]
+          },
+          r: { a: 0, k: 0 },
+          p: { a: 0, k: [50, 50, 0] },
+          a: { a: 0, k: [0, 0, 0] },
+          s: {
+            a: 1,
+            k: [
+              { t: 0, s: [60, 60, 100], e: [320, 320, 100] },
+              { t: 55, s: [320, 320, 100], e: [320, 320, 100] },
+              { t: 90, s: [60, 60, 100], e: [60, 60, 100] }
+            ]
+          }
+        },
+        ao: 0,
+        shapes: [
+          {
+            ty: 'gr',
+            it: [
+              {
+                ty: 'el',
+                d: 1,
+                p: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [18, 18] }
+              },
+              {
+                ty: 'st',
+                c: { a: 0, k: [0.22, 0.74, 0.97, 1] },
+                o: { a: 0, k: 100 },
+                w: { a: 0, k: 2 }
+              },
+              {
+                ty: 'tr',
+                p: { a: 0, k: [0, 0] },
+                a: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [100, 100] },
+                r: { a: 0, k: 0 },
+                o: { a: 0, k: 100 }
+              }
+            ],
+            nm: 'Wave Ring 1'
+          }
+        ],
+        ip: 0,
+        op
+      },
+      // Layer 3: Expanding Radar Wave 2 (Offset by 35 frames)
+      {
+        ddd: 0,
+        ind: 3,
+        ty: 4,
+        nm: 'Radar Wave 2',
+        sr: 1,
+        ks: {
+          o: {
+            a: 1,
+            k: [
+              { t: 0, s: [30], e: [0] },
+              { t: 25, s: [0], e: [90] },
+              { t: 35, s: [90], e: [0] },
+              { t: 90, s: [0], e: [30] }
+            ]
+          },
+          r: { a: 0, k: 0 },
+          p: { a: 0, k: [50, 50, 0] },
+          a: { a: 0, k: [0, 0, 0] },
+          s: {
+            a: 1,
+            k: [
+              { t: 0, s: [220, 220, 100], e: [320, 320, 100] },
+              { t: 35, s: [60, 60, 100], e: [320, 320, 100] },
+              { t: 90, s: [320, 320, 100], e: [220, 220, 100] }
+            ]
+          }
+        },
+        ao: 0,
+        shapes: [
+          {
+            ty: 'gr',
+            it: [
+              {
+                ty: 'el',
+                d: 1,
+                p: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [18, 18] }
+              },
+              {
+                ty: 'st',
+                c: { a: 0, k: [0.0, 0.9, 1.0, 1] },
+                o: { a: 0, k: 80 },
+                w: { a: 0, k: 1.5 }
+              },
+              {
+                ty: 'tr',
+                p: { a: 0, k: [0, 0] },
+                a: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [100, 100] },
+                r: { a: 0, k: 0 },
+                o: { a: 0, k: 100 }
+              }
+            ],
+            nm: 'Wave Ring 2'
+          }
+        ],
+        ip: 0,
+        op
+      }
+    ]
+  }
+}
+
+// -----------------------------------------------------------------------------
+// 6. Contact Delivery / Success Checkmark (mail-sent)
+// -----------------------------------------------------------------------------
+function buildMailSentLottie() {
+  const w = 200
+  const h = 200
+  const fr = 60
+  const op = 90
+
+  return {
+    v: '5.7.4',
+    fr,
+    ip: 0,
+    op,
+    w,
+    h,
+    nm: 'Message Sent Confirmation',
+    ddd: 0,
+    assets: [],
+    layers: [
+      // Layer 1: Checkmark Icon
+      {
+        ddd: 0,
+        ind: 1,
+        ty: 4,
+        nm: 'Checkmark Mark',
+        sr: 1,
+        ks: {
+          o: {
+            a: 1,
+            k: [
+              { t: 0, s: [0], e: [100] },
+              { t: 25, s: [100], e: [100] },
+              { t: 90, s: [100], e: [100] }
+            ]
+          },
+          r: { a: 0, k: 0 },
+          p: { a: 0, k: [100, 100, 0] },
+          a: { a: 0, k: [0, 0, 0] },
+          s: {
+            a: 1,
+            k: [
+              { t: 0, s: [40, 40, 100], e: [115, 115, 100] },
+              { t: 30, s: [115, 115, 100], e: [100, 100, 100] },
+              { t: 90, s: [100, 100, 100], e: [100, 100, 100] }
+            ]
+          }
+        },
+        ao: 0,
+        shapes: [
+          {
+            ty: 'gr',
+            it: [
+              // Checkmark stem (Left)
+              {
+                ty: 'rc',
+                d: 1,
+                s: { a: 0, k: [18, 6] },
+                p: { a: 0, k: [-12, 4] },
+                r: { a: 0, k: 3 }
+              },
+              // Checkmark stem (Right)
+              {
+                ty: 'rc',
+                d: 1,
+                s: { a: 0, k: [38, 6] },
+                p: { a: 0, k: [10, -3] },
+                r: { a: 0, k: 3 }
+              },
+              {
+                ty: 'fl',
+                c: { a: 0, k: [0.22, 0.74, 0.97, 1] }, // Cyan
+                o: { a: 0, k: 100 }
+              },
+              {
+                ty: 'tr',
+                p: { a: 0, k: [0, 0] },
+                a: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [100, 100] },
+                r: { a: 0, k: 0 },
+                o: { a: 0, k: 100 }
+              }
+            ],
+            nm: 'Checkmark Arms'
+          }
+        ],
+        ip: 0,
+        op
+      },
+      // Layer 2: Glowing Shield Halo
+      {
+        ddd: 0,
+        ind: 2,
+        ty: 4,
+        nm: 'Halo Circle',
+        sr: 1,
+        ks: {
+          o: {
+            a: 1,
+            k: [
+              { t: 0, s: [0], e: [100] },
+              { t: 20, s: [100], e: [100] },
+              { t: 90, s: [100], e: [100] }
+            ]
+          },
+          r: { a: 0, k: 0 },
+          p: { a: 0, k: [100, 100, 0] },
+          a: { a: 0, k: [0, 0, 0] },
+          s: {
+            a: 1,
+            k: [
+              { t: 0, s: [30, 30, 100], e: [105, 105, 100] },
+              { t: 25, s: [105, 105, 100], e: [100, 100, 100] },
+              { t: 90, s: [100, 100, 100], e: [100, 100, 100] }
+            ]
+          }
+        },
+        ao: 0,
+        shapes: [
+          {
+            ty: 'gr',
+            it: [
+              {
+                ty: 'el',
+                d: 1,
+                p: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [110, 110] }
+              },
+              {
+                ty: 'fl',
+                c: { a: 0, k: [0.05, 0.2, 0.35, 0.35] },
+                o: { a: 0, k: 100 }
+              },
+              {
+                ty: 'st',
+                c: { a: 0, k: [0.22, 0.74, 0.97, 1] },
+                o: { a: 0, k: 100 },
+                w: { a: 0, k: 3 }
+              },
+              {
+                ty: 'tr',
+                p: { a: 0, k: [0, 0] },
+                a: { a: 0, k: [0, 0] },
+                s: { a: 0, k: [100, 100] },
+                r: { a: 0, k: 0 },
+                o: { a: 0, k: 100 }
+              }
+            ],
+            nm: 'Halo'
+          }
+        ],
+        ip: 0,
+        op
+      }
+    ]
+  }
+}
+
+// -----------------------------------------------------------------------------
 // Compilation Runner
 // -----------------------------------------------------------------------------
 async function main() {
@@ -1006,7 +1824,10 @@ async function main() {
   const animations = [
     { id: 'retro-gameboy', fn: buildRetroGameboyLottie },
     { id: 'game-trophy', fn: buildGameTrophyLottie },
-    { id: 'code-spark', fn: buildCodeSparkLottie }
+    { id: 'code-spark', fn: buildCodeSparkLottie },
+    { id: 'ai-quantum-core', fn: buildAiQuantumCoreLottie },
+    { id: 'pulse-radar', fn: buildPulseRadarLottie },
+    { id: 'mail-sent', fn: buildMailSentLottie }
   ]
 
   for (const item of animations) {
