@@ -12,7 +12,10 @@ import {
   Mail,
   Gamepad2,
   Sparkles,
+  Copy,
+  Check,
 } from "@lucide/vue";
+import { toast } from "vue-sonner";
 import { profile, socials } from "~/data/site";
 import CyanAurora from "~/components/fx/CyanAurora.vue";
 import PhosphorWave from "~/components/fx/PhosphorWave.vue";
@@ -41,6 +44,24 @@ const terminal = useTerminal();
 
 const activeDeck = ref<"game" | "lottie" | "code" | "3d" | "wave">("game");
 let introCtx: gsap.Context | undefined;
+
+// CLI Copy Helper
+const copied = ref(false);
+let copyTimer: ReturnType<typeof setTimeout> | undefined;
+
+function copyCliCommand() {
+  if (typeof navigator !== "undefined" && navigator.clipboard) {
+    navigator.clipboard.writeText("npx songha");
+    copied.value = true;
+    toast.success("Command copied to clipboard", {
+      description: 'Run "npx songha" in your terminal to launch developer CLI.',
+    });
+    if (copyTimer) clearTimeout(copyTimer);
+    copyTimer = setTimeout(() => {
+      copied.value = false;
+    }, 2500);
+  }
+}
 
 // Live Phnom Penh time
 const localTime = ref("");
@@ -100,7 +121,10 @@ const stopWatching = watch(
   { immediate: true },
 );
 
-onUnmounted(() => introCtx?.revert());
+onUnmounted(() => {
+  introCtx?.revert();
+  if (copyTimer) clearTimeout(copyTimer);
+});
 </script>
 
 <template>
@@ -148,22 +172,23 @@ onUnmounted(() => introCtx?.revert());
         </button>
       </div>
 
-      <!-- Main Typographic Authority Section -->
-      <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
-        <div class="max-w-3xl">
+      <!-- 2-COLUMN SPLIT WORKSTATION HERO -->
+      <div class="grid gap-10 lg:grid-cols-12 lg:gap-10 lg:items-start">
+        <!-- LEFT COLUMN: HIGH-SIGNAL SOFTWARE ENGINEER PROFILE (7 cols) -->
+        <div class="lg:col-span-7 flex flex-col justify-between">
           <div class="hero-anim hero-title-text">
             <h1
-              class="font-serif text-[clamp(2.8rem,7vw,5.5rem)] font-bold leading-[1.02] tracking-tight text-foreground"
+              class="font-serif text-[clamp(2.8rem,6.5vw,5rem)] font-bold leading-[1.02] tracking-tight text-foreground"
             >
               {{ profile.name }}
             </h1>
           </div>
 
           <div
-            class="hero-anim hero-role-text mt-3 flex flex-wrap items-center gap-3"
+            class="hero-anim hero-role-text mt-3 flex flex-wrap items-center gap-2.5"
           >
             <h2
-              class="font-serif text-[clamp(1.5rem,3.8vw,2.8rem)] font-normal leading-tight tracking-tight text-cyan-400"
+              class="font-serif text-[clamp(1.4rem,3.2vw,2.4rem)] font-normal leading-tight tracking-tight text-cyan-400"
             >
               {{ profile.role }}
             </h2>
@@ -175,17 +200,37 @@ onUnmounted(() => introCtx?.revert());
           </div>
 
           <p
-            class="hero-anim hero-bio-text text-muted-foreground mt-5 max-w-2xl text-base sm:text-lg leading-relaxed"
+            class="hero-anim hero-bio-text text-muted-foreground mt-4 text-base sm:text-lg leading-relaxed max-w-2xl"
           >
             Computer Science student at the Institute of Technology of Cambodia
-            (ITC). I build production web applications, reliable backend
-            integrations, and responsive interfaces with Vue, Nuxt, React, and
-            TypeScript.
+            (ITC). I build production web applications, edge serverless architectures,
+            and responsive interfaces with Vue, Nuxt, React, and TypeScript.
           </p>
+
+          <!-- Quick CLI Terminal Command Bar ($ npx songha) -->
+          <div
+            class="hero-anim mt-6 flex items-center justify-between gap-3 rounded-xl border border-cyan-500/30 bg-slate-950/80 px-3.5 py-2.5 font-mono text-xs shadow-inner max-w-xl"
+          >
+            <div class="flex items-center gap-2 text-slate-300 overflow-hidden">
+              <span class="text-cyan-400 font-bold select-none">$</span>
+              <span class="text-cyan-200 font-semibold truncate">npx songha</span>
+              <span class="text-muted-foreground text-[11px] hidden sm:inline"
+                >// Launch interactive engineer CLI</span
+              >
+            </div>
+            <button
+              type="button"
+              class="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-cyan-500/30 bg-cyan-950/60 px-2.5 py-1 text-[11px] font-medium text-cyan-300 hover:text-white hover:bg-cyan-900/60 transition-colors cursor-pointer"
+              @click="copyCliCommand"
+            >
+              <component :is="copied ? Check : Copy" class="size-3 text-cyan-400" />
+              <span>{{ copied ? "Copied" : "Copy" }}</span>
+            </button>
+          </div>
 
           <!-- Primary Action Array -->
           <div
-            class="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4"
+            class="mt-6 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3"
           >
             <MagneticWrap
               :strength="0.25"
@@ -278,108 +323,104 @@ onUnmounted(() => introCtx?.revert());
           </div>
         </div>
 
-        <!-- Clean SVG Engineering Seal Badge -->
-        <div class="hero-anim hidden lg:flex flex-col items-center justify-center shrink-0 pt-2">
-          <EngineerBadgeSvg class="size-32 drop-shadow-[0_0_20px_rgba(56,189,248,0.2)]" />
-          <span class="mt-2.5 font-mono text-[10px] text-cyan-400/80 uppercase tracking-widest text-center">
-            Verified ITC Engineer
-          </span>
-        </div>
-      </div>
-
-      <!-- Modern Interactive Engineering Workstation Console -->
-      <div
-        class="hero-anim hero-deck-chassis mt-12 sm:mt-14 overflow-hidden rounded-2xl border border-cyan-500/25 bg-slate-950/90 shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-xl"
-      >
-        <!-- Console Window Header -->
+        <!-- RIGHT COLUMN: INTERACTIVE ENGINEERING WORKSTATION CONSOLE (5 cols) -->
         <div
-          class="flex flex-wrap items-center justify-between border-b border-cyan-500/20 bg-slate-900/60 px-4 py-3 sm:px-6"
+          class="hero-anim hero-deck-chassis lg:col-span-5 overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-950/90 shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-xl flex flex-col"
         >
-          <div class="flex items-center gap-3">
-            <!-- macOS Window Controls -->
-            <div class="flex items-center gap-1.5">
-              <span class="size-3 rounded-full bg-rose-500/80" />
-              <span class="size-3 rounded-full bg-amber-500/80" />
-              <span class="size-3 rounded-full bg-emerald-500/80" />
+          <!-- Console Window Header -->
+          <div
+            class="flex items-center justify-between border-b border-cyan-500/20 bg-slate-900/60 px-4 py-3"
+          >
+            <div class="flex items-center gap-2.5">
+              <!-- macOS Window Controls -->
+              <div class="flex items-center gap-1.5">
+                <span class="size-2.5 rounded-full bg-rose-500/80" />
+                <span class="size-2.5 rounded-full bg-amber-500/80" />
+                <span class="size-2.5 rounded-full bg-emerald-500/80" />
+              </div>
+              <span class="font-mono text-xs text-cyan-300 font-medium truncate max-w-[130px] sm:max-w-none">
+                songha@workstation: ~
+              </span>
             </div>
-            <span class="font-mono text-xs text-cyan-300 font-medium">
-              songha@itc: ~/engineer-profile.ts
-            </span>
+
+            <!-- Mode Selector Tabs -->
+            <div class="flex items-center gap-1 font-mono text-xs overflow-x-auto no-scrollbar">
+              <button
+                type="button"
+                class="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 transition-all text-xs"
+                :class="
+                  activeDeck === 'game'
+                    ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
+                    : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+                "
+                title="Songha Boy 8-Bit Playable Console"
+                @click="activeDeck = 'game'"
+              >
+                <Gamepad2 class="size-3.5" />
+                <span>Console</span>
+              </button>
+
+              <button
+                type="button"
+                class="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 transition-all text-xs"
+                :class="
+                  activeDeck === 'lottie'
+                    ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
+                    : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+                "
+                title="dotLottie Vector Engine"
+                @click="activeDeck = 'lottie'"
+              >
+                <Sparkles class="size-3.5" />
+                <span>Lottie</span>
+              </button>
+
+              <button
+                type="button"
+                class="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 transition-all text-xs"
+                :class="
+                  activeDeck === 'code'
+                    ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
+                    : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+                "
+                title="TypeScript Profile Spec"
+                @click="activeDeck = 'code'"
+              >
+                <Code2 class="size-3.5" />
+                <span>Spec</span>
+              </button>
+
+              <button
+                type="button"
+                class="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 transition-all text-xs"
+                :class="
+                  activeDeck === '3d'
+                    ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
+                    : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+                "
+                title="3D Vector Core"
+                @click="activeDeck = '3d'"
+              >
+                <Box class="size-3.5" />
+                <span>3D</span>
+              </button>
+
+              <button
+                type="button"
+                class="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 transition-all text-xs"
+                :class="
+                  activeDeck === 'wave'
+                    ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
+                    : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+                "
+                title="Signal Wave Harmonics"
+                @click="activeDeck = 'wave'"
+              >
+                <Activity class="size-3.5" />
+                <span>Wave</span>
+              </button>
+            </div>
           </div>
-
-          <!-- Mode Selector Tabs -->
-          <div class="flex flex-wrap items-center gap-1 mt-2 sm:mt-0 font-mono text-xs">
-            <button
-              type="button"
-              class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-all"
-              :class="
-                activeDeck === 'game'
-                  ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                  : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
-              "
-              @click="activeDeck = 'game'"
-            >
-              <Gamepad2 class="size-3.5" />
-              <span>Songha Boy (8-Bit)</span>
-            </button>
-
-            <button
-              type="button"
-              class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-all"
-              :class="
-                activeDeck === 'lottie'
-                  ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                  : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
-              "
-              @click="activeDeck = 'lottie'"
-            >
-              <Sparkles class="size-3.5" />
-              <span>dotLottie</span>
-            </button>
-
-            <button
-              type="button"
-              class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-all"
-              :class="
-                activeDeck === 'code'
-                  ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                  : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
-              "
-              @click="activeDeck = 'code'"
-            >
-              <Code2 class="size-3.5" />
-              <span>TypeScript Spec</span>
-            </button>
-
-            <button
-              type="button"
-              class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-all"
-              :class="
-                activeDeck === '3d'
-                  ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                  : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
-              "
-              @click="activeDeck = '3d'"
-            >
-              <Box class="size-3.5" />
-              <span>Vector Core</span>
-            </button>
-
-            <button
-              type="button"
-              class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-all"
-              :class="
-                activeDeck === 'wave'
-                  ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                  : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
-              "
-              @click="activeDeck = 'wave'"
-            >
-              <Activity class="size-3.5" />
-              <span>Signal Wave</span>
-            </button>
-          </div>
-        </div>
 
         <!-- Interactive Screen Viewport -->
         <div
@@ -548,26 +589,27 @@ onUnmounted(() => introCtx?.revert());
             </ClientOnly>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Integrated Engineering Stats Strip -->
+      <!-- High-Signal Engineering Metrics Strip (Full Width) -->
+      <div
+        class="hero-anim mt-10 sm:mt-12 grid grid-cols-2 divide-x divide-y sm:divide-y-0 sm:grid-cols-4 divide-cyan-500/20 rounded-2xl border border-cyan-500/25 bg-slate-950/80 shadow-lg backdrop-blur-md overflow-hidden"
+      >
         <div
-          class="grid grid-cols-2 divide-x divide-y sm:divide-y-0 sm:grid-cols-4 divide-cyan-500/20 border-t border-cyan-500/20 bg-slate-950/90"
+          v-for="stat in profile.stats"
+          :key="stat.label"
+          class="p-4 sm:p-5 text-center sm:text-left transition-colors hover:bg-cyan-950/20"
         >
           <div
-            v-for="stat in profile.stats"
-            :key="stat.label"
-            class="p-4 sm:p-5 text-center sm:text-left transition-colors hover:bg-cyan-950/20"
+            class="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-cyan-400"
           >
-            <div
-              class="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-cyan-400"
-            >
-              <CountUp :value="stat.value" :suffix="stat.suffix" />
-            </div>
-            <div
-              class="text-muted-foreground mt-1 font-mono text-xs uppercase tracking-wider"
-            >
-              {{ stat.label }}
-            </div>
+            <CountUp :value="stat.value" :suffix="stat.suffix" />
+          </div>
+          <div
+            class="text-muted-foreground mt-1 font-mono text-xs uppercase tracking-wider"
+          >
+            {{ stat.label }}
           </div>
         </div>
       </div>
