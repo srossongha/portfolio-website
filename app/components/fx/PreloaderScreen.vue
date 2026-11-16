@@ -213,7 +213,7 @@ const displayValue = computed(() => String(Math.round(progress.value)).padStart(
       />
 
       <p class="preloader-role text-cyan-400 font-pixel text-[10px] tracking-[0.25em] uppercase">
-        {{ profile.role }} · TERMINAL_PET2001 // MOS_6502
+        {{ profile.role }} · [FRONT-END INTERN] · MOS_6502
       </p>
     </div>
 

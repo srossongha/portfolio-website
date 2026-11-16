@@ -148,10 +148,13 @@ onUnmounted(() => introCtx?.revert())
           </h1>
         </div>
 
-        <div class="hero-anim hero-role-text mt-3">
+        <div class="hero-anim hero-role-text mt-3 flex flex-wrap items-center gap-3">
           <h2 class="text-gradient font-serif text-[clamp(1.5rem,4vw,3.2rem)] font-light leading-tight tracking-tight">
             {{ profile.role }}
           </h2>
+          <span class="rounded-full border border-cyan-500/30 bg-cyan-950/60 px-3 py-1 font-pixel text-[9px] tracking-wider text-cyan-300 uppercase shadow-[0_0_12px_rgba(56,189,248,0.2)]">
+            [ CURRENT // FRONT-END INTERN ]
+          </span>
         </div>
 
         <p class="hero-anim hero-bio-text text-muted-foreground mt-5 max-w-2xl text-base leading-relaxed sm:text-lg">

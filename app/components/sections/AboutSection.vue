@@ -106,12 +106,20 @@ const directives = [
                 />
                 <div class="absolute bottom-3 inset-x-3">
                   <p class="font-serif text-xl font-medium text-white">{{ profile.name }}</p>
-                  <p class="font-mono text-[10px] text-cyan-300">{{ profile.role }}</p>
+                  <p class="font-mono text-[10px] text-cyan-300">{{ profile.role }} <span class="text-cyan-400/70">· Front-end Intern</span></p>
                 </div>
               </div>
 
               <!-- Identification Specs Table -->
               <div class="mt-4 space-y-2 border-t border-cyan-500/15 pt-3 font-mono text-xs">
+                <div class="flex justify-between py-1 border-b border-border/30">
+                  <span class="text-muted-foreground text-[11px]">MAIN DISCIPLINE</span>
+                  <span class="text-cyan-400 font-pixel text-[9px]">SOFTWARE_ENGINEER</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-border/30">
+                  <span class="text-muted-foreground text-[11px]">CURRENT INTERN</span>
+                  <span class="text-foreground text-[11px]">Front-end Developer</span>
+                </div>
                 <div class="flex justify-between py-1 border-b border-border/30">
                   <span class="text-muted-foreground text-[11px]">ACADEMIA</span>
                   <span class="text-foreground font-medium text-[11px]">ITC Cambodia</span>

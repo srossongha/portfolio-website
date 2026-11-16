@@ -20,12 +20,14 @@ export const profile = {
   /** Shown in the hero as two stacked lines. */
   firstName: 'Sros',
   lastName: 'Songha',
-  role: 'Front-end Developer',
+  role: 'Software Engineer',
+  /** Current active internship status */
+  currentRole: 'Front-end Developer Intern',
   /** The one-liner under the big name. */
-  tagline: 'I build interfaces that feel alive.',
+  tagline: 'Engineering resilient software systems and high-performance interfaces.',
   /** Two or three sentences for the About section. */
   bio: [
-    'I am a Computer Science student at the Institute of Technology of Cambodia (ITC) and a front-end developer based in Phnom Penh. I specialize in building fast, accessible web applications with Vue, Nuxt, React, and TypeScript — bridging clean code with refined user experience.',
+    'I am a Computer Science student at the Institute of Technology of Cambodia (ITC) and a software engineer based in Phnom Penh, currently interning as a front-end developer. I specialize in building fast, accessible web applications and reliable systems with Vue, Nuxt, React, and TypeScript — bridging clean code with refined user experience.',
     'With hands-on experience at T.O Group and EKYC Solution Co., Ltd., I build production interfaces that handle real-world complexity: edge-rendered marketing platforms, dynamic headless CMS integrations, and real-time document capture pipelines. As co-creator of Roomie (ស្រុកខ្ញុំ), I engineered a nationwide rental marketplace deployed live to production at sroknh.com.',
     'I judge software by how it holds up in hands, not just in mockups: layouts that remain rock-solid on a 320px screen, responsive state machines that never leave the user guessing, and fluid interactions that make complex tasks feel natural.',
   ],
@@ -422,6 +424,6 @@ export const navLinks = [
 export const seo = {
   title: `${profile.name} — ${profile.role}`,
   description:
-    'Front-end developer based in Phnom Penh studying Computer Science at ITC. Building fast, responsive web applications with Vue, Nuxt, React, and TypeScript.',
+    'Software Engineer & Computer Science student at ITC Cambodia, currently interning as a Front-end Developer. Building high-performance web systems and responsive interfaces with Vue, Nuxt, React, and TypeScript.',
   url: 'https://portfolio.sanghakh122333.workers.dev/',
 }

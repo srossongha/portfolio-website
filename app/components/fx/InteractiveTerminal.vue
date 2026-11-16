@@ -89,7 +89,7 @@ function execute(cmdStr?: string) {
       break
 
     case 'about':
-      lines.value.push({ type: 'success', text: `[ IDENTITY ]: ${profile.name} (${profile.role})` })
+      lines.value.push({ type: 'success', text: `[ IDENTITY ]: ${profile.name} (${profile.role} · Current: Front-end Intern)` })
       lines.value.push({ type: 'output', text: `[ LOCATION ]: ${profile.location} (Phnom Penh, Cambodia)` })
       lines.value.push({ type: 'output', text: `[ ACADEMIA ]: Institute of Technology of Cambodia (ITC)` })
       lines.value.push({ type: 'output', text: profile.bio[0] || '' })
