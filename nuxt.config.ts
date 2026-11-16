@@ -83,7 +83,7 @@ export default defineNuxtConfig({
         },
         {
           rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:ital,wght@0,300..800;1,300..800&family=IBM+Plex+Mono:ital,wght@0,300..700;1,300..700&family=Pixelify+Sans:wght@400;500;600;700&family=Syne:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&family=VT323&display=swap",
+          href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:ital,wght@0,300..800;1,300..800&family=IBM+Plex+Mono:ital,wght@0,300..700;1,300..700&family=Pixelify+Sans:wght@400;500;600;700&family=Syne:wght@500;600;700;800&family=VT323&display=swap",
         },
       ],
       meta: [
