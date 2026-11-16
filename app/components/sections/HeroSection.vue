@@ -74,12 +74,6 @@ const lottiePresets = [
     badge: "1.2 KB",
   },
   {
-    id: "retro-space-odyssey",
-    name: "Space Odyssey",
-    src: "/animations/retro-space-odyssey.lottie",
-    badge: "2.0 KB",
-  },
-  {
     id: "retro-gameboy",
     name: "GameBoy",
     src: "/animations/retro-gameboy.lottie",
@@ -242,19 +236,9 @@ onUnmounted(() => {
           <div
             class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3 py-1 font-mono text-xs text-cyan-300"
           >
-            <ClientOnly>
-              <DotLottiePlayer
-                src="/animations/pulse-radar.lottie"
-                class="size-3.5 shrink-0"
-                :autoplay="true"
-                :loop="true"
-              />
-              <template #fallback>
-                <span
-                  class="size-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"
-                />
-              </template>
-            </ClientOnly>
+            <span
+              class="size-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"
+            />
             <span>Available for Software Engineering Roles</span>
           </div>
 
@@ -443,9 +427,9 @@ onUnmounted(() => {
         >
           <!-- Console Window Header -->
           <div
-            class="flex items-center justify-between border-b border-cyan-500/20 bg-slate-900/60 px-4 py-3"
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 border-b border-cyan-500/20 bg-slate-900/60 px-4 py-3"
           >
-            <div class="flex items-center gap-2.5">
+            <div class="flex items-center gap-2.5 shrink-0">
               <!-- macOS Window Controls -->
               <div class="flex items-center gap-1.5">
                 <span class="size-2.5 rounded-full bg-rose-500/80" />
@@ -453,7 +437,7 @@ onUnmounted(() => {
                 <span class="size-2.5 rounded-full bg-emerald-500/80" />
               </div>
               <span
-                class="font-mono text-xs text-cyan-300 font-medium truncate max-w-[130px] sm:max-w-none"
+                class="font-mono text-xs text-cyan-300 font-medium whitespace-nowrap"
               >
                 songha@workstation: ~
               </span>
@@ -461,7 +445,7 @@ onUnmounted(() => {
 
             <!-- Mode Selector Tabs -->
             <div
-              class="flex items-center gap-1 font-mono text-xs overflow-x-auto no-scrollbar"
+              class="flex items-center gap-1 font-mono text-xs overflow-x-auto no-scrollbar py-0.5"
             >
               <button
                 type="button"

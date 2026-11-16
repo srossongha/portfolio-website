@@ -10,7 +10,6 @@ import {
 import { projects } from "~/data/site";
 import SectionHeading from "~/components/fx/SectionHeading.vue";
 import RetroCartridgeSvg from "~/components/svg/RetroCartridgeSvg.vue";
-import DotLottiePlayer from "~/components/fx/DotLottiePlayer.vue";
 
 /**
  * WorkSection.vue — Modern Project Showcase
@@ -75,20 +74,10 @@ const otherProjects = computed(() =>
             <div class="lg:col-span-7">
               <div class="flex flex-wrap items-center gap-3">
                 <span
-                  class="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3 py-1 font-mono text-xs font-medium text-cyan-300"
+                  class="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3 py-1 font-mono text-xs font-medium text-cyan-300 whitespace-nowrap shrink-0"
                 >
-                  <ClientOnly>
-                    <DotLottiePlayer
-                      src="/animations/pulse-radar.lottie"
-                      class="size-3.5 shrink-0"
-                      :autoplay="true"
-                      :loop="true"
-                    />
-                    <template #fallback>
-                      <Sparkles class="size-3" />
-                    </template>
-                  </ClientOnly>
-                  <span>Flagship Production Platform</span>
+                  <Sparkles class="size-3 text-cyan-400 shrink-0" />
+                  <span class="whitespace-nowrap">Flagship Production Platform</span>
                 </span>
                 <span class="font-mono text-xs text-muted-foreground">
                   {{ flagship.role }} · {{ flagship.year }}
@@ -221,104 +210,14 @@ const otherProjects = computed(() =>
         </div>
       </div>
 
-      <!-- 2-COLUMN PROJECT GRID -->
+      <!-- 2-COLUMN HARDWARE CARTRIDGE PROJECT GRID -->
       <div class="mt-8 sm:mt-10 grid gap-6 sm:gap-8 md:grid-cols-2">
-        <article
-          v-for="project in otherProjects"
+        <HardwareProjectCard
+          v-for="(project, idx) in otherProjects"
           :key="project.slug"
-          class="relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/70 bg-slate-950/80 p-6 sm:p-8 shadow-lg backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.12)]"
-        >
-          <div>
-            <!-- Header: Year & Role -->
-            <div
-              class="flex items-center justify-between border-b border-border/50 pb-3 font-mono text-xs"
-            >
-              <span class="text-cyan-400 font-semibold">
-                {{ project.tags[0] || "Web Application" }}
-              </span>
-              <span class="text-muted-foreground">
-                {{ project.year }} ·
-                {{ project.role.split("—")[0]?.trim() || project.role }}
-              </span>
-            </div>
-
-            <!-- Title & Tagline -->
-            <h3
-              class="font-serif text-2xl font-bold tracking-tight text-foreground sm:text-3xl mt-4"
-            >
-              {{ project.title }}
-            </h3>
-
-            <p
-              class="text-muted-foreground mt-2 text-sm sm:text-base leading-relaxed"
-            >
-              {{ project.tagline }}
-            </p>
-
-            <!-- Metrics Strip -->
-            <div
-              v-if="project.metrics?.length"
-              class="mt-4 flex flex-wrap gap-2"
-            >
-              <div
-                v-for="m in project.metrics"
-                :key="m.label"
-                class="rounded-lg border border-cyan-500/20 bg-cyan-950/20 px-3 py-1 text-xs"
-              >
-                <span class="font-bold text-cyan-400">{{ m.value }}</span>
-                <span
-                  class="text-muted-foreground ml-1.5 font-mono text-[11px]"
-                  >{{ m.label }}</span
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Bottom: Stack & Direct Links -->
-          <div class="mt-8 pt-4 border-t border-border/50">
-            <div class="flex flex-wrap gap-1.5">
-              <span
-                v-for="t in project.stack.slice(0, 4)"
-                :key="t"
-                class="rounded-md border border-border/60 bg-muted/40 px-2.5 py-0.5 font-mono text-xs text-foreground/80"
-              >
-                {{ t }}
-              </span>
-              <span
-                v-if="project.stack.length > 4"
-                class="rounded-md border border-border/60 bg-muted/40 px-2 py-0.5 font-mono text-xs text-muted-foreground"
-              >
-                +{{ project.stack.length - 4 }}
-              </span>
-            </div>
-
-            <div class="mt-5 flex items-center justify-between pt-2">
-              <NuxtLink
-                :to="`/work/${project.slug}`"
-                class="group/link inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-cyan-400 transition-colors hover:text-cyan-300"
-              >
-                <span>Read Case Study</span>
-                <ArrowUpRight
-                  class="size-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
-                />
-              </NuxtLink>
-
-              <!-- External Demo Link if Available -->
-              <a
-                v-if="project.links?.find((l) => l.label.includes('Live'))"
-                :href="
-                  project.links.find((l) => l.label.includes('Live'))?.href
-                "
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-1 font-mono text-xs text-muted-foreground transition-colors hover:text-cyan-300"
-              >
-                <span>Live Demo</span>
-                <ExternalLink class="size-3" />
-              </a>
-            </div>
-          </div>
-        </article>
+          :project="project"
+          :index="idx + 1"
+        />
 
         <!-- Archive Index Full Card -->
         <article class="md:col-span-2">

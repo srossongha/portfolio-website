@@ -102,11 +102,6 @@ async function initPlayer() {
   if (typeof window === 'undefined' || !canvasRef.value || player) return
 
   try {
-    // Configure local WASM binary path
-    if (typeof DotLottie.setWasmUrl === 'function') {
-      DotLottie.setWasmUrl('/wasm/dotlottie-player.wasm')
-    }
-
     player = new DotLottie({
       canvas: canvasRef.value,
       loop: props.loop,
@@ -243,13 +238,5 @@ onUnmounted(() => {
       class="size-full object-contain transition-opacity duration-300"
       :class="isLoaded ? 'opacity-100' : 'opacity-0'"
     />
-
-    <!-- Clean Placeholder / Loading Skeleton -->
-    <div
-      v-if="!isLoaded"
-      class="absolute inset-0 flex items-center justify-center bg-cyan-950/10 backdrop-blur-xs"
-    >
-      <div class="size-4 sm:size-5 rounded-full border-2 border-cyan-400/20 border-t-cyan-400 animate-spin" />
-    </div>
   </div>
 </template>

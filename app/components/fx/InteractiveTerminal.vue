@@ -36,12 +36,7 @@ function getLoginBanner() {
 }
 
 const lines = ref<TerminalLine[]>([
-  { type: 'system', text: 'Last login: Sat Nov 14 23:19:02 on console' },
-  { type: 'system', text: '┌──────────────────────────────────────────────────────────────┐' },
-  { type: 'system', text: '│ SROS SONGHA — SOFTWARE ENGINEER INTERACTIVE SHELL            │' },
-  { type: 'system', text: '│ Institute of Technology of Cambodia (ITC) · Phnom Penh       │' },
-  { type: 'system', text: '│ Session active. Type "help" or select a chip to explore.     │' },
-  { type: 'system', text: '└──────────────────────────────────────────────────────────────┘' },
+  { type: 'system', text: getLoginBanner() },
 ])
 
 onMounted(() => {
@@ -98,10 +93,10 @@ function execute(cmdStr?: string) {
 
   switch (cmd) {
     case 'help':
-      lines.value.push({ type: 'output', text: 'AVAILABLE TERMINAL COMMANDS:' })
-      lines.value.push({ type: 'output', text: '  about        - Engineering background & university' })
+      lines.value.push({ type: 'output', text: 'zsh: available commands:' })
+      lines.value.push({ type: 'output', text: '  about        - Engineering background & university (ITC)' })
       lines.value.push({ type: 'output', text: '  projects     - List production projects with links' })
-      lines.value.push({ type: 'output', text: '  skills       - Print loaded ROM modules & arsenal' })
+      lines.value.push({ type: 'output', text: '  skills       - Print loaded technical ROM arsenal' })
       lines.value.push({ type: 'output', text: '  cv           - Download Curriculum Vitae PDF' })
       lines.value.push({ type: 'output', text: '  contact      - Send email to sanghakh122333@gmail.com' })
       lines.value.push({ type: 'output', text: '  matrix       - Stream phosphor digital matrix rain' })
@@ -282,65 +277,68 @@ watch(open, (isOpen) => {
             </div>
           </div>
 
-          <!-- Terminal Output Scroll Window -->
+          <!-- Terminal Buffer (macOS Terminal Canvas) -->
           <div
             ref="outputContainer"
-            class="relative flex-1 overflow-y-auto p-4 font-mono text-xs leading-relaxed space-y-1.5 scrollbar-thin"
+            class="relative flex-1 overflow-y-auto p-4 sm:p-5 font-mono text-xs leading-relaxed space-y-1.5 scrollbar-thin cursor-text bg-[#141720]/95"
+            @click="inputEl?.focus()"
           >
             <div
               v-for="(line, idx) in lines"
               :key="idx"
               :class="{
-                'text-cyan-400/80': line.type === 'system',
-                'text-cyan-300 font-semibold': line.type === 'input',
+                'text-slate-400': line.type === 'system',
+                'text-white font-medium': line.type === 'input',
                 'text-slate-200': line.type === 'output',
                 'text-cyan-400 font-medium': line.type === 'success',
-                'text-red-400': line.type === 'error',
+                'text-rose-400': line.type === 'error',
                 'text-cyan-300 font-mono tracking-widest text-[10px]': line.type === 'matrix',
               }"
             >
               <NuxtLink
                 v-if="line.link"
                 :to="line.link"
-                class="underline hover:text-cyan-300"
+                class="underline hover:text-cyan-300 text-cyan-400"
                 @click="open = false"
               >
                 {{ line.text }} ↗
               </NuxtLink>
               <span v-else>{{ line.text }}</span>
             </div>
+
+            <!-- Active Prompt Line inside Terminal flow -->
+            <div class="flex items-center gap-2 pt-1">
+              <span class="font-bold text-cyan-400 select-none shrink-0">songha@macbook ~ %</span>
+              <div class="relative flex-1 flex items-center min-w-0">
+                <input
+                  ref="inputEl"
+                  v-model="currentInput"
+                  type="text"
+                  class="w-full bg-transparent font-mono text-xs text-white outline-none caret-transparent"
+                  autocomplete="off"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  @keydown="handleKeydown"
+                />
+                <!-- Native Block Cursor sitting right where text ends -->
+                <span class="inline-block text-white font-bold animate-pulse -ml-0.5 select-none">█</span>
+              </div>
+            </div>
           </div>
 
           <!-- Quick-Command Chips -->
-          <div class="relative border-t border-white/5 bg-slate-900/40 px-4 py-2 flex flex-wrap gap-1.5">
-            <span class="font-mono text-[10px] uppercase tracking-wider text-slate-400 mr-1 self-center">EXEC:</span>
+          <div class="relative border-t border-white/10 bg-[#0f1218] px-4 py-2.5 flex flex-wrap items-center gap-1.5">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-slate-500 mr-1 self-center">EXEC:</span>
             <button
               v-for="chip in ['help', 'about', 'projects', 'skills', 'cv', 'matrix', 'clear']"
               :key="chip"
               type="button"
-              class="rounded border border-cyan-500/25 bg-slate-950/80 px-2.5 py-0.5 font-mono text-xs text-cyan-300 hover:border-cyan-400 hover:bg-cyan-950/50 transition-colors cursor-pointer"
+              class="rounded border border-white/10 bg-slate-900/80 px-2.5 py-0.5 font-mono text-xs text-slate-300 hover:border-cyan-400 hover:text-cyan-300 hover:bg-cyan-950/40 transition-colors cursor-pointer"
               @click="execute(chip)"
             >
               {{ chip }}
             </button>
-          </div>
-
-          <!-- Input Bar with Blinking macOS Block Cursor -->
-          <div class="relative flex items-center border-t border-white/10 bg-black/60 px-4 py-3">
-            <span class="font-mono text-xs text-cyan-400 font-bold mr-2 select-none">songha@macbook ~ %</span>
-            <input
-              ref="inputEl"
-              v-model="currentInput"
-              type="text"
-              class="flex-1 bg-transparent font-mono text-xs text-cyan-200 outline-none caret-transparent placeholder:text-slate-600"
-              placeholder="Type command ('help', 'projects', 'cv')..."
-              autocomplete="off"
-              autocorrect="off"
-              autocapitalize="off"
-              spellcheck="false"
-              @keydown="handleKeydown"
-            />
-            <span class="crt-cursor inline-block text-white font-bold ml-1">█</span>
           </div>
         </div>
       </div>

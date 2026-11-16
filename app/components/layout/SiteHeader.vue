@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Menu, Search, Terminal, X } from "@lucide/vue";
 import { navLinks, profile } from "~/data/site";
-import DotLottiePlayer from "~/components/fx/DotLottiePlayer.vue";
 
 /**
  * Fixed header that turns into a frosted glass bar once you scroll, and hides
@@ -105,19 +104,9 @@ watch(
             <span
               class="border-cyan-400/40 absolute inset-0 rounded-full border transition-transform duration-700 group-hover:rotate-180"
             />
-            <ClientOnly>
-              <DotLottiePlayer
-                src="/animations/pulse-radar.lottie"
-                class="size-5 shrink-0"
-                :autoplay="true"
-                :loop="true"
-              />
-              <template #fallback>
-                <span
-                  class="bg-cyan-400 size-1.5 rounded-full shadow-[0_0_6px_#38bdf8]"
-                />
-              </template>
-            </ClientOnly>
+            <span
+              class="bg-cyan-400 size-1.5 rounded-full shadow-[0_0_6px_#38bdf8]"
+            />
           </span>
           <span class="font-serif text-lg leading-none tracking-tight">
             {{ profile.name }}

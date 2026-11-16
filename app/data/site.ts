@@ -39,8 +39,8 @@ export const profile = {
   stats: [
     { value: 19, suffix: '+', label: 'Public repos' },
     { value: 2, suffix: '', label: 'Tech internships' },
-    { value: 25, suffix: '', label: 'Provinces mapped' },
-    { value: 100, suffix: '%', label: 'Type safety' },
+    { value: 8, suffix: '+', label: 'Projects shipped' },
+    { value: 60, suffix: ' FPS', label: 'Frame budget' },
   ],
 }
 
@@ -137,7 +137,7 @@ export const projects: Project[] = [
       'Secured user authentication with Better Auth and serverless database persistence on Neon Postgres via Prisma 7.',
     ],
     metrics: [
-      { value: '100%', label: 'Type safety' },
+      { value: 'Prisma 7', label: 'Type-safe ORM' },
       { value: '<50ms', label: 'DB query latency' },
       { value: 'Next.js 16', label: 'App router' },
     ],
@@ -308,7 +308,7 @@ export const projects: Project[] = [
     ],
     metrics: [
       { value: '60 FPS', label: 'Choreography' },
-      { value: '100%', label: 'Type safety' },
+      { value: '0 CLS', label: 'Zero layout shift' },
       { value: 'A11y', label: 'Reduced motion' },
     ],
     accent: ['oklch(0.76 0.16 220)', 'oklch(0.55 0.18 250)'],

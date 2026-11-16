@@ -67,17 +67,12 @@ const linkIcons: Record<string, Component> = {
   <div v-if="project" class="pb-24">
     <!-- ------------------------------------------------------------- hero -->
     <header class="relative overflow-hidden pt-28 pb-16 sm:pt-36 sm:pb-20">
-      <!-- The project's own gradient, used as an atmospheric wash. Each case
-           study gets a different temperature this way. -->
+      <!-- Engineering Blueprint Atmospheric Background -->
       <div
-        class="pointer-events-none absolute inset-0 opacity-40"
+        class="pointer-events-none absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:20px_20px] opacity-15"
         aria-hidden="true"
-        :style="{
-          background: `radial-gradient(ellipse 70% 60% at 70% 0%, color-mix(in oklch, ${project.accent[0]} 35%, transparent), transparent 60%),
-                       radial-gradient(ellipse 50% 50% at 20% 20%, color-mix(in oklch, ${project.accent[1]} 20%, transparent), transparent 60%)`,
-        }"
       />
-      <div class="bg-retro-dots mask-radial-fade absolute inset-0 opacity-30" aria-hidden="true" />
+      <div class="bg-retro-dots mask-radial-fade absolute inset-0 opacity-20" aria-hidden="true" />
 
       <div class="relative mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
         <NuxtLink
