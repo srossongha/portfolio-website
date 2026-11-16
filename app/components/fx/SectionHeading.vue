@@ -30,17 +30,18 @@ withDefaults(defineProps<Props>(), {
 
 <template>
   <RevealOnScroll :stagger="0.09" :class="align === 'center' ? 'text-center' : ''">
-    <!-- Kicker row -->
+    <!-- Kicker row with 1970s Phosphor Decrypt Motion -->
     <div
       class="mb-6 flex items-center gap-3"
       :class="align === 'center' ? 'justify-center' : ''"
     >
-      <span v-if="index" class="text-brand font-mono text-[11px] tracking-[0.3em]">
-        {{ index }}
+      <span v-if="index" class="text-cyan-400 font-pixel text-[10px] tracking-[0.25em] crt-glow">
+        [ {{ index }} ]
       </span>
-      <span class="bg-border h-px w-8" aria-hidden="true" />
-      <span class="text-muted-foreground font-mono text-[11px] tracking-[0.3em] uppercase">
-        {{ label }}
+      <span class="bg-cyan-500/30 h-px w-8" aria-hidden="true" />
+      <span class="text-cyan-300/90 font-pixel text-[10px] tracking-[0.25em] uppercase flex items-center gap-1.5">
+        <span class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
+        <TextScramble :text="label" trigger="scroll" />
       </span>
     </div>
 

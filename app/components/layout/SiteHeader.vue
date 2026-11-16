@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Menu, Search, X } from '@lucide/vue'
+import { Menu, Search, Terminal, X } from '@lucide/vue'
 import { navLinks, profile } from '~/data/site'
 
 /**
@@ -16,6 +16,7 @@ const { handleAnchor, stop, start } = useSmoothScroll()
 
 const mobileOpen = ref(false)
 const paletteOpen = ref(false)
+const terminal = useTerminal()
 
 /** Past the first 6% of the page we switch from transparent to glass. */
 const isScrolled = computed(() => progress.value > 0.02)
@@ -133,6 +134,19 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
 
         <!-- ------------------------------------------------------- actions -->
         <div class="flex items-center gap-1.5 sm:gap-2">
+          <!-- 1970s CLI Shell button -->
+          <Button
+            variant="ghost"
+            size="sm"
+            class="hidden items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3 py-1 font-pixel text-[10px] text-cyan-300 shadow-[0_0_10px_rgba(56,189,248,0.2)] transition-all hover:border-cyan-400 hover:bg-cyan-900/50 hover:shadow-[0_0_16px_rgba(56,189,248,0.35)] sm:inline-flex"
+            aria-label="Open PET-2001 CLI terminal"
+            data-cursor-label="CLI"
+            @click="terminal.open()"
+          >
+            <Terminal class="size-3 text-cyan-400" />
+            <span>&gt;_ CLI</span>
+          </Button>
+
           <!-- Command palette trigger. The ⌘K hint tells people the shortcut
                exists — a palette nobody knows about is wasted work. -->
           <Button
@@ -245,6 +259,16 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
 
           <!-- Bottom CTA & Hardware Telemetry -->
           <div class="gutter pb-safe flex flex-col gap-3 pt-4" style="--pb-safe: 2.5rem">
+            <Button
+              variant="outline"
+              size="pill"
+              class="w-full font-pixel text-xs tracking-wider uppercase border-cyan-400/50 bg-cyan-950/40 text-cyan-300 shadow-[0_0_15px_rgba(56,189,248,0.25)] flex items-center justify-center gap-2"
+              @click="mobileOpen = false; terminal.open()"
+            >
+              <Terminal class="size-3.5 text-cyan-400" />
+              <span>&gt;_ LAUNCH PET-2001 CLI</span>
+            </Button>
+
             <Button
               variant="brand"
               size="pill"

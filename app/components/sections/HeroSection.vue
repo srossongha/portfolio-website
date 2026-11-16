@@ -4,6 +4,9 @@ import { ArrowDown, ArrowUpRight, Download, FileText, MapPin, Sparkles, Code2, C
 import { profile, socials } from '~/data/site'
 import CyanAurora from '~/components/fx/CyanAurora.vue'
 import RetroTapeBar from '~/components/fx/RetroTapeBar.vue'
+import PhosphorWave from '~/components/fx/PhosphorWave.vue'
+import RetroWireframe3D from '~/components/fx/RetroWireframe3D.vue'
+import TextScramble from '~/components/fx/TextScramble.vue'
 
 /**
  * HeroSection.vue — 1970s Pixel Computer & Terminal Cockpit
@@ -11,15 +14,17 @@ import RetroTapeBar from '~/components/fx/RetroTapeBar.vue'
  * Infused with authentic 1970s personal computer (Apple I, Commodore PET, VT100)
  * phosphor cyan terminal aesthetics:
  * - Boot sequence prompts, blinking block cursor (█), 64K RAM register readouts.
- * - Pixelated typography (Silkscreen / VT323) paired with crisp modern typography.
- * - Hardware-accelerated CRT scanline overlays and cyan phosphor glow.
+ * - Interactive 3D vector wireframe core & real-time oscilloscope waveform.
+ * - Direct launcher for the full PET-2001 CLI shell.
  */
 
 const root = ref<HTMLElement | null>(null)
 const { isReady } = useAppReady()
 const reduced = useReducedMotion()
 const { scrollTo } = useSmoothScroll()
+const terminal = useTerminal()
 
+const terminalTab = ref<'specs' | '3d'>('specs')
 let introCtx: gsap.Context | undefined
 
 // Live Phnom Penh time
@@ -117,11 +122,18 @@ onUnmounted(() => introCtx?.revert())
         <!-- ------------------------------------------------ Left: Narrative -->
         <div class="lg:col-span-7">
           <div class="hero-anim hero-title-text">
-            <!-- Terminal CLI Prompt -->
-            <div class="flex items-center gap-2 font-pixel text-xs text-cyan-400 font-semibold tracking-wider">
-              <span>&gt; BOOT: SROS_SONGHA.EXE</span>
+            <!-- Terminal CLI Prompt with Direct Click Trigger -->
+            <button
+              type="button"
+              class="flex items-center gap-2 font-pixel text-xs text-cyan-400 font-semibold tracking-wider hover:text-cyan-300 transition-colors cursor-pointer group text-left"
+              @click="terminal.open()"
+            >
+              <span class="group-hover:underline">&gt; BOOT: SROS_SONGHA.EXE</span>
               <span class="crt-cursor inline-block text-cyan-300 font-bold">█</span>
-            </div>
+              <span class="rounded bg-cyan-950/80 border border-cyan-500/30 px-1.5 py-0.5 text-[9px] text-cyan-300 ml-1 group-hover:border-cyan-400">
+                [CLI_SHELL]
+              </span>
+            </button>
 
             <h1 class="font-serif text-[clamp(2.4rem,7vw,5.6rem)] font-medium leading-[0.98] tracking-[-0.02em] text-foreground mt-2">
               {{ profile.name }}
@@ -149,6 +161,18 @@ onUnmounted(() => introCtx?.revert())
               >
                 <span>[ EXECUTE: WORK ]</span>
                 <ArrowUpRight class="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Button>
+            </MagneticWrap>
+
+            <MagneticWrap :strength="0.3" class="hero-anim hero-action-btn w-full sm:w-auto">
+              <Button
+                size="pill"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-cyan-400/50 bg-cyan-950/40 px-6 py-3.5 sm:py-3 text-xs font-semibold text-cyan-300 backdrop-blur-md transition-all duration-300 hover:border-cyan-300 hover:bg-cyan-900/60 hover:text-white hover:shadow-[0_0_24px_rgba(56,189,248,0.4)] font-pixel uppercase tracking-wider"
+                data-cursor-label="CLI Shell"
+                @click="terminal.open()"
+              >
+                <Terminal class="size-3.5 text-cyan-400" />
+                <span>&gt;_ PET-2001 CLI</span>
               </Button>
             </MagneticWrap>
 
@@ -223,87 +247,166 @@ onUnmounted(() => introCtx?.revert())
               </div>
             </div>
 
-            <!-- 1970s Register & Status Line -->
-            <div class="relative mt-3 flex items-center justify-between font-mono text-[9px] sm:text-[10px] text-cyan-400/70 border-b border-cyan-500/10 pb-2">
-              <span>PC: $0800  A: $00  X: $19</span>
-              <span class="font-pixel text-[8px] sm:text-[9px] text-cyan-300">64K_RAM: OK</span>
+            <!-- Tab Switcher Header (Specs vs 3D Vector Core) -->
+            <div class="relative mt-3 flex items-center justify-between border-b border-cyan-500/20 pb-2.5">
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  class="rounded px-2.5 py-1 font-pixel text-[9px] tracking-wider transition-all"
+                  :class="terminalTab === 'specs'
+                    ? 'bg-cyan-500/25 border border-cyan-400/60 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.3)]'
+                    : 'text-muted-foreground/70 hover:text-cyan-300 border border-transparent'"
+                  @click="terminalTab = 'specs'"
+                >
+                  [ 01: HARDWARE_SPECS ]
+                </button>
+                <button
+                  type="button"
+                  class="rounded px-2.5 py-1 font-pixel text-[9px] tracking-wider transition-all"
+                  :class="terminalTab === '3d'
+                    ? 'bg-cyan-500/25 border border-cyan-400/60 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.3)]'
+                    : 'text-muted-foreground/70 hover:text-cyan-300 border border-transparent'"
+                  @click="terminalTab = '3d'"
+                >
+                  [ 02: 3D_VECTOR_CORE ]
+                </button>
+              </div>
+
+              <span class="font-pixel text-[8px] sm:text-[9px] text-cyan-400/70 hidden sm:inline-block">
+                {{ terminalTab === 'specs' ? 'MODE: TELEMETRY' : 'MODE: VECTOR_GPU' }}
+              </span>
             </div>
 
-            <!-- Identity Snippet -->
-            <div class="relative mt-4 flex items-center gap-3.5 sm:gap-4">
-              <div class="relative size-14 sm:size-16 shrink-0 overflow-hidden rounded-xl border-2 border-cyan-400/50 p-0.5 shadow-[0_0_18px_rgba(56,189,248,0.3)]">
-                <img
-                  src="/images/profile.jpeg"
-                  :alt="profile.name"
-                  class="size-full rounded-[10px] object-cover"
-                />
-                <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-20" />
+            <!-- TAB 01: HARDWARE SPECS & TELEMETRY -->
+            <div v-show="terminalTab === 'specs'" class="relative">
+              <!-- 1970s Register & Status Line -->
+              <div class="mt-3 flex items-center justify-between font-mono text-[9px] sm:text-[10px] text-cyan-400/70 border-b border-cyan-500/10 pb-2">
+                <span>PC: $0800  A: $00  X: $19</span>
+                <span class="font-pixel text-[8px] sm:text-[9px] text-cyan-300">64K_RAM: OK</span>
               </div>
-              <div>
-                <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                  <span class="font-serif text-base sm:text-lg font-medium text-white">{{ profile.name }}</span>
-                  <span class="rounded-xs border border-cyan-400/40 bg-cyan-950/60 px-1.5 py-0.5 font-pixel text-[8px] sm:text-[9px] text-cyan-300">
-                    CS_SOPHOMORE
+
+              <!-- Identity Snippet -->
+              <div class="mt-4 flex items-center gap-3.5 sm:gap-4">
+                <div class="relative size-14 sm:size-16 shrink-0 overflow-hidden rounded-xl border-2 border-cyan-400/50 p-0.5 shadow-[0_0_18px_rgba(56,189,248,0.3)]">
+                  <img
+                    src="/images/profile.jpeg"
+                    :alt="profile.name"
+                    class="size-full rounded-[10px] object-cover"
+                  />
+                  <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-20" />
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                    <span class="font-serif text-base sm:text-lg font-medium text-white">{{ profile.name }}</span>
+                    <span class="rounded-xs border border-cyan-400/40 bg-cyan-950/60 px-1.5 py-0.5 font-pixel text-[8px] sm:text-[9px] text-cyan-300">
+                      CS_SOPHOMORE
+                    </span>
+                  </div>
+                  <p class="text-white/70 mt-0.5 font-mono text-[11px] sm:text-xs">
+                    Institute of Technology of Cambodia
+                  </p>
+                  <p class="text-cyan-400 font-mono text-[10px] sm:text-[11px] mt-0.5">
+                    T.O Group &amp; EKYC Solution Intern
+                  </p>
+                </div>
+              </div>
+
+              <!-- The Stats Pixel Matrix -->
+              <div class="mt-4 grid grid-cols-2 gap-2.5 sm:gap-3">
+                <div
+                  v-for="stat in profile.stats"
+                  :key="stat.label"
+                  class="rounded-xl border border-cyan-500/20 bg-black/50 p-2.5 sm:p-3 backdrop-blur-md transition-all hover:border-cyan-400/40 shadow-inner"
+                >
+                  <div class="font-pixel text-lg font-medium tracking-tight text-cyan-400 sm:text-2xl crt-glow">
+                    <CountUp :value="stat.value" :suffix="stat.suffix" />
+                  </div>
+                  <div class="text-muted-foreground mt-1 flex items-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase">
+                    <span class="size-1 rounded-full bg-cyan-400 shadow-[0_0_4px_#38bdf8]" />
+                    {{ stat.label }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Real-time Tektronix Phosphor Wave Oscilloscope -->
+              <div class="mt-3.5 overflow-hidden rounded-xl border border-cyan-500/25 bg-black/50 p-2.5 shadow-inner">
+                <div class="flex items-center justify-between font-pixel text-[9px] text-cyan-400/80 mb-1.5">
+                  <span class="flex items-center gap-1.5">
+                    <span class="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#38bdf8]" />
+                    OSCILLOSCOPE // REALTIME_HARMONICS
+                  </span>
+                  <span class="text-cyan-300 font-mono text-[9px]">HOVER TO MODULATE</span>
+                </div>
+                <ClientOnly>
+                  <PhosphorWave class="h-14 w-full rounded-lg" />
+                  <template #fallback>
+                    <div class="h-14 w-full bg-cyan-950/20 rounded-lg flex items-center justify-center font-pixel text-[9px] text-cyan-400/40">
+                      CALIBRATING ELECTRON BEAM...
+                    </div>
+                  </template>
+                </ClientOnly>
+              </div>
+
+              <!-- Core Stack Pills with Pixel Styling -->
+              <div class="mt-3.5 border-t border-cyan-500/20 pt-2.5">
+                <p class="text-cyan-400/70 font-pixel text-[9px] tracking-widest uppercase">
+                  LOADED_MODULES:
+                </p>
+                <div class="mt-2 flex flex-wrap gap-1.5">
+                  <span
+                    v-for="tech in ['Vue 3', 'Nuxt 4', 'TypeScript', 'Next.js', 'Tailwind v4', 'Cloudflare']"
+                    :key="tech"
+                    class="rounded-md border border-cyan-400/20 bg-cyan-950/30 px-2 py-0.5 font-mono text-[10px] text-cyan-200"
+                  >
+                    [{{ tech }}]
                   </span>
                 </div>
-                <p class="text-white/70 mt-0.5 font-mono text-[11px] sm:text-xs">
-                  Institute of Technology of Cambodia
-                </p>
-                <p class="text-cyan-400 font-mono text-[10px] sm:text-[11px] mt-0.5">
-                  T.O Group &amp; EKYC Solution Intern
-                </p>
               </div>
-            </div>
 
-            <!-- The Stats Pixel Matrix -->
-            <div class="relative mt-5 grid grid-cols-2 gap-2.5 sm:gap-3">
-              <div
-                v-for="stat in profile.stats"
-                :key="stat.label"
-                class="rounded-xl border border-cyan-500/20 bg-black/50 p-2.5 sm:p-3 backdrop-blur-md transition-all hover:border-cyan-400/40 shadow-inner"
-              >
-                <div class="font-pixel text-lg font-medium tracking-tight text-cyan-400 sm:text-2xl crt-glow">
-                  <CountUp :value="stat.value" :suffix="stat.suffix" />
-                </div>
-                <div class="text-muted-foreground mt-1 flex items-center gap-1.5 font-mono text-[9px] sm:text-[10px] tracking-wider uppercase">
-                  <span class="size-1 rounded-full bg-cyan-400 shadow-[0_0_4px_#38bdf8]" />
-                  {{ stat.label }}
+              <!-- Flagship Project Status Window -->
+              <div class="mt-3 rounded-xl border border-cyan-400/30 bg-cyan-950/40 p-2.5">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-1.5 font-pixel text-[10px] text-cyan-300">
+                    <Terminal class="size-3 text-cyan-400" />
+                    FLAGSHIP: ROOMIE (ស្រុកខ្ញុំ)
+                  </span>
+                  <a
+                    href="https://sroknh.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-pixel text-[9px] font-semibold"
+                  >
+                    <span>sroknh.com</span>
+                    <ArrowUpRight class="size-3" />
+                  </a>
                 </div>
               </div>
             </div>
 
-            <!-- Core Stack Pills with Pixel Styling -->
-            <div class="relative mt-5 border-t border-cyan-500/20 pt-3">
-              <p class="text-cyan-400/70 font-pixel text-[9px] tracking-widest uppercase">
-                LOADED_MODULES:
-              </p>
-              <div class="mt-2 flex flex-wrap gap-1.5">
-                <span
-                  v-for="tech in ['Vue 3', 'Nuxt 4', 'TypeScript', 'Next.js', 'Tailwind v4', 'Cloudflare']"
-                  :key="tech"
-                  class="rounded-md border border-cyan-400/20 bg-cyan-950/30 px-2 py-0.5 font-mono text-[10px] text-cyan-200"
-                >
-                  [{{ tech }}]
-                </span>
-              </div>
-            </div>
+            <!-- TAB 02: INTERACTIVE 3D VECTOR CORE -->
+            <div v-show="terminalTab === '3d'" class="relative mt-3">
+              <div class="relative flex flex-col items-center justify-center rounded-2xl border border-cyan-500/30 bg-black/60 p-4 min-h-[380px]">
+                <div class="w-full flex items-center justify-between font-pixel text-[9px] text-cyan-400/80 mb-2">
+                  <span class="flex items-center gap-1.5">
+                    <span class="size-1.5 rounded-full bg-cyan-400 animate-ping shadow-[0_0_6px_#38bdf8]" />
+                    // 3D_VECTOR_COORDINATES
+                  </span>
+                  <span class="text-cyan-300">DRAG / MOVE CURSOR</span>
+                </div>
 
-            <!-- Flagship Project Status Window -->
-            <div class="relative mt-4 rounded-xl border border-cyan-400/30 bg-cyan-950/40 p-3">
-              <div class="flex items-center justify-between text-xs">
-                <span class="flex items-center gap-1.5 font-pixel text-[10px] text-cyan-300">
-                  <Terminal class="size-3 text-cyan-400" />
-                  FLAGSHIP: ROOMIE (ស្រុកខ្ញុំ)
-                </span>
-                <a
-                  href="https://sroknh.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-pixel text-[9px] font-semibold"
-                >
-                  <span>sroknh.com</span>
-                  <ArrowUpRight class="size-3" />
-                </a>
+                <ClientOnly>
+                  <RetroWireframe3D class="h-[280px] w-full" />
+                  <template #fallback>
+                    <div class="flex h-[280px] w-full items-center justify-center font-pixel text-xs text-cyan-400/60">
+                      INITIALIZING VECTOR GRAPHICS...
+                    </div>
+                  </template>
+                </ClientOnly>
+
+                <div class="w-full mt-2 pt-2 border-t border-cyan-500/15 flex items-center justify-between font-mono text-[9px] text-cyan-400/70">
+                  <span>RENDER: THREE.JS ADDITIVE BLEND</span>
+                  <span class="font-pixel text-cyan-300 text-[8px]">[ICOSAHEDRON_CORE]</span>
+                </div>
               </div>
             </div>
           </div>
