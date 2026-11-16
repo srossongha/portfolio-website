@@ -366,6 +366,17 @@
     background-clip: content-box;
   }
 
+  /* Utility to completely hide scrollbar while preserving scrolling */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
   /* Keyboard focus stays visible and on-brand — never remove focus outlines. */
   :focus-visible {
     outline: 2px solid var(--ring);

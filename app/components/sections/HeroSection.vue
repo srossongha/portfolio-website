@@ -427,99 +427,104 @@ onUnmounted(() => {
         >
           <!-- Console Window Header -->
           <div
-            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 border-b border-cyan-500/20 bg-slate-900/60 px-4 py-3"
+            class="flex items-center justify-between border-b border-cyan-500/20 bg-slate-900/80 px-3.5 py-2.5 backdrop-blur-md"
           >
-            <div class="flex items-center gap-2.5 shrink-0">
-              <!-- macOS Window Controls -->
-              <div class="flex items-center gap-1.5">
-                <span class="size-2.5 rounded-full bg-rose-500/80" />
-                <span class="size-2.5 rounded-full bg-amber-500/80" />
-                <span class="size-2.5 rounded-full bg-emerald-500/80" />
-              </div>
-              <span
-                class="font-mono text-xs text-cyan-300 font-medium whitespace-nowrap"
-              >
-                songha@workstation: ~
-              </span>
+            <!-- macOS Window Controls (Traffic Lights) -->
+            <div class="flex items-center gap-1.5 shrink-0" aria-hidden="true">
+              <span class="size-2.5 rounded-full bg-[#ff5f56] border border-[#e0443e]/50" />
+              <span class="size-2.5 rounded-full bg-[#ffbd2e] border border-[#dea123]/50" />
+              <span class="size-2.5 rounded-full bg-[#27c93f] border border-[#1aab29]/50" />
             </div>
 
-            <!-- Mode Selector Tabs -->
+            <!-- macOS Segmented Control Tabs (5-Deck Navigation - No Scrollbar, No Overflow) -->
             <div
-              class="flex items-center gap-1 font-mono text-xs overflow-x-auto no-scrollbar py-0.5"
+              class="flex items-center rounded-lg border border-white/10 bg-black/50 p-0.5 font-mono text-xs select-none"
+              role="tablist"
+              aria-label="Console mode selector"
             >
               <button
                 type="button"
-                class="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 transition-all text-xs"
+                role="tab"
+                :aria-selected="activeDeck === 'game'"
+                class="flex items-center gap-1 sm:gap-1.5 rounded-md px-2 py-1 text-xs transition-all cursor-pointer"
                 :class="
                   activeDeck === 'game'
-                    ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                    : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+                    ? 'bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 shadow-xs'
+                    : 'text-slate-400 hover:text-slate-200 border border-transparent'
                 "
                 title="Songha Boy 8-Bit Playable Console"
                 @click="activeDeck = 'game'"
               >
-                <Gamepad2 class="size-3.5" />
-                <span>Console</span>
+                <Gamepad2 class="size-3.5 shrink-0" />
+                <span class="hidden sm:inline">Console</span>
               </button>
 
               <button
                 type="button"
-                class="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 transition-all text-xs"
+                role="tab"
+                :aria-selected="activeDeck === 'lottie'"
+                class="flex items-center gap-1 sm:gap-1.5 rounded-md px-2 py-1 text-xs transition-all cursor-pointer"
                 :class="
                   activeDeck === 'lottie'
-                    ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                    : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+                    ? 'bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 shadow-xs'
+                    : 'text-slate-400 hover:text-slate-200 border border-transparent'
                 "
                 title="dotLottie Vector Engine"
                 @click="activeDeck = 'lottie'"
               >
-                <Sparkles class="size-3.5" />
-                <span>Lottie</span>
+                <Sparkles class="size-3.5 shrink-0" />
+                <span class="hidden sm:inline">Lottie</span>
               </button>
 
               <button
                 type="button"
-                class="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 transition-all text-xs"
+                role="tab"
+                :aria-selected="activeDeck === 'code'"
+                class="flex items-center gap-1 sm:gap-1.5 rounded-md px-2 py-1 text-xs transition-all cursor-pointer"
                 :class="
                   activeDeck === 'code'
-                    ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                    : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+                    ? 'bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 shadow-xs'
+                    : 'text-slate-400 hover:text-slate-200 border border-transparent'
                 "
                 title="TypeScript Profile Spec"
                 @click="activeDeck = 'code'"
               >
-                <Code2 class="size-3.5" />
-                <span>Spec</span>
+                <Code2 class="size-3.5 shrink-0" />
+                <span class="hidden sm:inline">Spec</span>
               </button>
 
               <button
                 type="button"
-                class="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 transition-all text-xs"
+                role="tab"
+                :aria-selected="activeDeck === '3d'"
+                class="flex items-center gap-1 sm:gap-1.5 rounded-md px-2 py-1 text-xs transition-all cursor-pointer"
                 :class="
                   activeDeck === '3d'
-                    ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                    : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+                    ? 'bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 shadow-xs'
+                    : 'text-slate-400 hover:text-slate-200 border border-transparent'
                 "
                 title="3D Vector Core"
                 @click="activeDeck = '3d'"
               >
-                <Box class="size-3.5" />
-                <span>3D</span>
+                <Box class="size-3.5 shrink-0" />
+                <span class="hidden sm:inline">3D</span>
               </button>
 
               <button
                 type="button"
-                class="inline-flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 transition-all text-xs"
+                role="tab"
+                :aria-selected="activeDeck === 'wave'"
+                class="flex items-center gap-1 sm:gap-1.5 rounded-md px-2 py-1 text-xs transition-all cursor-pointer"
                 :class="
                   activeDeck === 'wave'
-                    ? 'bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 shadow-[0_0_10px_rgba(56,189,248,0.2)]'
-                    : 'text-muted-foreground hover:text-cyan-300 border border-transparent'
+                    ? 'bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 shadow-xs'
+                    : 'text-slate-400 hover:text-slate-200 border border-transparent'
                 "
                 title="Signal Wave Harmonics"
                 @click="activeDeck = 'wave'"
               >
-                <Activity class="size-3.5" />
-                <span>Wave</span>
+                <Activity class="size-3.5 shrink-0" />
+                <span class="hidden sm:inline">Wave</span>
               </button>
             </div>
           </div>

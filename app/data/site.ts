@@ -39,8 +39,8 @@ export const profile = {
   stats: [
     { value: 19, suffix: '+', label: 'Public repos' },
     { value: 2, suffix: '', label: 'Tech internships' },
-    { value: 8, suffix: '+', label: 'Projects shipped' },
-    { value: 60, suffix: ' FPS', label: 'Frame budget' },
+    { value: 12, suffix: '+', label: 'Core technologies' },
+    { value: 2, suffix: '+', label: 'Years building' },
   ],
 }
 
