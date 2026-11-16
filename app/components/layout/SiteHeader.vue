@@ -131,7 +131,7 @@ watch(
                 <!-- Active underline. Scaling from 0 rather than toggling
                      visibility lets it animate in and out. -->
                 <span
-                  class="bg-gradient-to-r from-cyan-400 to-indigo-500 absolute inset-x-3 -bottom-px h-0.5 origin-left transition-transform duration-400 shadow-[0_0_8px_#38bdf8]"
+                  class="bg-cyan-400 absolute inset-x-3 -bottom-px h-0.5 origin-left transition-transform duration-300 shadow-[0_0_6px_#38bdf8]"
                   :class="
                     activeSection === link.section ? 'scale-x-100' : 'scale-x-0'
                   "

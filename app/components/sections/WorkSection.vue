@@ -42,7 +42,7 @@ const otherProjects = computed(() => projects.filter((p) => p.slug !== flagship.
         <div class="relative overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-950/85 p-6 sm:p-10 shadow-[0_16px_50px_rgba(0,0,0,0.45)] backdrop-blur-2xl">
           <!-- Top Accent Rule -->
           <div
-            class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500"
+            class="absolute inset-x-0 top-0 h-0.5 bg-cyan-400"
             aria-hidden="true"
           />
 
@@ -96,7 +96,7 @@ const otherProjects = computed(() => projects.filter((p) => p.slug !== flagship.
                   href="https://sroknh.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 px-6 py-3 sm:py-2.5 text-xs font-semibold text-slate-950 shadow-[0_0_18px_rgba(56,189,248,0.35)] transition-all hover:scale-[1.02] hover:shadow-[0_0_28px_rgba(56,189,248,0.55)] font-pixel uppercase tracking-wider"
+                  class="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 hover:bg-cyan-300 px-6 py-3 sm:py-2.5 text-xs font-semibold text-slate-950 shadow-[0_0_15px_rgba(56,189,248,0.25)] transition-all hover:scale-[1.02] font-pixel uppercase tracking-wider"
                 >
                   <span>Visit Live Site</span>
                   <ExternalLink class="size-3.5" />

@@ -386,20 +386,9 @@
   -webkit-backdrop-filter: blur(16px) saturate(160%);
 }
 
-/* Gradient text using the brand ramp. */
+/* High-contrast accent utility — solid, sharp, non-AI */
 @utility text-gradient {
-  background-image: linear-gradient(
-    100deg,
-    var(--brand-soft) 0%,
-    var(--brand) 35%,
-    var(--brand-rose) 70%,
-    var(--brand-deep) 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  /* Descenders (g, y, p) get clipped without a little breathing room. */
-  padding-bottom: 0.08em;
+  color: var(--brand);
 }
 
 /* A subtle animated sheen that sweeps across text or a border. */

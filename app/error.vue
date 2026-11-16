@@ -22,23 +22,14 @@ useSeoMeta({ title: 'Page not found', robots: 'noindex' })
   <div class="bg-background text-foreground relative flex min-h-dvh items-center overflow-hidden">
     <!-- Same visual language as the hero, so a 404 still feels like the site. -->
     <div class="bg-retro-dots mask-radial-fade absolute inset-0 opacity-40" aria-hidden="true" />
-    <div
-      class="pointer-events-none absolute inset-0"
-      aria-hidden="true"
-      style="background: radial-gradient(ellipse 60% 50% at 50% 40%, color-mix(in oklch, var(--brand) 10%, transparent), transparent 70%)"
-    />
-
     <div class="gutter relative mx-auto w-full max-w-350">
       <p class="text-cyan-400 font-pixel text-[10px] tracking-[0.25em] uppercase">
         [ SYSTEM_FAULT // ERROR_{{ error?.statusCode ?? 500 }} ]
       </p>
 
-      <!-- Mobile-first metrics — see the note on the h1 in HeroSection.vue.
-           This is the tightest heading on the site (-0.04em), so it is also
-           the one that suffers most at phone sizes. -->
       <h1 class="mt-6 font-serif text-[clamp(2.6rem,12vw,9rem)] leading-none tracking-[-0.015em] sm:leading-[0.85] sm:tracking-[-0.04em]">
         Nothing<br >
-        <em class="text-gradient italic">here.</em>
+        <span class="text-cyan-400 not-italic font-light">here.</span>
       </h1>
 
       <p class="text-muted-foreground mt-8 max-w-md leading-relaxed">

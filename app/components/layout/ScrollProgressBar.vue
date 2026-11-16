@@ -20,10 +20,9 @@ const { progress } = useScrollProgress()
     aria-valuemax="100"
   >
     <div
-      class="h-full origin-left"
+      class="h-full origin-left bg-cyan-400"
       :style="{
         transform: `scaleX(${progress})`,
-        background: 'linear-gradient(90deg, var(--brand-deep), var(--brand), var(--brand-soft))',
       }"
     />
   </div>

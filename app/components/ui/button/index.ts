@@ -40,9 +40,9 @@ export const buttonVariants = cva(
 
         /* --- Custom variants added for this portfolio --------------------- */
 
-        /** Electric Cyan glow CTA. The single most important call-to-action on a page. */
+        /** Solid Electric Cyan CTA — clean, tactile, non-AI */
         brand:
-          "bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 text-slate-950 font-semibold shadow-[0_0_20px_rgba(56,189,248,0.35)] hover:shadow-[0_0_30px_rgba(56,189,248,0.55)] hover:scale-[1.02] active:scale-[0.98]",
+          "bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-semibold shadow-[0_0_18px_rgba(56,189,248,0.25)] hover:shadow-[0_0_24px_rgba(56,189,248,0.45)] hover:scale-[1.02] active:scale-[0.98]",
 
         /** Frosted panel. Sits on top of the canvas without hiding it. */
         glass:

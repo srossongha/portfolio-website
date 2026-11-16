@@ -49,9 +49,9 @@ withDefaults(defineProps<Props>(), {
          a voice without needing a second typeface. -->
     <!-- Mobile-first metrics: looser below `sm`, tightening as the type grows.
          See the fuller note on the h1 in HeroSection.vue. -->
-    <h2 class="font-serif text-[clamp(2.2rem,6vw,4.5rem)] leading-[1.08] tracking-[-0.01em] sm:leading-[0.95] sm:tracking-[-0.025em]">
+    <h2 class="font-serif text-[clamp(2.2rem,6vw,4.5rem)] leading-[1.08] tracking-[-0.01em] sm:leading-[0.95] sm:tracking-[-0.025em] text-foreground">
       {{ title }}
-      <span v-if="accent" class="text-gradient not-italic font-light">{{ accent }}</span>
+      <span v-if="accent" class="text-cyan-400 not-italic font-light">{{ accent }}</span>
     </h2>
 
     <p

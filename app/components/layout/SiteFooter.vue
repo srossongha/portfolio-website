@@ -55,7 +55,7 @@ onMounted(() => {
             class="group block font-serif text-3xl font-medium tracking-tight break-all text-foreground sm:text-4xl"
             data-cursor-label="Email"
           >
-            <span class="bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 [background-size:0%_2px] bg-bottom bg-no-repeat transition-[background-size] duration-500 group-hover:[background-size:100%_2px]">
+            <span class="bg-cyan-400 [background-size:0%_2px] bg-bottom bg-no-repeat transition-[background-size] duration-300 group-hover:[background-size:100%_2px]">
               {{ profile.email }}
             </span>
           </a>

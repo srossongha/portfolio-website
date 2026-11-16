@@ -105,18 +105,7 @@ async function onSubmit() {
     ref="root"
     class="relative overflow-hidden py-28 sm:py-36 lg:py-44"
   >
-    <!-- A warm glow anchoring the bottom of the page. -->
-    <div
-      class="pointer-events-none absolute inset-x-0 bottom-0 h-[60%]"
-      aria-hidden="true"
-      style="
-        background: radial-gradient(
-          ellipse 70% 100% at 50% 100%,
-          color-mix(in oklch, var(--brand) 10%, transparent),
-          transparent 70%
-        );
-      "
-    />
+
     <div class="relative mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
       <div class="grid gap-16 lg:grid-cols-12 lg:gap-20">
         <!-- ------------------------------------------------------- pitch -->

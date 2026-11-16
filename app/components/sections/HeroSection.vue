@@ -91,15 +91,8 @@ onUnmounted(() => introCtx?.revert())
     <!-- Luminous Cyan Ambient Aurora -->
     <CyanAurora />
 
-    <!-- CRT Screen Scanline Texture Overlay -->
-    <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-20" aria-hidden="true" />
-
-    <!-- Radial vignette -->
-    <div
-      class="pointer-events-none absolute inset-0"
-      aria-hidden="true"
-      style="background: radial-gradient(ellipse 90% 70% at 50% 50%, transparent 35%, var(--background) 95%)"
-    />
+    <!-- Ambient Scanlines & Architectural Base -->
+    <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-10" aria-hidden="true" />
 
     <div class="relative mx-auto w-full max-w-350 px-5 sm:px-8 lg:px-12">
       <!-- 1970s Boot Sequence & Status Bar -->
@@ -149,10 +142,10 @@ onUnmounted(() => introCtx?.revert())
         </div>
 
         <div class="hero-anim hero-role-text mt-3 flex flex-wrap items-center gap-3">
-          <h2 class="text-gradient font-serif text-[clamp(1.5rem,4vw,3.2rem)] font-light leading-tight tracking-tight">
+          <h2 class="font-serif text-[clamp(1.5rem,4vw,3.2rem)] font-light leading-tight tracking-tight text-cyan-400">
             {{ profile.role }}
           </h2>
-          <span class="rounded-full border border-cyan-500/30 bg-cyan-950/60 px-3 py-1 font-pixel text-[9px] tracking-wider text-cyan-300 uppercase shadow-[0_0_12px_rgba(56,189,248,0.2)]">
+          <span class="rounded-full border border-cyan-500/30 bg-cyan-950/60 px-3 py-1 font-pixel text-[9px] tracking-wider text-cyan-300 uppercase shadow-[0_0_10px_rgba(56,189,248,0.15)]">
             [ CURRENT // FRONT-END INTERN ]
           </span>
         </div>
@@ -166,7 +159,7 @@ onUnmounted(() => introCtx?.revert())
           <MagneticWrap :strength="0.3" class="hero-anim hero-action-btn w-full sm:w-auto">
             <Button
               size="pill"
-              class="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 px-7 py-3.5 sm:py-3 text-xs font-semibold text-slate-950 shadow-[0_0_22px_rgba(56,189,248,0.35)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_32px_rgba(56,189,248,0.55)] font-pixel uppercase tracking-wider"
+              class="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 hover:bg-cyan-300 px-7 py-3.5 sm:py-3 text-xs font-semibold text-slate-950 shadow-[0_0_18px_rgba(56,189,248,0.25)] transition-all duration-300 hover:scale-[1.02] font-pixel uppercase tracking-wider"
               data-cursor-label="Explore"
               @click="scrollTo('#work', { offset: 0 })"
             >

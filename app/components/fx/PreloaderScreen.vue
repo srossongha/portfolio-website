@@ -222,7 +222,7 @@ const displayValue = computed(() => String(Math.round(progress.value)).padStart(
       <div class="preloader-bar bg-cyan-950/40 relative h-px w-full overflow-hidden border-b border-cyan-500/20">
         <!-- scaleX is animated instead of width: transforms are composited on
              the GPU, width changes force a layout on every single frame. -->
-        <div class="preloader-bar-fill bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 h-full w-full origin-left scale-x-0 shadow-[0_0_8px_#38bdf8]" />
+        <div class="preloader-bar-fill bg-cyan-400 h-full w-full origin-left scale-x-0 shadow-[0_0_8px_#38bdf8]" />
       </div>
       <div class="mt-4 flex items-end justify-between">
         <span class="text-cyan-400/80 font-pixel text-[9px] tracking-[0.25em] uppercase">
