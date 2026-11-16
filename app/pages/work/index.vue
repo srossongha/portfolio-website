@@ -93,33 +93,37 @@ const filtered = computed(() =>
         leave-to-class="opacity-0 scale-95"
         move-class="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
       >
-        <article v-for="project in filtered" :key="project.slug">
+        <article v-for="(project, i) in filtered" :key="project.slug">
           <TiltCard :max="5" :lift="14" radius="rounded-2xl" class="h-full">
             <NuxtLink
               :to="`/work/${project.slug}`"
-              class="group border-border/70 hover:border-brand/40 flex h-full flex-col overflow-hidden rounded-2xl border transition-colors"
+              class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/75 shadow-[3px_3px_0_0_color-mix(in_oklch,var(--foreground)_12%,transparent)] transition-all duration-300 hover:border-brand/60 hover:shadow-[5px_5px_0_0_color-mix(in_oklch,var(--brand)_25%,transparent)]"
               :data-cursor-label="project.title"
             >
-              <div class="relative aspect-16/10 overflow-hidden">
+              <div class="relative aspect-16/10 overflow-hidden border-b border-border/60 bg-muted/30">
                 <div
                   class="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
                   :style="{
-                    background: `radial-gradient(circle at 30% 25%, ${project.accent[0]}, transparent 55%),
-                                 radial-gradient(circle at 75% 70%, ${project.accent[1]}, transparent 55%),
-                                 var(--card)`,
+                    background: `radial-gradient(ellipse at 35% 25%, ${project.accent[0]}, transparent 60%),
+                                 radial-gradient(ellipse at 75% 70%, ${project.accent[1]}, transparent 60%),
+                                 color-mix(in oklch, var(--card) 90%, black)`,
                   }"
                 />
-                <div class="bg-grid absolute inset-0 opacity-30" />
+                <div class="bg-retro-dots absolute inset-0 opacity-25" />
+                <div class="bg-scanlines absolute inset-0 opacity-15" />
                 <Badge
                   variant="tech"
-                  class="absolute top-4 right-4 backdrop-blur-md"
+                  class="absolute top-3 right-3 border border-border/60 font-mono text-[10px] backdrop-blur-md"
                 >
                   {{ project.year }}
                 </Badge>
+                <span class="absolute top-3 left-3 rounded-xs border border-foreground/15 bg-background/80 px-2 py-0.5 font-mono text-[9px] tracking-widest text-foreground/80 uppercase backdrop-blur-md">
+                  INDEX // {{ String(i + 1).padStart(2, '0') }}
+                </span>
               </div>
 
               <div class="flex flex-1 flex-col p-5">
-                <h2 class="font-serif text-xl tracking-tight">{{ project.title }}</h2>
+                <h2 class="font-serif text-xl font-medium tracking-tight text-foreground">{{ project.title }}</h2>
                 <p class="text-muted-foreground mt-2 text-sm leading-relaxed">
                   {{ project.tagline }}
                 </p>
@@ -127,11 +131,11 @@ const filtered = computed(() =>
                 <div class="mt-auto flex items-end justify-between gap-4 pt-5">
                   <ul class="flex flex-wrap gap-1.5">
                     <li v-for="tech in project.stack.slice(0, 3)" :key="tech">
-                      <Badge variant="tech">{{ tech }}</Badge>
+                      <Badge variant="tech" class="border border-border/60 bg-muted/40 font-mono text-[10px]">{{ tech }}</Badge>
                     </li>
                   </ul>
                   <ArrowUpRight
-                    class="text-muted-foreground group-hover:text-brand size-4 shrink-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    class="text-muted-foreground group-hover:text-brand-ink size-4 shrink-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </div>
               </div>

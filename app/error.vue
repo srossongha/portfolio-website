@@ -21,7 +21,7 @@ useSeoMeta({ title: 'Page not found', robots: 'noindex' })
   <!-- min-h-dvh, not min-h-screen — see the note in layouts/default.vue. -->
   <div class="bg-background text-foreground relative flex min-h-dvh items-center overflow-hidden">
     <!-- Same visual language as the hero, so a 404 still feels like the site. -->
-    <div class="bg-grid mask-radial-fade absolute inset-0 opacity-50" aria-hidden="true" />
+    <div class="bg-retro-dots mask-radial-fade absolute inset-0 opacity-40" aria-hidden="true" />
     <div
       class="pointer-events-none absolute inset-0"
       aria-hidden="true"

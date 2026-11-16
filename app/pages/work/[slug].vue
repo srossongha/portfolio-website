@@ -77,7 +77,7 @@ const linkIcons: Record<string, Component> = {
                        radial-gradient(ellipse 50% 50% at 20% 20%, color-mix(in oklch, ${project.accent[1]} 20%, transparent), transparent 60%)`,
         }"
       />
-      <div class="bg-grid mask-radial-fade absolute inset-0 opacity-40" aria-hidden="true" />
+      <div class="bg-retro-dots mask-radial-fade absolute inset-0 opacity-30" aria-hidden="true" />
 
       <div class="relative mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
         <NuxtLink

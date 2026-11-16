@@ -75,7 +75,13 @@ function goToSection(to: string) {
  * back through `window.opener` and navigate this page somewhere hostile.
  */
 function openExternal(href: string) {
-  run(() => window.open(href, '_blank', 'noopener,noreferrer'))
+  run(() => {
+    if (href.startsWith('mailto:')) {
+      window.location.href = href
+    } else {
+      window.open(href, '_blank', 'noopener,noreferrer')
+    }
+  })
 }
 
 const sectionIcons: Record<string, Component> = {
