@@ -171,7 +171,7 @@ onMounted(() => {
   >
     <!-- CRT scanlines overlay on 3D viewport -->
     <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-20" />
-    <div class="pointer-events-none absolute bottom-2 left-2 font-pixel text-[8px] text-cyan-400/80">
+    <div class="pointer-events-none absolute bottom-2 left-2 font-mono text-[10px] uppercase tracking-wider text-cyan-400/80">
       [ 3D_VECTOR // ACTIVE ]
     </div>
   </div>

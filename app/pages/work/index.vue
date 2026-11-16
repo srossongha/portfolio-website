@@ -57,7 +57,7 @@ const filtered = computed(() =>
           v-for="tag in allTags"
           :key="tag"
           type="button"
-          class="rounded-full border px-4 py-2 text-sm transition-all duration-300 font-pixel text-xs tracking-wider"
+          class="rounded-full border px-4 py-2 text-xs transition-all duration-300 font-mono tracking-wide"
           :class="
             activeTag === tag
               ? 'border-cyan-400 bg-cyan-400 text-slate-950 font-semibold shadow-[0_0_12px_rgba(56,189,248,0.4)]'
@@ -117,7 +117,7 @@ const filtered = computed(() =>
                 >
                   {{ project.year }}
                 </Badge>
-                <span class="absolute top-3 left-3 rounded-xs border border-cyan-400/30 bg-background/80 px-2 py-0.5 font-pixel text-[8px] tracking-widest text-cyan-300 uppercase backdrop-blur-md">
+                <span class="absolute top-3 left-3 rounded-xs border border-cyan-400/30 bg-background/80 px-2 py-0.5 font-mono text-[10px] tracking-wider text-cyan-300 uppercase backdrop-blur-md">
                   INDEX // {{ String(i + 1).padStart(2, '0') }}
                 </span>
               </div>

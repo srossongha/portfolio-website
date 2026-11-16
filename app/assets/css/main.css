@@ -148,12 +148,12 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 12px);
 
-  /* Typography: font-sans / font-serif / font-mono / font-pixel / font-crt */
+  /* Typography: Modern Design Engineering Nerd Font Stack */
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-serif: 'Space Grotesk', 'Syne', -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
-  --font-pixel: 'Pixelify Sans', 'Space Mono', monospace;
-  --font-crt: 'VT323', monospace;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Menlo', 'Monaco', 'Consolas', ui-monospace, monospace;
+  --font-pixel: 'JetBrains Mono', 'Fira Code', 'SF Mono', ui-monospace, monospace;
+  --font-crt: 'JetBrains Mono', 'Fira Code', 'SF Mono', ui-monospace, monospace;
 
   /* Custom easing curves */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);

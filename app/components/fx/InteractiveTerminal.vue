@@ -271,12 +271,12 @@ watch(open, (isOpen) => {
 
           <!-- Mobile Quick-Command Chips -->
           <div class="relative border-t border-cyan-500/20 bg-cyan-950/20 px-4 py-2 flex flex-wrap gap-1.5">
-            <span class="font-pixel text-[8px] text-cyan-400/80 mr-1 self-center">EXEC:</span>
+            <span class="font-mono text-[10px] uppercase tracking-wider text-cyan-400/80 mr-1 self-center">EXEC:</span>
             <button
               v-for="chip in ['help', 'about', 'projects', 'skills', 'cv', 'matrix', 'clear']"
               :key="chip"
               type="button"
-              class="rounded border border-cyan-400/30 bg-black/60 px-2 py-0.5 font-pixel text-[9px] text-cyan-300 hover:border-cyan-400 hover:bg-cyan-950/50 transition-colors"
+              class="rounded border border-cyan-400/30 bg-black/60 px-2.5 py-0.5 font-mono text-xs text-cyan-300 hover:border-cyan-400 hover:bg-cyan-950/50 transition-colors"
               @click="execute(chip)"
             >
               {{ chip }}
@@ -285,7 +285,7 @@ watch(open, (isOpen) => {
 
           <!-- Input Bar with Blinking Cursor -->
           <div class="relative flex items-center border-t border-cyan-500/30 bg-black/70 px-4 py-3">
-            <span class="font-pixel text-xs text-cyan-400 mr-2">&gt;</span>
+            <span class="font-mono text-xs text-cyan-400 font-bold mr-2">&gt;</span>
             <input
               ref="inputEl"
               v-model="currentInput"

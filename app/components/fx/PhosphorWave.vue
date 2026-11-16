@@ -123,7 +123,7 @@ onMounted(() => {
     <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-30" />
 
     <!-- Oscilloscope Calibration Header -->
-    <div class="relative flex items-center justify-between border-b border-cyan-500/20 px-3 py-1.5 font-pixel text-[8px] text-cyan-400">
+    <div class="relative flex items-center justify-between border-b border-cyan-500/20 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-cyan-400">
       <span class="flex items-center gap-1.5">
         <span class="size-1.5 rounded-full bg-cyan-400 animate-ping" />
         CH1: 50mV/DIV

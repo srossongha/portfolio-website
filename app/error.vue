@@ -23,7 +23,7 @@ useSeoMeta({ title: 'Page not found', robots: 'noindex' })
     <!-- Same visual language as the hero, so a 404 still feels like the site. -->
     <div class="bg-retro-dots mask-radial-fade absolute inset-0 opacity-40" aria-hidden="true" />
     <div class="gutter relative mx-auto w-full max-w-350">
-      <p class="text-cyan-400 font-pixel text-[10px] tracking-[0.25em] uppercase">
+      <p class="text-cyan-400 font-mono text-xs tracking-wider uppercase">
         [ SYSTEM_FAULT // ERROR_{{ error?.statusCode ?? 500 }} ]
       </p>
 
@@ -47,12 +47,12 @@ useSeoMeta({ title: 'Page not found', robots: 'noindex' })
       </p>
 
       <div class="mt-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
-        <Button variant="brand" size="pill" class="w-full sm:w-auto font-pixel text-xs tracking-wider uppercase" @click="clearError({ redirect: '/' })">
+        <Button variant="brand" size="pill" class="w-full sm:w-auto font-mono text-xs tracking-wider" @click="clearError({ redirect: '/' })">
           <ArrowLeft class="size-4" />
-          [ REBOOT: HOME ]
+          Back to Home
         </Button>
-        <Button variant="hairline" size="pill" class="w-full sm:w-auto font-pixel text-xs tracking-wider uppercase" @click="clearError({ redirect: '/work' })">
-          [ LOAD: WORK_ARCHIVE ]
+        <Button variant="hairline" size="pill" class="w-full sm:w-auto font-mono text-xs tracking-wider" @click="clearError({ redirect: '/work' })">
+          View Projects
         </Button>
       </div>
     </div>

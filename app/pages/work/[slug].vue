@@ -82,15 +82,15 @@ const linkIcons: Record<string, Component> = {
       <div class="relative mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
         <NuxtLink
           to="/work"
-          class="text-muted-foreground hover:text-cyan-400 group mb-10 inline-flex items-center gap-2 font-pixel text-[10px] tracking-[0.2em] uppercase transition-colors"
+          class="text-muted-foreground hover:text-cyan-400 group mb-10 inline-flex items-center gap-2 font-mono text-xs tracking-wider uppercase transition-colors"
         >
           <ArrowLeft class="size-3.5 transition-transform group-hover:-translate-x-1 text-cyan-400" />
-          [ RETURN // ALL_WORK ]
+          [ Back to Projects ]
         </NuxtLink>
 
         <div class="flex flex-wrap items-center gap-3">
-          <Badge variant="brand" class="font-pixel text-[10px]">[ {{ project.year }} ]</Badge>
-          <Badge v-for="tag in project.tags" :key="tag" variant="tech" class="font-mono text-[10px]">{{ tag }}</Badge>
+          <Badge variant="brand" class="font-mono text-xs">{{ project.year }}</Badge>
+          <Badge v-for="tag in project.tags" :key="tag" variant="tech" class="font-mono text-xs">{{ tag }}</Badge>
         </div>
 
         <!-- Mobile-first metrics — see the note on the h1 in HeroSection.vue. -->
@@ -110,7 +110,7 @@ const linkIcons: Record<string, Component> = {
               v-if="link.href"
               variant="brand"
               size="pill"
-              class="w-full sm:w-auto font-pixel text-xs uppercase tracking-wider"
+              class="w-full sm:w-auto font-mono text-xs tracking-wider"
               as="a"
               :href="link.href"
               :target="link.href.startsWith('http') ? '_blank' : undefined"
@@ -121,7 +121,7 @@ const linkIcons: Record<string, Component> = {
             </Button>
             <span
               v-else
-              class="border-border/60 text-muted-foreground inline-flex h-12 items-center justify-center gap-2 rounded-full border border-dashed px-7 text-xs font-pixel uppercase tracking-wider"
+              class="border-border/60 text-muted-foreground inline-flex h-12 items-center justify-center gap-2 rounded-full border border-dashed px-7 text-xs font-mono uppercase tracking-wider"
             >
               <component :is="linkIcons[link.icon ?? 'external']" class="size-4" />
               {{ link.label }}
@@ -143,10 +143,10 @@ const linkIcons: Record<string, Component> = {
             :key="metric.label"
             class="rounded-2xl border border-cyan-500/25 bg-card/70 p-4 sm:p-5 backdrop-blur-md shadow-inner"
           >
-            <div class="font-pixel text-[9px] tracking-[0.18em] uppercase text-cyan-400/80">
+            <div class="font-mono text-xs tracking-wider uppercase text-cyan-400/80">
               {{ metric.label }}
             </div>
-            <div class="mt-2 font-pixel text-xl sm:text-3xl tracking-tight text-cyan-300 crt-glow">
+            <div class="mt-2 font-serif text-2xl sm:text-3xl font-bold tracking-tight text-cyan-300">
               {{ metric.value }}
             </div>
           </div>
@@ -205,7 +205,7 @@ const linkIcons: Record<string, Component> = {
               :key="i"
               class="border-border/60 flex gap-5 border-b pb-6 last:border-0"
             >
-              <span class="text-cyan-400 font-pixel text-xs shrink-0">
+              <span class="text-cyan-400 font-mono text-xs font-semibold shrink-0">
                 #0{{ i + 1 }}
               </span>
               <p class="leading-relaxed">{{ highlight }}</p>

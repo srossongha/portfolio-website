@@ -253,7 +253,7 @@ watch(
           <div>
             <!-- Terminal Drawer Status Bar -->
             <div
-              class="flex items-center justify-between border-b border-cyan-500/20 px-6 py-3 font-pixel text-[9px] text-cyan-400 bg-cyan-950/30"
+              class="flex items-center justify-between border-b border-cyan-500/20 px-6 py-3 font-mono text-[10px] uppercase tracking-wider text-cyan-400 bg-cyan-950/30"
             >
               <span class="flex items-center gap-1.5">
                 <span
