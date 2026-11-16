@@ -1,255 +1,278 @@
 <script setup lang="ts">
-import gsap from 'gsap'
-import { ArrowUpRight } from '@lucide/vue'
+import { ArrowUpRight, ExternalLink, Sparkles, Layers, ShieldCheck, Zap } from '@lucide/vue'
 import { projects } from '~/data/site'
 
 /**
- * Selected work — the horizontal scroll section.
+ * WorkSection.vue — Editorial Engineering Showcase
  *
- * HOW HORIZONTAL SCROLL ACTUALLY WORKS
- * The page never scrolls sideways. Instead:
- *   1. `pin: true` sticks the section to the viewport, so it stops moving while
- *      the rest of the document keeps scrolling underneath.
- *   2. During that pinned window we translate a wide track on the X axis.
- *   3. `end: () => '+=' + distance` makes the pin last exactly as long as the
- *      track needs to travel, so the horizontal movement is 1:1 with the wheel.
- *
- * `invalidateOnRefresh: true` is the line people forget. Without it the travel
- * distance is measured once at page load and never again — resize the window,
- * or let a font load late, and the last card ends up half off screen forever.
- *
- * RESPONSIVE
- * Horizontal scroll on a phone is genuinely bad: it fights the browser's own
- * gestures and there is no room for a wide card. `gsap.matchMedia` runs the
- * pinning only above 768px and cleanly reverts it below, where the cards fall
- * back to a normal vertical stack.
+ * Transformed from a generic horizontal scroll track into a bespoke editorial gallery:
+ * - Flagship Spotlight Card: Full-width split presentation for Roomie (sroknh.com).
+ * - 2-Column Responsive Bento Grid for industry & full-stack production projects.
+ * - Direct live demo and case study actions right on the cards.
  */
 
-const root = ref<HTMLElement | null>(null)
-const track = ref<HTMLElement | null>(null)
-const reduced = useReducedMotion()
-
 const featured = computed(() => projects.filter((p) => p.featured))
-
-/** Held at module scope of the component so we can revert it on unmount. */
-let mm: gsap.MatchMedia | undefined
-
-useGsapContext(root, () => {
-  mm = gsap.matchMedia()
-
-  // -------------------------------------------------- desktop: horizontal ---
-  mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-    if (!track.value || !root.value) return
-
-    // How far the track must travel: its full width minus one screen.
-    const getDistance = () => (track.value?.scrollWidth ?? 0) - window.innerWidth
-
-    const tween = gsap.to(track.value, {
-      x: () => -getDistance(),
-      ease: 'none',
-      scrollTrigger: {
-        trigger: root.value,
-        start: 'top top',
-        end: () => `+=${getDistance()}`,
-        pin: true,
-        scrub: 1,
-        invalidateOnRefresh: true, // re-measure on resize — see note above
-        anticipatePin: 1, // avoids a one-frame jump when the pin engages
-      },
-    })
-
-    // Cards lift and brighten as they reach the centre of the screen.
-    // `containerAnimation` is the key: it tells ScrollTrigger that these
-    // elements move because of `tween`, not because the page scrolled, so
-    // "when is this card in view" is computed against the horizontal motion.
-    gsap.utils.toArray<HTMLElement>('.work-card').forEach((card) => {
-      gsap.from(card, {
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        scrollTrigger: {
-          trigger: card,
-          containerAnimation: tween,
-          start: 'left 90%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-    })
-
-    // The section title parallaxes slowly against the cards.
-    gsap.to('.work-heading', {
-      x: -80,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: root.value,
-        start: 'top top',
-        end: () => `+=${getDistance()}`,
-        scrub: 1,
-      },
-    })
-  })
-
-  // ------------------------------------------------------ mobile: vertical ---
-  mm.add('(max-width: 767px)', () => {
-    gsap.from('.work-card', {
-      y: 50,
-      opacity: 0,
-      duration: 0.9,
-      stagger: 0.12,
-      scrollTrigger: { trigger: '.work-track', start: 'top 80%' },
-    })
-  })
-})
-
-// matchMedia registers window listeners of its own, so it needs its own revert.
-onUnmounted(() => mm?.revert())
+const flagship = computed(() => projects.find((p) => p.slug === 'roomie') || projects[0])
+const otherProjects = computed(() => projects.filter((p) => p.slug !== flagship.value?.slug && p.featured))
 </script>
 
 <template>
-  <section
-    id="work"
-    ref="root"
-    class="relative md:h-screen md:overflow-hidden"
-    :class="reduced ? '' : ''"
-  >
-    <!-- Heading sits above the track and stays put while the cards slide by. -->
-    <div class="mx-auto max-w-350 px-5 pt-24 sm:px-8 lg:px-12 md:pt-28">
-      <div class="work-heading">
+  <section id="work" class="relative overflow-hidden py-24 sm:py-32 lg:py-36">
+    <div class="mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
+      <!-- Section Heading -->
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
         <SectionHeading
-          index="03"
-          label="Selected work"
-          title="Things I built"
-          accent="and what they taught me."
+          index="02"
+          label="Production Work"
+          title="Engineered with intent,"
+          accent="tested in production."
         />
+
+        <NuxtLink
+          to="/work"
+          class="group hidden sm:inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/60 px-5 py-2.5 font-mono text-xs text-muted-foreground backdrop-blur-md transition-all hover:border-cyan-400/50 hover:text-cyan-300"
+        >
+          <span>View all 19+ repositories</span>
+          <ArrowUpRight class="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </NuxtLink>
       </div>
 
-      <p class="text-muted-foreground mt-8 hidden items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase md:flex">
-        <span class="bg-gradient-to-r from-cyan-400 to-indigo-500 h-px w-10 shadow-[0_0_6px_#38bdf8]" />
-        Scroll to move sideways
-      </p>
-    </div>
-
-    <!--
-      THE TRACK.
-      `w-max` lets it grow as wide as its cards need. On mobile it becomes a
-      normal vertical flex column.
-    -->
-    <div
-      ref="track"
-      class="work-track mt-12 flex flex-col gap-6 px-5 sm:px-8 md:mt-16 md:w-max md:flex-row md:items-stretch md:gap-8 md:px-[max(3rem,calc((100vw-1400px)/2+3rem))]"
-    >
-      <article
-        v-for="(project, i) in featured"
-        :key="project.slug"
-        class="work-card md:w-[min(78vw,30rem)] md:shrink-0"
-      >
-        <TiltCard :max="6" :lift="18" radius="rounded-2xl" class="h-full">
-          <NuxtLink
-            :to="`/work/${project.slug}`"
-            class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/70 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-500 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.2)]"
-            :data-cursor-label="`View ${project.title}`"
-          >
-            <!-- Subtle ambient tint on hover -->
+      <!-- ------------------------------------------------ FLAGSHIP HERO CARD -->
+      <div v-if="flagship" class="mt-14 lg:mt-18">
+        <TiltCard :max="4" :lift="10" radius="rounded-3xl">
+          <div class="group relative overflow-hidden rounded-3xl border border-border/80 bg-card/75 p-6 sm:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/50 hover:shadow-[0_0_35px_rgba(56,189,248,0.18)]">
+            <!-- Accent gradient line on top -->
             <div
-              class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-              :style="{
-                background: `linear-gradient(145deg, color-mix(in oklch, ${project.accent[0]} 12%, transparent), color-mix(in oklch, ${project.accent[1]} 5%, transparent) 60%, transparent)`,
-              }"
+              class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500"
               aria-hidden="true"
             />
 
-            <!-- Visual cartridge panel -->
-            <div class="relative aspect-16/10 overflow-hidden border-b border-border/60 bg-muted/40">
-              <div
-                class="absolute inset-0 transition-transform duration-[1.2s] group-hover:scale-105"
-                :style="{
-                  background: `radial-gradient(ellipse at 35% 30%, ${project.accent[0]}, transparent 65%),
-                               radial-gradient(ellipse at 80% 75%, ${project.accent[1]}, transparent 65%),
-                               color-mix(in oklch, var(--card) 90%, black)`,
-                }"
-                style="transition-timing-function: var(--ease-out-expo)"
-              />
+            <div class="grid gap-8 lg:grid-cols-12 lg:gap-12 lg:items-center">
+              <!-- Left: Project Narrative & Specs -->
+              <div class="lg:col-span-7">
+                <div class="flex flex-wrap items-center gap-3">
+                  <Badge variant="brand" class="border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] tracking-wider uppercase">
+                    <Sparkles class="size-3" />
+                    FLAGSHIP RELEASE
+                  </Badge>
+                  <span class="font-mono text-[11px] text-muted-foreground tracking-wider uppercase">
+                    {{ flagship.role }} · {{ flagship.year }}
+                  </span>
+                </div>
 
-              <!-- Botanical dot matrix & scanline textures -->
-              <div class="bg-retro-dots absolute inset-0 opacity-25" />
-              <div class="bg-scanlines absolute inset-0 opacity-15" />
-
-              <!-- Specimen header tag & status -->
-              <div class="absolute inset-x-0 top-0 flex items-start justify-between p-4 sm:p-5">
-                <span class="rounded-sm border border-foreground/15 bg-background/80 px-2 py-0.5 font-mono text-[10px] tracking-[0.25em] text-cyan-300 uppercase backdrop-blur-md">
-                  SPECIMEN // {{ String(i + 1).padStart(2, '0') }}
-                </span>
-                <Badge :variant="project.status === 'building' ? 'brand' : 'tech'" class="border border-cyan-400/30 backdrop-blur-md">
-                  {{ project.status === 'building' ? 'In progress' : project.year }}
-                </Badge>
-              </div>
-
-              <!-- Hover arrow button -->
-              <div
-                class="glass absolute right-4 bottom-4 flex size-10 translate-y-2 items-center justify-center rounded-full border border-cyan-400/40 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 shadow-[0_0_15px_rgba(56,189,248,0.3)]"
-                aria-hidden="true"
-              >
-                <ArrowUpRight class="size-4 text-cyan-400" />
-              </div>
-            </div>
-
-            <!-- Text panel: field log details -->
-            <div class="relative flex flex-1 flex-col p-6 sm:p-7">
-              <div class="flex items-baseline justify-between gap-2">
-                <h3 class="font-serif text-2xl font-medium tracking-tight sm:text-3xl">
-                  {{ project.title }}
+                <h3 class="font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-5xl mt-3">
+                  {{ flagship.title }}
                 </h3>
-              </div>
 
-              <p class="text-muted-foreground mt-2.5 text-sm leading-relaxed">
-                {{ project.tagline }}
-              </p>
+                <p class="text-muted-foreground mt-3 text-base leading-relaxed sm:text-lg">
+                  {{ flagship.description }}
+                </p>
 
-              <!-- Highlights / Metrics ticker strip if available -->
-              <div v-if="project.metrics?.length" class="mt-4 flex flex-wrap gap-3 border-t border-dashed border-border/60 pt-3">
-                <div v-for="m in project.metrics.slice(0, 2)" :key="m.label" class="flex items-center gap-1.5 font-mono text-[10px]">
-                  <span class="font-semibold text-cyan-400">{{ m.value }}</span>
-                  <span class="text-muted-foreground">{{ m.label }}</span>
+                <!-- Metrics Strip -->
+                <div class="mt-6 flex flex-wrap gap-4 border-t border-border/60 pt-4">
+                  <div
+                    v-for="m in flagship.metrics"
+                    :key="m.label"
+                    class="rounded-xl border border-border/60 bg-background/50 px-3.5 py-2 backdrop-blur-md"
+                  >
+                    <div class="font-serif text-lg font-semibold text-cyan-400">{{ m.value }}</div>
+                    <div class="font-mono text-[10px] uppercase text-muted-foreground">{{ m.label }}</div>
+                  </div>
+                </div>
+
+                <!-- Stack Tags -->
+                <div class="mt-6 flex flex-wrap gap-1.5">
+                  <Badge
+                    v-for="tech in flagship.stack"
+                    :key="tech"
+                    variant="tech"
+                    class="border-border/70 bg-muted/40 font-mono text-[10px]"
+                  >
+                    {{ tech }}
+                  </Badge>
+                </div>
+
+                <!-- Action Links -->
+                <div class="mt-8 flex flex-wrap items-center gap-3.5">
+                  <a
+                    href="https://sroknh.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group/btn inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 px-6 py-2.5 text-xs font-semibold text-slate-950 shadow-[0_0_18px_rgba(56,189,248,0.35)] transition-all hover:scale-[1.02] hover:shadow-[0_0_28px_rgba(56,189,248,0.55)]"
+                  >
+                    <span>Visit Live Site</span>
+                    <ExternalLink class="size-3.5" />
+                  </a>
+
+                  <NuxtLink
+                    :to="`/work/${flagship.slug}`"
+                    class="inline-flex items-center gap-2 rounded-full border border-border/80 bg-background/70 px-5 py-2.5 text-xs font-medium text-foreground backdrop-blur-md transition-all hover:border-cyan-400/50 hover:text-cyan-300"
+                  >
+                    <span>Read Architecture Case Study</span>
+                    <ArrowUpRight class="size-3.5" />
+                  </NuxtLink>
                 </div>
               </div>
 
-              <!-- Stack badges -->
-              <ul class="mt-auto flex flex-wrap gap-1.5 pt-5">
-                <li v-for="tech in project.stack.slice(0, 4)" :key="tech">
-                  <Badge variant="tech" class="border border-border/60 bg-muted/40 font-mono text-[10px]">
-                    {{ tech }}
+              <!-- Right: Visual Specimen Console -->
+              <div class="lg:col-span-5">
+                <div class="relative aspect-16/11 overflow-hidden rounded-2xl border border-border/80 bg-slate-950 p-6 shadow-inner">
+                  <!-- Ambient cyber gradient glow inside card -->
+                  <div
+                    class="absolute inset-0 opacity-40"
+                    style="background: radial-gradient(circle at 60% 40%, rgba(56, 189, 248, 0.25) 0%, rgba(99, 102, 241, 0.15) 50%, transparent 75%)"
+                  />
+                  <div class="bg-scanlines pointer-events-none absolute inset-0 opacity-20" />
+                  <div class="bg-retro-dots pointer-events-none absolute inset-0 opacity-20" />
+
+                  <!-- Specimen Window Header -->
+                  <div class="relative flex items-center justify-between border-b border-white/10 pb-3">
+                    <div class="flex items-center gap-2">
+                      <span class="size-2 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
+                      <span class="font-mono text-[10px] tracking-widest text-cyan-300 uppercase">
+                        CARTO // MAP ENGINE
+                      </span>
+                    </div>
+                    <span class="font-mono text-[10px] text-white/60">25 PROVINCES</span>
+                  </div>
+
+                  <!-- Specimen Centerpiece -->
+                  <div class="relative mt-8 flex flex-col items-center justify-center text-center">
+                    <div class="flex size-16 items-center justify-center rounded-2xl border border-cyan-400/40 bg-cyan-950/50 text-cyan-300 shadow-[0_0_20px_rgba(56,189,248,0.25)]">
+                      <span class="font-serif text-2xl font-bold">KH</span>
+                    </div>
+                    <h4 class="font-serif text-xl font-medium text-white mt-4">
+                      Nationwide Rental Explorer
+                    </h4>
+                    <p class="font-mono text-xs text-white/60 mt-1 max-w-xs">
+                      Bilingual Khmer & English listing interface with Leaflet geospatial coordinates.
+                    </p>
+                  </div>
+
+                  <!-- Bottom Console Bar -->
+                  <div class="absolute inset-x-6 bottom-4 flex items-center justify-between border-t border-white/10 pt-3 font-mono text-[10px] text-white/50">
+                    <span>HOST: CLOUDFLARE</span>
+                    <span class="text-cyan-400">STATUS: PRODUCTION</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </TiltCard>
+      </div>
+
+      <!-- ------------------------------------------------ 2-COLUMN PROJECT MATRIX -->
+      <div class="mt-8 grid gap-8 md:grid-cols-2">
+        <article
+          v-for="(project, i) in otherProjects"
+          :key="project.slug"
+        >
+          <TiltCard :max="5" :lift="12" radius="rounded-3xl" class="h-full">
+            <div class="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-border/80 bg-card/70 p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.18)]">
+              <div>
+                <!-- Header: Specimen No & Year -->
+                <div class="flex items-center justify-between border-b border-border/60 pb-4">
+                  <span class="font-mono text-[10px] tracking-widest text-cyan-400 uppercase font-semibold">
+                    PROJECT // {{ String(i + 2).padStart(2, '0') }}
+                  </span>
+                  <Badge variant="tech" class="border-border/70 text-[10px]">
+                    {{ project.year }} · {{ project.role.split('—')[0]?.trim() || project.role }}
                   </Badge>
-                </li>
-                <li v-if="project.stack.length > 4">
-                  <Badge variant="tech" class="border border-border/60 bg-muted/40 font-mono text-[10px]">
+                </div>
+
+                <!-- Title & Tagline -->
+                <h3 class="font-serif text-2xl font-medium tracking-tight text-foreground sm:text-3xl mt-5">
+                  {{ project.title }}
+                </h3>
+
+                <p class="text-muted-foreground mt-2.5 text-sm leading-relaxed">
+                  {{ project.tagline }}
+                </p>
+
+                <!-- Metrics strip -->
+                <div v-if="project.metrics?.length" class="mt-5 flex flex-wrap gap-2.5">
+                  <div
+                    v-for="m in project.metrics"
+                    :key="m.label"
+                    class="rounded-lg border border-border/60 bg-background/50 px-2.5 py-1 text-xs"
+                  >
+                    <span class="font-semibold text-cyan-400">{{ m.value }}</span>
+                    <span class="text-muted-foreground ml-1.5 font-mono text-[10px]">{{ m.label }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom: Stack & Direct Links -->
+              <div class="mt-8 pt-5 border-t border-border/60">
+                <div class="flex flex-wrap gap-1.5">
+                  <Badge
+                    v-for="t in project.stack.slice(0, 4)"
+                    :key="t"
+                    variant="tech"
+                    class="border-border/60 bg-muted/30 font-mono text-[10px]"
+                  >
+                    {{ t }}
+                  </Badge>
+                  <Badge
+                    v-if="project.stack.length > 4"
+                    variant="tech"
+                    class="border-border/60 bg-muted/30 font-mono text-[10px]"
+                  >
                     +{{ project.stack.length - 4 }}
                   </Badge>
-                </li>
-              </ul>
+                </div>
+
+                <div class="mt-5 flex items-center justify-between pt-2">
+                  <NuxtLink
+                    :to="`/work/${project.slug}`"
+                    class="group/link inline-flex items-center gap-1.5 font-mono text-xs text-foreground/90 transition-colors hover:text-cyan-300"
+                  >
+                    <span>Read Case Study</span>
+                    <ArrowUpRight class="size-3.5 transition-transform group-link:translate-x-0.5 group-link:-translate-y-0.5" />
+                  </NuxtLink>
+
+                  <!-- External Demo Link if Available -->
+                  <a
+                    v-if="project.links?.find((l) => l.label.includes('Live'))"
+                    :href="project.links.find((l) => l.label.includes('Live'))?.href"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1 font-mono text-xs text-cyan-400 transition-colors hover:text-cyan-300"
+                  >
+                    <span>Live Demo</span>
+                    <ExternalLink class="size-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </TiltCard>
+        </article>
+
+        <!-- Archive Index Terminal Card -->
+        <article class="md:col-span-2">
+          <NuxtLink
+            to="/work"
+            class="group relative flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-3xl border border-dashed border-border/80 bg-card/40 p-8 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/60 hover:bg-card/70 hover:shadow-[0_0_30px_rgba(56,189,248,0.18)]"
+          >
+            <div>
+              <span class="font-mono text-xs tracking-widest text-cyan-400 uppercase font-semibold">
+                ARCHIVE // FULL INDEX
+              </span>
+              <h4 class="font-serif text-2xl font-medium tracking-tight text-foreground sm:text-3xl mt-1">
+                Explore the complete technical project notebook.
+              </h4>
+              <p class="text-muted-foreground mt-1 text-sm font-mono">
+                Browse detailed retrospectives, client delivery notes, and open-source experiments.
+              </p>
+            </div>
+
+            <div class="mt-6 sm:mt-0 flex items-center gap-2 rounded-full bg-cyan-400/10 px-5 py-2.5 font-mono text-xs font-semibold text-cyan-300 transition-colors group-hover:bg-cyan-400 group-hover:text-slate-950">
+              <span>Open Complete Index</span>
+              <ArrowUpRight class="size-4" />
             </div>
           </NuxtLink>
-        </TiltCard>
-      </article>
-
-      <!-- Closing panel: retro archive dispatch ticket -->
-      <article class="work-card flex md:w-96 md:shrink-0">
-        <NuxtLink
-          to="/work"
-          class="group relative flex w-full flex-col items-start justify-end rounded-2xl border border-border/80 bg-card/50 p-8 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/60 hover:bg-card/75 hover:shadow-[0_0_25px_rgba(56,189,248,0.2)]"
-          data-cursor-label="All work"
-        >
-          <span class="text-cyan-400 mb-4 font-mono text-[11px] tracking-[0.25em] uppercase font-semibold">
-            ARCHIVE // INDEX
-          </span>
-          <span class="font-serif text-3xl leading-tight tracking-tight font-medium">
-            Explore the complete<br >project index.
-          </span>
-          <span class="text-muted-foreground group-hover:text-cyan-300 mt-6 inline-flex items-center gap-2 font-mono text-xs tracking-wider uppercase transition-colors">
-            Browse all entries
-            <ArrowUpRight class="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </span>
-        </NuxtLink>
-      </article>
+        </article>
+      </div>
     </div>
   </section>
 </template>

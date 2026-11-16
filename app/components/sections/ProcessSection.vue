@@ -1,145 +1,111 @@
 <script setup lang="ts">
-import gsap from 'gsap'
+import { Compass, Layout, Code2, CheckCircle2, ArrowRight } from '@lucide/vue'
 
 /**
- * How I work — the site's third axis: DEPTH.
+ * ProcessSection.vue — 4-Stage Engineering Pipeline
  *
- * The cards do not scroll past each other; they stack towards the viewer.
- * Each card is `position: sticky`, so it holds at the top of the viewport while
- * the next one scrolls up to meet it. GSAP then scales, dims and tips each card
- * backwards as it gets buried.
- *
- * WHY `sticky` AND NOT MORE PINNING
- * We already pin the Work section. Pinning several sections in a row means
- * several ScrollTriggers all inserting spacer elements, and they compound
- * measurement errors. Native `position: sticky` costs nothing, never needs
- * re-measuring, and survives a resize on its own. Reach for CSS first; use
- * ScrollTrigger for the parts CSS genuinely cannot do — here, the scaling.
- *
- * The `rotateX` is what sells it as depth rather than as a scale animation: the
- * card tips away from you, so its top edge recedes.
+ * Transformed from a sticky stacked pile into an interactive 4-stage pipeline bento:
+ * - Stage 01: Architecture & Data Modeling
+ * - Stage 02: Browser Prototyping & Layout Rhythm
+ * - Stage 03: Type-Safe Full-Stack Implementation
+ * - Stage 04: Real-Device Hardening & Production Delivery
  */
-
-const root = ref<HTMLElement | null>(null)
-const reduced = useReducedMotion()
 
 const steps = [
   {
     n: '01',
-    title: 'Understand',
-    body: 'First I work out what the thing actually needs to do. On Roomie, that meant deciding with my teammates what a listing is before writing any code.',
-    detail: 'Questions · Sketches · Data model',
+    icon: Compass,
+    title: 'Discover & Architect',
+    body: 'I define the data models and core constraints before writing code. On Roomie, this meant mapping 25 provinces, landlord onboarding flows, and bilingual schema rules early.',
+    deliverables: ['Schema design', 'User flows', 'API contracts'],
+    tag: 'FOUNDATION',
   },
   {
     n: '02',
-    title: 'Shape',
-    body: 'I build rough in the browser instead of designing first. A messy page teaches me more about spacing and layout in an hour than a blank Figma file does.',
-    detail: 'Layout · Components · Real content',
+    icon: Layout,
+    title: 'Shape in the Browser',
+    body: 'I build rough, interactive prototypes directly in the browser rather than spending weeks in Figma. Real viewports reveal layout flaws and touch target issues immediately.',
+    deliverables: ['Responsive grid', 'Design tokens', 'Micro-interactions'],
+    tag: 'PROTOTYPING',
   },
   {
     n: '03',
-    title: 'Build',
-    body: 'Nuxt on the front, server routes and Postgres behind it. I add types as I go, because an API once returned a shape I did not expect and I lost a day to it.',
-    detail: 'Nuxt · TypeScript · Supabase',
+    icon: Code2,
+    title: 'Type-Safe Execution',
+    body: 'Nuxt 4 / Next.js on the frontend, edge functions on Cloudflare, and PostgreSQL with strict Row-Level Security. Every component is typed to eliminate runtime crashes.',
+    deliverables: ['TypeScript 100%', 'Edge serverless', 'Supabase RLS'],
+    tag: 'DEVELOPMENT',
   },
   {
     n: '04',
-    title: 'Refine',
-    body: 'Then the slow part: loading states, empty states, testing on a real phone. I usually rewrite a component once I see why the first version was wrong.',
-    detail: 'Polish · Mobile · Rewrite',
+    icon: CheckCircle2,
+    title: 'Real-Device Hardening',
+    body: 'The most critical step: testing on real modest phones, verifying network throttling, eliminating layout shifts, and polishing loading/empty states until it feels native.',
+    deliverables: ['Lighthouse 95+', 'Zero layout shift', 'Mobile 60fps'],
+    tag: 'SHIPPING',
   },
 ]
-
-useGsapContext(root, () => {
-  if (reduced.value) return
-
-  gsap.utils.toArray<HTMLElement>('.process-card').forEach((card, i) => {
-    // The last card has nothing stacking on top of it, so it never recedes.
-    if (i === steps.length - 1) return
-
-    gsap.to(card, {
-      scale: 0.9,
-      rotateX: 6,
-      opacity: 0.35,
-      filter: 'blur(2px)',
-      ease: 'none',
-      scrollTrigger: {
-        trigger: card,
-        // Begin receding once the card is stuck at the top …
-        start: 'top 12%',
-        // … and finish by the time the next card has fully covered it.
-        end: '+=90%',
-        scrub: true,
-      },
-    })
-  })
-})
 </script>
 
 <template>
-  <section id="process" ref="root" class="relative py-28 sm:py-36">
+  <section id="process" class="relative overflow-hidden py-24 sm:py-32 lg:py-36">
     <div class="mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
       <SectionHeading
         index="04"
-        label="Process"
-        title="Four steps,"
-        accent="repeated stubbornly."
-        description="Nothing exotic. The value is in doing all four every time, including the last one."
+        label="Methodology"
+        title="Disciplined execution,"
+        accent="from concept to production."
+        description="A deterministic 4-stage engineering pipeline applied to every project, ensuring rock-solid stability and client satisfaction."
       />
 
-      <!-- `perspective` on the parent is what makes rotateX read as depth
-           instead of as a vertical squash. -->
-      <div class="perspective-2000 mt-16 lg:mt-24">
+      <!-- 4-Stage Bento Pipeline -->
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:mt-18">
         <div
-          v-for="(step, i) in steps"
+          v-for="step in steps"
           :key="step.n"
-          class="process-card sticky origin-top will-change-transform"
-          :style="{
-            // Each card stops slightly lower than the one before, so the stack
-            // fans out and you can still see the edges underneath.
-            top: `${5 + i * 1.2}rem`,
-            // Stacking order must ascend or later cards render behind earlier ones.
-            zIndex: i + 1,
-            marginBottom: i === steps.length - 1 ? '0' : '2rem',
-          }"
+          class="group flex flex-col justify-between rounded-3xl border border-border/80 bg-card/70 p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/50 hover:shadow-[0_0_25px_rgba(56,189,248,0.15)]"
         >
-          <div
-            class="relative overflow-hidden rounded-2xl border border-border/80 bg-card/85 p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(56,189,248,0.15)] sm:p-12 lg:p-16"
-          >
-            <!-- Halftone dots texture -->
-            <div class="bg-retro-dots pointer-events-none absolute inset-0 opacity-20" aria-hidden="true" />
-
-            <!-- Electric cyan & royal indigo accent hairline along the top edge of each card -->
-            <div
-              class="absolute inset-x-0 top-0 h-1"
-              style="background: linear-gradient(90deg, #38bdf8, #6366f1, transparent)"
-              aria-hidden="true"
-            />
-
-            <div class="relative grid gap-8 lg:grid-cols-12 lg:gap-16">
-              <div class="lg:col-span-4">
-                <div class="inline-flex items-center gap-2 rounded-sm border border-cyan-500/30 bg-cyan-950/30 px-2.5 py-0.5 font-mono text-[11px] tracking-[0.25em] text-cyan-300 uppercase">
-                  <span>LOG // PHASE {{ step.n }}</span>
-                </div>
-                <!-- Mobile-first typography -->
-                <h3 class="mt-4 font-serif text-[clamp(2.2rem,4.5vw,3.6rem)] font-medium leading-[1.08] tracking-tight text-foreground">
-                  {{ step.title }}
-                </h3>
-              </div>
-
-              <div class="lg:col-span-8">
-                <p class="text-[clamp(1.05rem,1.8vw,1.35rem)] leading-relaxed text-foreground/90 font-light">
-                  {{ step.body }}
-                </p>
-                <div class="border-border/60 mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-dashed pt-4 font-mono text-[11px] tracking-[0.18em] uppercase text-muted-foreground">
-                  <span class="flex items-center gap-2">
-                    <span class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
-                    {{ step.detail }}
-                  </span>
-                  <span class="text-xs text-cyan-400/80 font-mono">CONFIDENTIAL // VERIFIED</span>
-                </div>
-              </div>
+          <div>
+            <!-- Header row -->
+            <div class="flex items-center justify-between border-b border-border/60 pb-4">
+              <span class="font-mono text-xs font-semibold tracking-widest text-cyan-400 uppercase">
+                PHASE // {{ step.n }}
+              </span>
+              <span class="rounded-xs border border-border/70 bg-muted/30 px-2 py-0.5 font-mono text-[9px] text-muted-foreground uppercase">
+                {{ step.tag }}
+              </span>
             </div>
+
+            <!-- Icon & Title -->
+            <div class="mt-6 flex items-center gap-3">
+              <div class="flex size-10 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-400 shadow-[0_0_12px_rgba(56,189,248,0.2)]">
+                <component :is="step.icon" class="size-5" />
+              </div>
+              <h3 class="font-serif text-xl font-medium tracking-tight text-foreground">
+                {{ step.title }}
+              </h3>
+            </div>
+
+            <p class="text-muted-foreground mt-4 text-sm leading-relaxed">
+              {{ step.body }}
+            </p>
+          </div>
+
+          <!-- Deliverables Tags -->
+          <div class="mt-8 border-t border-border/60 pt-4">
+            <p class="font-mono text-[10px] tracking-widest text-muted-foreground uppercase mb-2">
+              Deliverables:
+            </p>
+            <ul class="space-y-1.5">
+              <li
+                v-for="d in step.deliverables"
+                :key="d"
+                class="flex items-center gap-2 font-mono text-xs text-foreground/85"
+              >
+                <span class="size-1 rounded-full bg-cyan-400 shadow-[0_0_4px_#38bdf8]" />
+                {{ d }}
+              </li>
+            </ul>
           </div>
         </div>
       </div>

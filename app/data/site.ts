@@ -412,8 +412,8 @@ export const experiences: Experience[] = [
 /* ------------------------------------------------------------- navigation */
 
 export const navLinks = [
-  { label: 'Work', to: '/#work', section: 'work' },
   { label: 'About', to: '/#about', section: 'about' },
+  { label: 'Work', to: '/#work', section: 'work' },
   { label: 'Skills', to: '/#skills', section: 'skills' },
   { label: 'Contact', to: '/#contact', section: 'contact' },
 ]

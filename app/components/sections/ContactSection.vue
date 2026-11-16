@@ -138,7 +138,7 @@ async function onSubmit() {
               </p>
               <a
                 :href="`mailto:${profile.email}`"
-                class="hover:text-brand mt-2 block font-serif text-2xl break-all transition-colors sm:text-3xl"
+                class="hover:text-cyan-400 mt-2 block font-serif text-2xl break-all transition-colors sm:text-3xl"
                 data-cursor-label="Copy"
               >
                 {{ profile.email }}

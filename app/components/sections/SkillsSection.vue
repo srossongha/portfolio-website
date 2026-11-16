@@ -1,166 +1,116 @@
 <script setup lang="ts">
 import gsap from 'gsap'
+import { Code2, Database, Wrench, Binary, Cpu, Layers } from '@lucide/vue'
 import { marqueeRows, skillGroups } from '~/data/site'
 
 /**
- * Skills — and the site's first change of axis.
+ * SkillsSection.vue — Technical Arsenal Matrix
  *
- * THE SKEWED BAND
- * Three marquee rows sit inside a container rotated -4°, running in alternating
- * directions. Rotating the whole band means the text travels along a diagonal
- * while the page still scrolls vertically, which breaks the grid without
- * anything actually being crooked.
- *
- * Two details make it work rather than look like a mistake:
- *   • The band is wider than the viewport (`w-[120%] -ml-[10%]`). Rotating a
- *     100%-wide element leaves triangular gaps at the corners.
- *   • `overflow-x: clip` on the body (set in main.css) stops the overhang from
- *     creating a horizontal scrollbar.
- *
- * VELOCITY SKEW
- * The band also skews slightly in response to how fast you are scrolling, then
- * springs back when you stop. It is the single most effective way to make a
- * page feel physical — the content appears to have inertia.
+ * Transformed from a tilted band template into an interactive engineering matrix:
+ * - 4 Categorized Bento Cards with animated skill proficiency meters.
+ * - Smooth, non-skewed continuous tech stack marquee ticker.
+ * - Clear distinction between front-end, edge cloud, tooling, and computer science foundations.
  */
 
 const root = ref<HTMLElement | null>(null)
-const band = ref<HTMLElement | null>(null)
 const reduced = useReducedMotion()
-const { lenis } = useSmoothScroll()
+
+const groupIcons = [Code2, Database, Wrench, Binary]
 
 useGsapContext(root, () => {
-  // Skill bars fill as they scroll into view.
+  if (reduced.value) return
+
+  // Skill bars fill progressively as section enters view
   gsap.from('.skill-bar-fill', {
     scaleX: 0,
-    duration: 1.4,
+    duration: 1.2,
     ease: 'power3.out',
-    stagger: 0.06,
-    scrollTrigger: { trigger: '.skill-grid', start: 'top 80%' },
+    stagger: 0.04,
+    scrollTrigger: { trigger: '.skill-matrix-grid', start: 'top 80%' },
   })
-
-  if (reduced.value || !band.value) return
-
-  // The whole band drifts sideways as you scroll past it — a second, slower
-  // motion layered on top of the marquee's own movement.
-  gsap.to('.skill-band-inner', {
-    xPercent: -6,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: band.value,
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: 1,
-    },
-  })
-})
-
-/* ----------------------------------------------------- scroll-velocity skew */
-onMounted(() => {
-  if (reduced.value) return
-  const instance = lenis()
-  if (!instance || !band.value) return
-
-  // quickTo again: this fires on every scroll event, so it must be cheap.
-  const setSkew = gsap.quickTo(band.value, 'skewY', {
-    duration: 0.6,
-    ease: 'power3.out',
-  })
-
-  const onScroll = ({ velocity }: { velocity: number }) => {
-    // Clamp it. Without a limit, a fast flick on a trackpad produces a 40°
-    // shear that looks broken rather than fast.
-    const skew = gsap.utils.clamp(-4, 4, velocity * 0.12)
-    setSkew(skew)
-  }
-
-  instance.on('scroll', onScroll)
-  onUnmounted(() => instance.off('scroll', onScroll))
 })
 </script>
 
 <template>
-  <section id="skills" ref="root" class="relative overflow-hidden py-28 sm:py-36">
+  <section id="skills" ref="root" class="relative overflow-hidden py-24 sm:py-32 lg:py-36">
     <div class="mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
+      <!-- Section Heading -->
       <SectionHeading
-        index="02"
-        label="Capabilities"
-        title="The tools, and"
-        accent="what I do with them."
-        description="A stack I actually reach for, not a list of everything I have ever opened."
-      />
-    </div>
-
-    <!-- --------------------------------------------------- the skewed band -->
-    <div
-      ref="band"
-      class="border-border/60 relative my-20 w-[120%] ml-[-10%] border-y py-8 will-change-transform sm:my-24"
-      style="transform: rotate(-4deg)"
-      aria-hidden="true"
-    >
-      <!-- Electric cyan & royal indigo luminous wash behind the marquee rows -->
-      <div
-        class="pointer-events-none absolute inset-0 opacity-[0.08]"
-        style="background: linear-gradient(90deg, transparent, #38bdf8 30%, #6366f1 70%, transparent)"
+        index="03"
+        label="Technical Arsenal"
+        title="Tools I build with,"
+        accent="systems I understand."
+        description="A disciplined stack I actively reach for in production — type-safe, edge-ready, and mobile-optimized."
       />
 
-      <div class="skill-band-inner space-y-3">
-        <!-- Alternating direction per row. Two rows moving the same way read as
-             one thick block; opposing directions create the weave. -->
-        <MarqueeRow
-          v-for="(row, i) in marqueeRows"
-          :key="i"
-          :items="row"
-          :reverse="i % 2 === 1"
-          :duration="34 + i * 9"
-          :class="i === 1 ? 'text-muted-foreground' : ''"
-        />
-      </div>
-    </div>
-
-    <!-- Screen readers get a plain list instead of the decorative band. -->
-    <h3 class="sr-only">Technologies</h3>
-    <ul class="sr-only">
-      <li v-for="item in marqueeRows.flat()" :key="item">{{ item }}</li>
-    </ul>
-
-    <!-- ------------------------------------------------------ skill groups -->
-    <div class="mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
-      <div class="skill-grid grid gap-x-12 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
-        <div v-for="group in skillGroups" :key="group.title">
-          <RevealOnScroll direction="up">
-            <h3 class="font-serif text-2xl tracking-tight">{{ group.title }}</h3>
-            <p class="text-muted-foreground mt-2 mb-7 text-sm leading-relaxed">
-              {{ group.summary }}
-            </p>
-          </RevealOnScroll>
-
-          <ul class="space-y-5">
-            <li v-for="skill in group.items" :key="skill.name">
-              <div class="mb-2 flex items-baseline justify-between gap-4">
-                <span class="text-sm">{{ skill.name }}</span>
-                <span class="text-muted-foreground font-mono text-[10px]">
-                  {{ skill.level }}
+      <!-- 4-Card Arsenal Bento Matrix -->
+      <div class="skill-matrix-grid mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:mt-18">
+        <div
+          v-for="(group, idx) in skillGroups"
+          :key="group.title"
+          class="group flex flex-col justify-between rounded-3xl border border-border/80 bg-card/70 p-6 sm:p-7 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/40 hover:shadow-[0_0_25px_rgba(56,189,248,0.15)]"
+        >
+          <div>
+            <!-- Group Header -->
+            <div class="flex items-center justify-between border-b border-border/60 pb-4">
+              <div class="flex items-center gap-2.5">
+                <div class="flex size-8 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-400">
+                  <component :is="groupIcons[idx] || Layers" class="size-4" />
+                </div>
+                <span class="font-mono text-[10px] tracking-widest text-cyan-400 uppercase font-semibold">
+                  MODULE // 0{{ idx + 1 }}
                 </span>
               </div>
+            </div>
 
-              <!-- A plain div rather than the shadcn <Progress>, because we want
-                   the fill to animate from a GSAP timeline rather than from a
-                   reactive value. `role="meter"` keeps it accessible. -->
-              <div
-                class="bg-border/70 h-px w-full overflow-hidden"
-                role="meter"
-                :aria-valuenow="skill.level"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                :aria-label="skill.name"
-              >
+            <h3 class="font-serif text-xl font-medium tracking-tight text-foreground mt-4">
+              {{ group.title }}
+            </h3>
+
+            <p class="text-muted-foreground mt-1.5 text-xs leading-relaxed">
+              {{ group.summary }}
+            </p>
+
+            <!-- Skill Items -->
+            <ul class="mt-6 space-y-4">
+              <li v-for="skill in group.items" :key="skill.name">
+                <div class="mb-1.5 flex items-baseline justify-between gap-2">
+                  <span class="text-xs font-medium text-foreground/90">{{ skill.name }}</span>
+                  <span class="text-cyan-400/90 font-mono text-[10px] font-semibold">
+                    {{ skill.level }}%
+                  </span>
+                </div>
+
                 <div
-                  class="skill-bar-fill h-full origin-left bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 shadow-[0_0_8px_rgba(56,189,248,0.5)]"
-                  :style="{ transform: `scaleX(${skill.level / 100})` }"
-                />
-              </div>
-            </li>
-          </ul>
+                  class="h-1.5 w-full overflow-hidden rounded-full bg-border/60"
+                  role="meter"
+                  :aria-valuenow="skill.level"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  :aria-label="skill.name"
+                >
+                  <div
+                    class="skill-bar-fill h-full origin-left rounded-full bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 shadow-[0_0_8px_rgba(56,189,248,0.5)]"
+                    :style="{ transform: `scaleX(${skill.level / 100})` }"
+                  />
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sleek Horizontal Tech Ticker (Replaces tilted band) -->
+      <div class="mt-14 overflow-hidden rounded-2xl border border-border/70 bg-card/40 py-5 backdrop-blur-md">
+        <div class="space-y-3">
+          <MarqueeRow
+            v-for="(row, i) in marqueeRows"
+            :key="i"
+            :items="row"
+            :reverse="i % 2 === 1"
+            :duration="38 + i * 8"
+            :class="i === 1 ? 'text-muted-foreground' : 'text-foreground/90'"
+          />
         </div>
       </div>
     </div>
