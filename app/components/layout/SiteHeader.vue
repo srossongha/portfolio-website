@@ -144,7 +144,7 @@ watch(() => useRoute().fullPath, () => (mobileOpen.value = false))
             @click="paletteOpen = true"
           >
             <Search class="size-3.5" />
-            <kbd class="border-border/60 bg-muted/50 rounded border px-1.5 py-0.5 font-mono text-[10px]">
+            <kbd class="border-cyan-500/30 bg-cyan-950/40 rounded border px-1.5 py-0.5 font-pixel text-[9px] text-cyan-300">
               ⌘K
             </kbd>
           </Button>

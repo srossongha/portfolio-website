@@ -181,14 +181,14 @@ const displayValue = computed(() => String(Math.round(progress.value)).padStart(
       />
     </div>
 
-    <!-- A soft botanical moss & sunlight glow so the panel is not a flat black rectangle. -->
+    <!-- Cyan phosphor CRT ambient glow -->
     <div
-      class="pointer-events-none absolute inset-0 opacity-60"
+      class="pointer-events-none absolute inset-0 opacity-50"
       aria-hidden="true"
       style="
         background: radial-gradient(
           ellipse 60% 50% at 50% 55%,
-          color-mix(in oklch, var(--brand-sprout) 12%, var(--brand) 8%),
+          rgba(56, 189, 248, 0.14),
           transparent 70%
         );
       "
@@ -196,14 +196,14 @@ const displayValue = computed(() => String(Math.round(progress.value)).padStart(
 
     <!-- Centre content -->
     <div class="relative flex flex-col items-center gap-6 px-6 text-center">
-      <!-- Rotating brand mark with dual-tone ring -->
+      <!-- Rotating pixel computer register mark -->
       <div class="preloader-mark relative size-14">
-        <div class="border-brand/30 absolute inset-0 rounded-full border" />
+        <div class="border-cyan-500/30 absolute inset-0 rounded-full border" />
         <div
-          class="border-t-brand-sprout border-r-brand absolute inset-0 animate-spin rounded-full border border-transparent"
+          class="border-t-cyan-400 border-r-cyan-300 absolute inset-0 animate-spin rounded-full border border-transparent"
           style="animation-duration: 1.4s"
         />
-        <div class="bg-brand-sprout absolute inset-[42%] rounded-full shadow-[0_0_8px_var(--brand-sprout)]" />
+        <div class="bg-cyan-400 absolute inset-[42%] rounded-full shadow-[0_0_10px_#38bdf8]" />
       </div>
 
       <SplitText
@@ -212,25 +212,25 @@ const displayValue = computed(() => String(Math.round(progress.value)).padStart(
         class="preloader-name font-serif text-6xl leading-[0.95] tracking-tight sm:text-7xl font-medium text-foreground"
       />
 
-      <p class="preloader-role text-muted-foreground font-mono text-[11px] tracking-[0.32em] uppercase">
-        {{ profile.role }} · BOTANICAL FIELD LAB
+      <p class="preloader-role text-cyan-400 font-pixel text-[10px] tracking-[0.25em] uppercase">
+        {{ profile.role }} · TERMINAL_PET2001 // MOS_6502
       </p>
     </div>
 
     <!-- Counter + progress rule, pinned to the bottom edge -->
     <div class="absolute inset-x-0 bottom-0 px-6 pb-8 sm:px-10">
-      <div class="preloader-bar bg-border/60 relative h-px w-full overflow-hidden">
+      <div class="preloader-bar bg-cyan-950/40 relative h-px w-full overflow-hidden border-b border-cyan-500/20">
         <!-- scaleX is animated instead of width: transforms are composited on
              the GPU, width changes force a layout on every single frame. -->
-        <div class="preloader-bar-fill bg-linear-to-r from-brand-sprout to-brand h-full w-full origin-left scale-x-0" />
+        <div class="preloader-bar-fill bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 h-full w-full origin-left scale-x-0 shadow-[0_0_8px_#38bdf8]" />
       </div>
       <div class="mt-4 flex items-end justify-between">
-        <span class="text-muted-foreground font-mono text-[10px] tracking-[0.3em] uppercase">
-          Loading
+        <span class="text-cyan-400/80 font-pixel text-[9px] tracking-[0.25em] uppercase">
+          [ BOOTSTRAP_SEQUENCE ]
         </span>
         <span
           ref="counterEl"
-          class="preloader-counter font-mono text-5xl leading-none tabular-nums sm:text-6xl"
+          class="preloader-counter font-pixel text-4xl leading-none tabular-nums sm:text-5xl text-cyan-400 crt-glow"
         >
           {{ displayValue }}
         </span>

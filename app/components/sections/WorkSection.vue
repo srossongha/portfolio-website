@@ -51,11 +51,11 @@ const otherProjects = computed(() => projects.filter((p) => p.slug !== flagship.
               <!-- Left: Project Narrative & Specs -->
               <div class="lg:col-span-7">
                 <div class="flex flex-wrap items-center gap-3">
-                  <Badge variant="brand" class="border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] tracking-wider uppercase">
+                  <Badge variant="brand" class="border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-pixel text-[9px] tracking-wider uppercase">
                     <Sparkles class="size-3" />
-                    FLAGSHIP RELEASE
+                    [ FLAGSHIP_SPECIMEN // 01 ]
                   </Badge>
-                  <span class="font-mono text-[11px] text-muted-foreground tracking-wider uppercase">
+                  <span class="font-pixel text-[9px] text-cyan-400/70 tracking-wider uppercase">
                     {{ flagship.role }} · {{ flagship.year }}
                   </span>
                 </div>
@@ -129,11 +129,11 @@ const otherProjects = computed(() => projects.filter((p) => p.slug !== flagship.
                   <div class="relative flex items-center justify-between border-b border-white/10 pb-3">
                     <div class="flex items-center gap-2">
                       <span class="size-2 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
-                      <span class="font-mono text-[10px] tracking-widest text-cyan-300 uppercase">
-                        CARTO // MAP ENGINE
+                      <span class="font-pixel text-[9px] tracking-widest text-cyan-300 uppercase">
+                        CARTO // MAP_ENGINE
                       </span>
                     </div>
-                    <span class="font-mono text-[10px] text-white/60">25 PROVINCES</span>
+                    <span class="font-pixel text-[8px] text-white/60">25 PROVINCES</span>
                   </div>
 
                   <!-- Specimen Centerpiece -->
@@ -150,7 +150,7 @@ const otherProjects = computed(() => projects.filter((p) => p.slug !== flagship.
                   </div>
 
                   <!-- Bottom Console Bar -->
-                  <div class="absolute inset-x-6 bottom-4 flex items-center justify-between border-t border-white/10 pt-3 font-mono text-[10px] text-white/50">
+                  <div class="absolute inset-x-6 bottom-4 flex items-center justify-between border-t border-white/10 pt-3 font-pixel text-[8px] text-white/50">
                     <span>HOST: CLOUDFLARE</span>
                     <span class="text-cyan-400">STATUS: PRODUCTION</span>
                   </div>
@@ -172,10 +172,10 @@ const otherProjects = computed(() => projects.filter((p) => p.slug !== flagship.
               <div>
                 <!-- Header: Specimen No & Year -->
                 <div class="flex items-center justify-between border-b border-border/60 pb-4">
-                  <span class="font-mono text-[10px] tracking-widest text-cyan-400 uppercase font-semibold">
-                    PROJECT // {{ String(i + 2).padStart(2, '0') }}
+                  <span class="font-pixel text-[9px] tracking-widest text-cyan-400 uppercase font-semibold">
+                    SPECIMEN // 0{{ i + 2 }}
                   </span>
-                  <Badge variant="tech" class="border-border/70 text-[10px]">
+                  <Badge variant="tech" class="border-border/70 font-pixel text-[8px]">
                     {{ project.year }} · {{ project.role.split('—')[0]?.trim() || project.role }}
                   </Badge>
                 </div>

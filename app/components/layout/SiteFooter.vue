@@ -45,8 +45,8 @@ onMounted(() => {
               </span>
               {{ profile.availability }}
             </Badge>
-            <span class="rounded-xs border border-border/80 bg-muted/60 px-2 py-0.5 font-mono text-[10px] tracking-wider text-muted-foreground uppercase">
-              STATION: PHNOM PENH
+            <span class="rounded-xs border border-cyan-500/30 bg-cyan-950/40 px-2 py-0.5 font-pixel text-[8px] tracking-wider text-cyan-300 uppercase">
+              [ STATION // PHNOM_PENH ]
             </span>
           </div>
 
@@ -68,8 +68,8 @@ onMounted(() => {
         <!-- Right: link columns -->
         <div class="flex gap-12 sm:gap-20">
           <nav aria-label="Footer">
-            <h2 class="text-cyan-400 mb-4 font-mono text-[10px] tracking-[0.25em] uppercase font-semibold">
-              INDEX // SITEMAP
+            <h2 class="text-cyan-400 mb-4 font-pixel text-[9px] tracking-[0.2em] uppercase font-semibold">
+              [ 01 // SITEMAP ]
             </h2>
             <ul class="space-y-2.5">
               <li v-for="link in navLinks" :key="link.to">
@@ -84,8 +84,8 @@ onMounted(() => {
           </nav>
 
           <div>
-            <h2 class="text-cyan-400 mb-4 font-mono text-[10px] tracking-[0.25em] uppercase font-semibold">
-              SIGNALS // NETWORKS
+            <h2 class="text-cyan-400 mb-4 font-pixel text-[9px] tracking-[0.2em] uppercase font-semibold">
+              [ 02 // NETWORKS ]
             </h2>
             <ul class="space-y-2.5">
               <li v-for="social in socials" :key="social.href">
@@ -106,18 +106,19 @@ onMounted(() => {
 
       <!-- Bottom bar styled as dispatch receipt -->
       <div class="border-border/60 mt-16 flex flex-col-reverse gap-4 border-t border-dashed pt-6 sm:flex-row sm:items-center sm:justify-between">
-        <p class="text-muted-foreground font-mono text-[11px]">
-          © {{ year }} {{ profile.name }}. Built with Nuxt 4, Vue 3, & Tailwind v4.
+        <p class="text-muted-foreground font-mono text-[11px] flex items-center gap-2">
+          <span class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
+          <span>© {{ year }} {{ profile.name }}. [ READY. // 1977_VT100 ]</span>
         </p>
 
         <Button
           variant="ghost"
           size="sm"
-          class="retro-btn text-muted-foreground hover:text-foreground -ml-2 gap-2 self-start rounded-full border border-border/80 bg-card/60 sm:ml-0 sm:self-auto"
+          class="retro-btn text-muted-foreground hover:text-cyan-300 -ml-2 gap-2 self-start rounded-full border border-border/80 bg-card/60 sm:ml-0 sm:self-auto font-pixel text-[9px]"
           @click="scrollTo(0)"
         >
-          <ArrowUp class="size-3.5 text-brand-ink" />
-          Back to top
+          <ArrowUp class="size-3.5 text-cyan-400" />
+          [ TOP // RETURN ]
         </Button>
       </div>
     </div>

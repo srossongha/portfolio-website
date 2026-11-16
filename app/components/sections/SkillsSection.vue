@@ -57,8 +57,8 @@ useGsapContext(root, () => {
                 <div class="flex size-8 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-400">
                   <component :is="groupIcons[idx] || Layers" class="size-4" />
                 </div>
-                <span class="font-mono text-[10px] tracking-widest text-cyan-400 uppercase font-semibold">
-                  MODULE // 0{{ idx + 1 }}
+                <span class="font-pixel text-[9px] tracking-widest text-cyan-400 uppercase font-semibold">
+                  [ ROM_BANK // 0{{ idx + 1 }} ]
                 </span>
               </div>
             </div>
@@ -76,7 +76,7 @@ useGsapContext(root, () => {
               <li v-for="skill in group.items" :key="skill.name">
                 <div class="mb-1.5 flex items-baseline justify-between gap-2">
                   <span class="text-xs font-medium text-foreground/90">{{ skill.name }}</span>
-                  <span class="text-cyan-400/90 font-mono text-[10px] font-semibold">
+                  <span class="text-cyan-400 font-pixel text-[9px] font-semibold crt-glow">
                     {{ skill.level }}%
                   </span>
                 </div>

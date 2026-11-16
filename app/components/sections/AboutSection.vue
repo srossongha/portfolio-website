@@ -80,13 +80,13 @@ const principles = [
         <!-- --------------------------------- Card 1: Narrative & Engineering Principles (8 cols) -->
         <div class="lg:col-span-8 flex flex-col justify-between rounded-3xl border border-border/80 bg-card/70 p-6 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-xl">
           <div>
-            <div class="flex items-center gap-2 font-mono text-xs text-cyan-400 uppercase tracking-widest font-semibold">
-              <Terminal class="size-4" />
-              <span>// ENGINEERING PHILOSOPHY</span>
+            <div class="flex items-center gap-2 font-pixel text-[10px] text-cyan-400 uppercase tracking-widest font-semibold">
+              <Terminal class="size-3.5" />
+              <span>// 01_MEM_RECORD // PHILOSOPHY</span>
             </div>
 
             <h3 class="font-serif text-2xl font-medium tracking-tight text-foreground sm:text-3xl lg:text-4xl mt-4 leading-tight">
-              "I judge software by how it holds up in real hands — rock-solid on small screens, fast on modest connections, and clean under the hood."
+              &quot;I judge software by how it holds up in real hands — rock-solid on small screens, fast on modest connections, and clean under the hood.&quot;
             </h3>
 
             <div class="mt-6 space-y-4 text-muted-foreground text-sm sm:text-base leading-relaxed">
@@ -101,8 +101,8 @@ const principles = [
 
           <!-- 4 Core Principles Matrix -->
           <div class="mt-10 pt-8 border-t border-border/60">
-            <p class="font-mono text-[11px] uppercase tracking-widest text-muted-foreground mb-4">
-              Core Principles I Build By:
+            <p class="font-pixel text-[9px] uppercase tracking-widest text-cyan-400/80 mb-4">
+              [ CORE_ENGINEERING_RULES ]:
             </p>
             <div class="grid gap-4 sm:grid-cols-2">
               <div
@@ -112,7 +112,7 @@ const principles = [
               >
                 <div class="flex items-center justify-between">
                   <component :is="p.icon" class="size-4 text-cyan-400" />
-                  <span class="font-mono text-[10px] text-cyan-400/80">{{ p.num }}</span>
+                  <span class="font-pixel text-[10px] text-cyan-300">#{{ p.num }}</span>
                 </div>
                 <h4 class="font-serif text-base font-medium text-foreground mt-2">
                   {{ p.title }}
@@ -143,13 +143,13 @@ const principles = [
                   style="background: linear-gradient(to top, rgba(8, 11, 18, 0.92), transparent 50%)"
                 />
 
-                <div class="absolute top-3 right-3 rounded-xs border border-cyan-400/30 bg-slate-950/70 px-2 py-0.5 font-mono text-[9px] tracking-widest text-cyan-300 uppercase backdrop-blur-md">
+                <div class="absolute top-3 right-3 rounded-xs border border-cyan-400/40 bg-slate-950/80 px-2 py-0.5 font-pixel text-[8px] tracking-widest text-cyan-300 uppercase backdrop-blur-md">
                   STATION // 2026-KH
                 </div>
 
                 <div class="absolute inset-x-0 bottom-0 p-4">
                   <p class="font-serif text-2xl font-medium tracking-tight text-white">{{ profile.name }}</p>
-                  <p class="mt-0.5 flex items-center gap-1.5 font-mono text-[10px] tracking-wider text-cyan-300 uppercase">
+                  <p class="mt-0.5 flex items-center gap-1.5 font-pixel text-[9px] tracking-wider text-cyan-300 uppercase">
                     <span class="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
                     {{ profile.role }} · ITC
                   </p>
@@ -194,7 +194,7 @@ const principles = [
                       :is="isDownloaded ? Check : Download"
                       class="size-4"
                     />
-                    <span>{{ isDownloaded ? 'Downloaded!' : 'Download Resume' }}</span>
+                    <span class="font-pixel text-[10px] tracking-wider">{{ isDownloaded ? '[ DOWNLOADED ]' : '[ LOAD "CV.PDF",8,1 ]' }}</span>
                   </Button>
                 </MagneticWrap>
               </div>
@@ -205,14 +205,14 @@ const principles = [
         <!-- --------------------------------- Bottom 3-Card Ecosystem Row -->
         <!-- Card 3A: Education Foundation -->
         <div class="lg:col-span-4 rounded-3xl border border-border/80 bg-card/60 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/40">
-          <div class="flex items-center gap-2 font-mono text-[11px] text-cyan-400 uppercase tracking-wider font-semibold">
-            <GraduationCap class="size-4" />
-            <span>01 // EDUCATION</span>
+          <div class="flex items-center gap-2 font-pixel text-[9px] text-cyan-400 uppercase tracking-wider font-semibold">
+            <GraduationCap class="size-3.5" />
+            <span>[ MEM_BLOCK_A // EDUCATION ]</span>
           </div>
           <h4 class="font-serif text-xl font-medium text-foreground mt-3">
             Institute of Technology of Cambodia
           </h4>
-          <p class="text-muted-foreground mt-1 text-xs font-mono">
+          <p class="text-cyan-300/80 mt-1 text-xs font-mono">
             Bachelor of Computer Science (ITC Phnom Penh)
           </p>
           <p class="text-muted-foreground mt-3 text-sm leading-relaxed">
@@ -222,14 +222,14 @@ const principles = [
 
         <!-- Card 3B: Industry Internships -->
         <div class="lg:col-span-4 rounded-3xl border border-border/80 bg-card/60 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/40">
-          <div class="flex items-center gap-2 font-mono text-[11px] text-cyan-400 uppercase tracking-wider font-semibold">
-            <Briefcase class="size-4" />
-            <span>02 // ENTERPRISE EXPERIENCE</span>
+          <div class="flex items-center gap-2 font-pixel text-[9px] text-cyan-400 uppercase tracking-wider font-semibold">
+            <Briefcase class="size-3.5" />
+            <span>[ MEM_BLOCK_B // ENTERPRISE ]</span>
           </div>
           <h4 class="font-serif text-xl font-medium text-foreground mt-3">
             T.O Group & EKYC Solution Co., Ltd.
           </h4>
-          <p class="text-muted-foreground mt-1 text-xs font-mono">
+          <p class="text-cyan-300/80 mt-1 text-xs font-mono">
             Front-End Developer Intern
           </p>
           <p class="text-muted-foreground mt-3 text-sm leading-relaxed">
@@ -239,14 +239,14 @@ const principles = [
 
         <!-- Card 3C: Product Shipped -->
         <div class="lg:col-span-4 rounded-3xl border border-border/80 bg-card/60 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/40">
-          <div class="flex items-center gap-2 font-mono text-[11px] text-cyan-400 uppercase tracking-wider font-semibold">
-            <Rocket class="size-4" />
-            <span>03 // SHIPPED PRODUCT</span>
+          <div class="flex items-center gap-2 font-pixel text-[9px] text-cyan-400 uppercase tracking-wider font-semibold">
+            <Rocket class="size-3.5" />
+            <span>[ MEM_BLOCK_C // SHIPPED_PROD ]</span>
           </div>
           <h4 class="font-serif text-xl font-medium text-foreground mt-3">
             Roomie (ស្រុកខ្ញុំ - SrokNh)
           </h4>
-          <p class="text-muted-foreground mt-1 text-xs font-mono">
+          <p class="text-cyan-300/80 mt-1 text-xs font-mono">
             Co-Creator & Front-end Lead · Live at sroknh.com
           </p>
           <p class="text-muted-foreground mt-3 text-sm leading-relaxed">

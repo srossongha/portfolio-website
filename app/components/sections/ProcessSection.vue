@@ -68,10 +68,10 @@ const steps = [
           <div>
             <!-- Header row -->
             <div class="flex items-center justify-between border-b border-border/60 pb-4">
-              <span class="font-mono text-xs font-semibold tracking-widest text-cyan-400 uppercase">
-                PHASE // {{ step.n }}
+              <span class="font-pixel text-[9px] font-semibold tracking-widest text-cyan-400 uppercase">
+                [ PIPELINE // {{ step.n }} ]
               </span>
-              <span class="rounded-xs border border-border/70 bg-muted/30 px-2 py-0.5 font-mono text-[9px] text-muted-foreground uppercase">
+              <span class="rounded-xs border border-cyan-500/30 bg-cyan-950/30 px-2 py-0.5 font-pixel text-[8px] text-cyan-300 uppercase">
                 {{ step.tag }}
               </span>
             </div>

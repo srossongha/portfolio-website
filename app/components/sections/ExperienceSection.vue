@@ -40,13 +40,13 @@ const getIcon = (org: string) => {
           <div>
             <!-- Header Row -->
             <div class="flex items-center justify-between border-b border-border/60 pb-4">
-              <span class="flex items-center gap-1.5 font-mono text-[11px] text-cyan-400 font-semibold tracking-wider uppercase">
-                <Calendar class="size-3.5" />
+              <span class="flex items-center gap-1.5 font-pixel text-[9px] text-cyan-400 font-semibold tracking-wider uppercase">
+                <Calendar class="size-3" />
                 {{ job.period }}
               </span>
 
-              <span class="rounded-xs border border-border/70 bg-muted/30 px-2 py-0.5 font-mono text-[9px] text-muted-foreground uppercase">
-                MILESTONE // 0{{ i + 1 }}
+              <span class="rounded-xs border border-cyan-500/30 bg-cyan-950/30 px-2 py-0.5 font-pixel text-[8px] text-cyan-300 uppercase">
+                [ MILESTONE // 0{{ i + 1 }} ]
               </span>
             </div>
 
