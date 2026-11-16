@@ -81,9 +81,6 @@ useGsapContext(root, () => {
 
 <template>
   <section id="about" ref="root" class="relative overflow-hidden py-28 sm:py-36 lg:py-44">
-    <!-- Scroll-driven Web Crawler Spider -->
-    <WebCrawler container-selector="#about" />
-
     <div class="mx-auto max-w-350 px-5 sm:px-8 lg:px-12">
       <SectionHeading
         index="01"
@@ -247,33 +244,3 @@ useGsapContext(root, () => {
     </div>
   </section>
 </template>
-
-<style scoped>
-:deep(.split-word.crawler-highlight-cyan) {
-  color: #38bdf8 !important;
-  text-shadow: 0 0 12px rgba(56, 189, 248, 0.75);
-  font-weight: 600;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-:deep(.split-word.crawler-highlight-sky) {
-  color: #7dd3fc !important;
-  text-shadow: 0 0 12px rgba(125, 211, 252, 0.75);
-  font-weight: 600;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-:deep(.split-word.crawler-highlight-indigo) {
-  color: #818cf8 !important;
-  text-shadow: 0 0 12px rgba(129, 140, 248, 0.75);
-  font-weight: 600;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-:deep(.split-word.crawler-highlight-violet) {
-  color: #a78bfa !important;
-  text-shadow: 0 0 12px rgba(167, 139, 250, 0.75);
-  font-weight: 600;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-</style>
